@@ -19,7 +19,7 @@ export function deleteUser(id: number, token: string): Promise<void> {
 
 export function changePassword(
 	id: number,
-	data: { current_password: string; new_password: string },
+	data: { CurrentPassword: string; NewPassword: string },
 	token: string
 ): Promise<void> {
 	return apiFetch<void>(`/users/${id}/password`, {
@@ -35,10 +35,10 @@ export function getUserProfile(id: number): Promise<UserProfile> {
 
 export function updateUserProfile(
 	id: number,
-	data: Partial<UserProfile>,
+	data: { DisplayName?: string; Bio?: string; City?: string; ImageURL?: string },
 	token: string
-): Promise<UserProfile> {
-	return apiFetch<UserProfile>(`/users/${id}/profile`, {
+): Promise<void> {
+	return apiFetch<void>(`/users/${id}/profile`, {
 		method: 'PATCH',
 		body: JSON.stringify(data),
 		token

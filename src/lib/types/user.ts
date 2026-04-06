@@ -1,6 +1,9 @@
 export interface User {
 	ID: number;
+	FirstName: string;
+	LastName: string;
 	Email: string;
+	Phone: string;
 	IsAdmin: boolean;
 	IsActive: boolean;
 	CreatedAt: string;
@@ -8,8 +11,8 @@ export interface User {
 }
 
 export interface UserProfile {
-	UserID: number;
-	Name: string;
-	Bio: string;
-	Avatar: string;
+	displayName: string;
+	bio: string;
+	city: string;
+	imageURL: string;
 }
