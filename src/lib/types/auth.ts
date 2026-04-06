@@ -1,6 +1,6 @@
 export interface JwtPayload {
-	UserID: number;
-	Email: string;
-	IsAdmin: boolean;
-	IsActive: boolean;
+	sub: number;
+	email: string;
+	is_admin: boolean;
+	is_active: boolean;
 }

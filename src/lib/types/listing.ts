@@ -1,13 +1,18 @@
 export type RoomType = 'private' | 'shared' | 'apartment';
 
+export type ListingStatus = 'active' | 'rented' | 'archived';
+
 export interface Listing {
 	ID: number;
 	UserID: number;
 	Title: string;
 	Description: string;
 	City: string;
+	Zip: string;
+	Area: string;
 	Price: number;
 	RoomType: RoomType;
+	Status: ListingStatus;
 	AvailableFrom: string;
 	Images: string[];
 	CreatedAt: string;

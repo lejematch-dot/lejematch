@@ -33,3 +33,7 @@ export function updateListing(id: number, data: Partial<Listing>, token: string)
 export function deleteListing(id: number, token: string): Promise<void> {
 	return apiFetch<void>(`/listings/${id}`, { method: 'DELETE', token });
 }
+
+export function getUserListings(userId: number, token?: string): Promise<Listing[]> {
+	return apiFetch<Listing[]>(`/users/${userId}/listings`, { token });
+}
