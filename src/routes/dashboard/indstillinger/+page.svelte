@@ -15,9 +15,72 @@
 		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">Indstillinger</h1>
 	</div>
 
-	<!-- Edit profile -->
+	<!-- User info -->
 	<section class="mb-6 border border-border p-6">
-		<h2 class="text-sm font-bold text-foreground uppercase tracking-wide mb-4">Profil</h2>
+		<h2 class="text-sm font-bold text-foreground uppercase tracking-wide mb-4">Brugeroplysninger</h2>
+
+		{#if form?.action === 'user' && form?.error}
+			<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
+		{/if}
+		{#if form?.action === 'user' && form?.success}
+			<p class="mb-4 px-4 py-3 text-sm text-primary border border-primary/30 bg-primary/5">Brugeroplysninger opdateret.</p>
+		{/if}
+
+		<form method="POST" action="?/updateUser" use:enhance class="space-y-4">
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="FirstName" class="block text-sm font-medium text-foreground mb-1">Fornavn</label>
+					<input
+						id="FirstName"
+						name="FirstName"
+						type="text"
+						value={data.user.FirstName}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+				<div>
+					<label for="LastName" class="block text-sm font-medium text-foreground mb-1">Efternavn</label>
+					<input
+						id="LastName"
+						name="LastName"
+						type="text"
+						value={data.user.LastName}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			</div>
+			<div>
+				<label for="Email" class="block text-sm font-medium text-foreground mb-1">E-mail</label>
+				<input
+					id="Email"
+					name="Email"
+					type="email"
+					value={data.user.Email}
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+				/>
+			</div>
+			<div>
+				<label for="Phone" class="block text-sm font-medium text-foreground mb-1">Telefon</label>
+				<input
+					id="Phone"
+					name="Phone"
+					type="tel"
+					value={data.user.Phone}
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+				/>
+			</div>
+			<button
+				type="submit"
+				class="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"
+			>
+				Gem brugeroplysninger
+			</button>
+		</form>
+	</section>
+
+	<!-- Profile -->
+	<section class="mb-6 border border-border p-6">
+		<h2 class="text-sm font-bold text-foreground uppercase tracking-wide mb-4">Offentlig profil</h2>
 
 		{#if form?.action === 'profile' && form?.error}
 			<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>

@@ -27,5 +27,8 @@ export async function apiFetch<T>(
 		throw err;
 	}
 
+	if (res.status === 204 || res.headers.get('content-length') === '0') {
+		return undefined as T;
+	}
 	return res.json() as Promise<T>;
 }
