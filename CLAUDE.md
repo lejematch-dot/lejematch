@@ -95,39 +95,48 @@
 
   Base path: /api/v1
 
-  ┌────────┬─────────────────────┬──────┬───────────────────────────────────┐
-  │ Method │        Path         │ Auth │            Description            │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ POST   │ /auth/login         │ —    │ Returns JWT                       │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ POST   │ /users              │ —    │ Register (creates user + profile) │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ GET    │ /users/:id          │ JWT  │ Get user                          │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ PATCH  │ /users/:id          │ JWT  │ Update user                       │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ DELETE │ /users/:id          │ JWT  │ Delete user                       │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ PUT    │ /users/:id/password │ JWT  │ Change password                   │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ GET    │ /users/:id/profile  │ —    │ Public profile                    │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ PATCH  │ /users/:id/profile  │ JWT  │ Update profile                    │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ GET    │ /listings           │ —    │ Paginated + filterable            │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ GET    │ /listings/:id       │ —    │ Single listing                    │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ POST   │ /listings           │ JWT  │ Create listing                    │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ PATCH  │ /listings/:id       │ JWT  │ Update (owner or admin)           │
-  ├────────┼─────────────────────┼──────┼───────────────────────────────────┤
-  │ DELETE │ /listings/:id       │ JWT  │ Delete (owner or admin)           │
-  └────────┴─────────────────────┴──────┴───────────────────────────────────┘
+  ┌────────┬──────────────────────┬──────┬─────────────────────────────────────────┐
+  │ Method │         Path         │ Auth │               Description               │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ POST   │ /auth/login          │ —    │ Returns JWT + userID                    │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ POST   │ /users               │ —    │ Register (creates user + profile)       │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ GET    │ /users/:id           │ JWT  │ Get user (own or admin)                 │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ PATCH  │ /users/:id           │ JWT  │ Update user (own or admin)              │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ DELETE │ /users/:id           │ JWT  │ Delete user + profile cascade           │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ PUT    │ /users/:id/password  │ JWT  │ Change password                         │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ GET    │ /users/:id/profile   │ —    │ Public profile                          │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ PATCH  │ /users/:id/profile   │ JWT  │ Update profile (own or admin)           │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ GET    │ /users/:id/listings  │ —    │ All listings for user (all statuses)    │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ GET    │ /listings            │ —    │ Paginated + filterable                  │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ GET    │ /listings/:id        │ —    │ Single listing                          │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ POST   │ /listings            │ JWT  │ Create listing                          │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ PATCH  │ /listings/:id        │ JWT  │ Update (owner or admin)                 │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ DELETE │ /listings/:id        │ JWT  │ Delete (owner or admin)                 │
+  ├────────┼──────────────────────┼──────┼─────────────────────────────────────────┤
+  │ GET    │ /health              │ —    │ Health check                            │
+  └────────┴──────────────────────┴──────┴─────────────────────────────────────────┘
 
   Listing query params (GET /listings)
 
-  city, min_price, max_price, room_type (private/shared/apartment), page, limit
+  city, roomType, minPrice, maxPrice, page — all optional. No limit param.
+
+  Listings response envelope: { data, page, pageSize, total, totalPages }
+
+  Listing fields: ID, CreatedAt, UserID, Title, Description, Price, City, Zip, Area, RoomType, Status, AvailableFrom, Images
+  Status values: active | rented | archived
 
   JWT claims
 

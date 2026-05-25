@@ -6,66 +6,69 @@
 </script>
 
 <svelte:head>
-	<title>Indstillinger – Lejematch</title>
+	<title>Indstillinger – LejeMatch</title>
 </svelte:head>
 
-<main class="mx-auto max-w-2xl px-4 py-8">
-	<h1 class="mb-8 text-3xl font-bold text-gray-900">Indstillinger</h1>
+<div class="max-w-2xl mx-auto px-4 py-8">
+	<div class="mb-8">
+		<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">Konto</p>
+		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">Indstillinger</h1>
+	</div>
 
 	<!-- Edit profile -->
-	<section class="mb-8 rounded-2xl border border-gray-200 bg-white p-6">
-		<h2 class="mb-4 text-lg font-semibold text-gray-800">Profil</h2>
+	<section class="mb-6 border border-border p-6">
+		<h2 class="text-sm font-bold text-foreground uppercase tracking-wide mb-4">Profil</h2>
 
 		{#if form?.action === 'profile' && form?.error}
-			<p class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{form.error}</p>
+			<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
 		{/if}
 		{#if form?.action === 'profile' && form?.success}
-			<p class="mb-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">Profil opdateret.</p>
+			<p class="mb-4 px-4 py-3 text-sm text-primary border border-primary/30 bg-primary/5">Profil opdateret.</p>
 		{/if}
 
 		<form method="POST" action="?/updateProfile" use:enhance class="space-y-4">
 			<div>
-				<label for="DisplayName" class="block text-sm font-medium text-gray-700">Visningsnavn</label>
+				<label for="DisplayName" class="block text-sm font-medium text-foreground mb-1">Visningsnavn</label>
 				<input
 					id="DisplayName"
 					name="DisplayName"
 					type="text"
 					value={data.profile.displayName}
-					class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>
 			<div>
-				<label for="Bio" class="block text-sm font-medium text-gray-700">Om mig</label>
+				<label for="Bio" class="block text-sm font-medium text-foreground mb-1">Om mig</label>
 				<textarea
 					id="Bio"
 					name="Bio"
 					rows="3"
-					class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				>{data.profile.bio}</textarea>
 			</div>
 			<div>
-				<label for="City" class="block text-sm font-medium text-gray-700">By</label>
+				<label for="City" class="block text-sm font-medium text-foreground mb-1">By</label>
 				<input
 					id="City"
 					name="City"
 					type="text"
 					value={data.profile.city}
-					class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>
 			<div>
-				<label for="ImageURL" class="block text-sm font-medium text-gray-700">Profilbillede (URL)</label>
+				<label for="ImageURL" class="block text-sm font-medium text-foreground mb-1">Profilbillede (URL)</label>
 				<input
 					id="ImageURL"
 					name="ImageURL"
 					type="url"
 					value={data.profile.imageURL}
-					class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>
 			<button
 				type="submit"
-				class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+				class="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"
 			>
 				Gem profil
 			</button>
@@ -73,40 +76,40 @@
 	</section>
 
 	<!-- Change password -->
-	<section class="mb-8 rounded-2xl border border-gray-200 bg-white p-6">
-		<h2 class="mb-4 text-lg font-semibold text-gray-800">Skift adgangskode</h2>
+	<section class="mb-6 border border-border p-6">
+		<h2 class="text-sm font-bold text-foreground uppercase tracking-wide mb-4">Skift adgangskode</h2>
 
 		{#if form?.action === 'password' && form?.error}
-			<p class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{form.error}</p>
+			<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
 		{/if}
 		{#if form?.action === 'password' && form?.success}
-			<p class="mb-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">Adgangskode ændret.</p>
+			<p class="mb-4 px-4 py-3 text-sm text-primary border border-primary/30 bg-primary/5">Adgangskode ændret.</p>
 		{/if}
 
 		<form method="POST" action="?/changePassword" use:enhance class="space-y-4">
 			<div>
-				<label for="CurrentPassword" class="block text-sm font-medium text-gray-700">Nuværende adgangskode</label>
+				<label for="CurrentPassword" class="block text-sm font-medium text-foreground mb-1">Nuværende adgangskode</label>
 				<input
 					id="CurrentPassword"
 					name="CurrentPassword"
 					type="password"
 					required
-					class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>
 			<div>
-				<label for="NewPassword" class="block text-sm font-medium text-gray-700">Ny adgangskode</label>
+				<label for="NewPassword" class="block text-sm font-medium text-foreground mb-1">Ny adgangskode</label>
 				<input
 					id="NewPassword"
 					name="NewPassword"
 					type="password"
 					required
-					class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>
 			<button
 				type="submit"
-				class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+				class="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"
 			>
 				Skift adgangskode
 			</button>
@@ -114,22 +117,22 @@
 	</section>
 
 	<!-- Delete account -->
-	<section class="rounded-2xl border border-red-200 bg-white p-6">
-		<h2 class="mb-2 text-lg font-semibold text-red-700">Slet konto</h2>
-		<p class="mb-4 text-sm text-gray-600">Dette sletter din konto og alle dine data permanent. Handlingen kan ikke fortrydes.</p>
+	<section class="border border-destructive p-6">
+		<h2 class="text-sm font-bold text-destructive uppercase tracking-wide mb-2">Slet konto</h2>
+		<p class="text-sm text-muted-foreground mb-4">Dette sletter din konto og alle dine data permanent. Handlingen kan ikke fortrydes.</p>
 
 		{#if form?.action === 'delete' && form?.error}
-			<p class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{form.error}</p>
+			<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
 		{/if}
 
 		<form method="POST" action="?/deleteAccount" use:enhance>
 			<button
 				type="submit"
-				class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+				class="px-4 py-2 bg-destructive text-destructive-foreground text-xs font-bold uppercase tracking-widest hover:bg-destructive/90 transition-colors rounded-md"
 				onclick={() => confirm('Er du sikker på, at du vil slette din konto?')}
 			>
 				Slet konto
 			</button>
 		</form>
 	</section>
-</main>
+</div>

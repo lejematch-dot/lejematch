@@ -22,15 +22,15 @@ export interface Listing {
 export interface ListingsResponse {
 	data: Listing[];
 	page: number;
-	limit: number;
+	pageSize: number;
 	total: number;
+	totalPages: number;
 }
 
 export interface ListingFilters {
 	city?: string;
-	min_price?: number;
-	max_price?: number;
-	room_type?: RoomType;
+	minPrice?: number;
+	maxPrice?: number;
+	roomType?: RoomType;
 	page?: number;
-	limit?: number;
 }

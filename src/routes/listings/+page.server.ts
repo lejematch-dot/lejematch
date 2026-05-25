@@ -4,17 +4,12 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ url }) => {
 	const filters = {
 		city: url.searchParams.get('city') ?? undefined,
-		min_price: url.searchParams.get('min_price')
-			? Number(url.searchParams.get('min_price'))
-			: undefined,
-		max_price: url.searchParams.get('max_price')
-			? Number(url.searchParams.get('max_price'))
-			: undefined,
-		room_type: (url.searchParams.get('room_type') as 'private' | 'shared' | 'apartment') ?? undefined,
-		page: url.searchParams.get('page') ? Number(url.searchParams.get('page')) : 1,
-		limit: 20
+		minPrice: url.searchParams.get('minPrice') ? Number(url.searchParams.get('minPrice')) : undefined,
+		maxPrice: url.searchParams.get('maxPrice') ? Number(url.searchParams.get('maxPrice')) : undefined,
+		roomType: (url.searchParams.get('roomType') as 'private' | 'shared' | 'apartment') ?? undefined,
+		page: url.searchParams.get('page') ? Number(url.searchParams.get('page')) : 1
 	};
 
 	const result = await getListings(filters);
-	return { listings: result.data, total: result.total, page: result.page };
+	return { listings: result.data, total: result.total, page: result.page, totalPages: result.totalPages };
 };

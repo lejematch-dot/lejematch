@@ -10,12 +10,15 @@ export const load: PageServerLoad = ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		const data = await request.formData();
-		const name = String(data.get('name') ?? '');
+		const firstName = String(data.get('firstName') ?? '');
+		const lastName = String(data.get('lastName') ?? '');
 		const email = String(data.get('email') ?? '');
+		const phone = String(data.get('phone') ?? '');
 		const password = String(data.get('password') ?? '');
+		const city = String(data.get('city') ?? '');
 
 		try {
-			await registerUser({ name, email, password });
+			await registerUser({ FirstName: firstName, LastName: lastName, Email: email, Phone: phone, Password: password, City: city });
 			const { token } = await login(email, password);
 			cookies.set('session', token, {
 				path: '/',

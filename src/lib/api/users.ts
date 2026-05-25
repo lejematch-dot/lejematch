@@ -46,11 +46,15 @@ export function updateUserProfile(
 }
 
 export function registerUser(data: {
-	email: string;
-	password: string;
-	name: string;
-}): Promise<User> {
-	return apiFetch<User>('/users', {
+	FirstName: string;
+	LastName: string;
+	Email: string;
+	Phone: string;
+	Password: string;
+	City: string;
+	ImageURL?: string;
+}): Promise<{ id: number; createdAt: string }> {
+	return apiFetch<{ id: number; createdAt: string }>('/users', {
 		method: 'POST',
 		body: JSON.stringify(data)
 	});
