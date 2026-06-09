@@ -1,4 +1,5 @@
-const JWT_SECRET = process.env.JWT_SECRET ?? '';import type { JwtPayload } from '$lib/types/auth';
+import { JWT_SECRET } from '$env/static/private';
+import type { JwtPayload } from '$lib/types/auth';
 import { type Handle } from '@sveltejs/kit';
 import * as jose from 'jose';
 
