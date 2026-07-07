@@ -12,9 +12,14 @@
 	} = $props();
 
 	let images = $state<string[]>([...initialUrls]);
+	let imageKeys = $state<(string | null)[]>(initialUrls.map(() => null));
 	let uploading = $state(false);
 	let error = $state('');
 	let fileInput: HTMLInputElement;
+
+	function fileKey(file: File): string {
+		return `${file.name}:${file.size}:${file.lastModified}`;
+	}
 
 	async function handleFiles(fileList: FileList | null) {
 		if (!fileList || fileList.length === 0) return;
@@ -22,9 +27,18 @@
 		uploading = true;
 
 		const files = multiple ? Array.from(fileList) : [fileList[0]];
+		const seen = new Set(imageKeys.filter((k): k is string => k !== null));
+		let skipped = 0;
 
 		try {
 			for (const file of files) {
+				const key = fileKey(file);
+				if (seen.has(key)) {
+					skipped++;
+					continue;
+				}
+				seen.add(key);
+
 				const formData = new FormData();
 				formData.append('file', file);
 				const res = await fetch('/api/uploads', { method: 'POST', body: formData });
@@ -33,7 +47,16 @@
 					throw new Error(body?.message || 'Kunne ikke uploade billedet. Prøv igen.');
 				}
 				const { url } = await res.json();
-				images = multiple ? [...images, url] : [url];
+				if (multiple) {
+					images = [...images, url];
+					imageKeys = [...imageKeys, key];
+				} else {
+					images = [url];
+					imageKeys = [key];
+				}
+			}
+			if (skipped > 0) {
+				error = `${skipped} billede${skipped > 1 ? 'r' : ''} var allerede tilføjet og blev sprunget over.`;
 			}
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Kunne ikke uploade billedet. Prøv igen.';
@@ -45,6 +68,7 @@
 
 	function removeImage(index: number) {
 		images = images.filter((_, i) => i !== index);
+		imageKeys = imageKeys.filter((_, i) => i !== index);
 	}
 </script>
 
