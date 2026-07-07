@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ReportButton from '$lib/components/ReportButton.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -32,6 +33,21 @@
 					{data.profile.city}
 				</div>
 			{/if}
+			<div class="flex items-center gap-2 mt-2">
+				{#if data.profile.userType}
+					<span class="border border-border px-2 py-0.5 text-xs uppercase tracking-wide">
+						{data.profile.userType === 'landlord' ? 'Udlejer' : 'Lejer'}
+					</span>
+				{/if}
+				{#if data.profile.age}
+					<span class="text-xs text-muted-foreground">{data.profile.age} år</span>
+				{/if}
+			</div>
+			{#if data.user}
+				<div class="mt-2">
+					<ReportButton targetType="profile" targetId={data.profileUserId} />
+				</div>
+			{/if}
 		</div>
 	</div>
 
@@ -55,6 +71,32 @@
 						<div>
 							<p class="font-bold text-foreground text-sm uppercase tracking-wide">{listing.Title}</p>
 							<p class="text-xs text-muted-foreground mt-0.5">{listing.City} · {listing.Price.toLocaleString('da-DK')} kr/md.</p>
+						</div>
+						<span class="text-xs text-primary uppercase tracking-wide">Se opslag →</span>
+					</a>
+				{/each}
+			</div>
+		{/if}
+	</section>
+
+	<section class="mt-10">
+		<h2 class="text-sm font-bold text-foreground uppercase tracking-wide mb-4">Søger</h2>
+		{#if data.seekers.length === 0}
+			<div class="border border-border p-8 text-center">
+				<p class="text-sm text-muted-foreground">Søger ikke aktivt noget lige nu.</p>
+			</div>
+		{:else}
+			<div class="border border-border gap-px bg-border flex flex-col">
+				{#each data.seekers as seeker (seeker.ID)}
+					<a
+						href="/lejere/{seeker.ID}"
+						class="flex items-center justify-between bg-background px-5 py-4 hover:bg-muted transition-colors"
+					>
+						<div>
+							<p class="font-bold text-foreground text-sm uppercase tracking-wide">{seeker.Title}</p>
+							<p class="text-xs text-muted-foreground mt-0.5">
+								{seeker.City} · Max {seeker.MaxBudget.toLocaleString('da-DK')} kr/md.
+							</p>
 						</div>
 						<span class="text-xs text-primary uppercase tracking-wide">Se opslag →</span>
 					</a>

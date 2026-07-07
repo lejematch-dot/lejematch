@@ -1,8 +1,18 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import ImageUploader from '$lib/components/ImageUploader.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
+
+	// SvelteKit's use:enhance nulstiller som standard formularen efter et
+	// vellykket svar. Det giver mening for adgangskode-feltet, men ikke her —
+	// uden dette ville felterne (særligt "Om mig") se ud som om de var ryddet.
+	function noReset() {
+		return async ({ update }: { update: (opts?: { reset?: boolean }) => Promise<void> }) => {
+			await update({ reset: false });
+		};
+	}
 </script>
 
 <svelte:head>
@@ -26,7 +36,7 @@
 			<p class="mb-4 px-4 py-3 text-sm text-primary border border-primary/30 bg-primary/5">Brugeroplysninger opdateret.</p>
 		{/if}
 
-		<form method="POST" action="?/updateUser" use:enhance class="space-y-4">
+		<form method="POST" action="?/updateUser" use:enhance={noReset} class="space-y-4">
 			<div class="grid grid-cols-2 gap-4">
 				<div>
 					<label for="FirstName" class="block text-sm font-medium text-foreground mb-1">Fornavn</label>
@@ -89,7 +99,7 @@
 			<p class="mb-4 px-4 py-3 text-sm text-primary border border-primary/30 bg-primary/5">Profil opdateret.</p>
 		{/if}
 
-		<form method="POST" action="?/updateProfile" use:enhance class="space-y-4">
+		<form method="POST" action="?/updateProfile" use:enhance={noReset} class="space-y-4">
 			<div>
 				<label for="DisplayName" class="block text-sm font-medium text-foreground mb-1">Visningsnavn</label>
 				<input
@@ -120,12 +130,45 @@
 				/>
 			</div>
 			<div>
-				<label for="ImageURL" class="block text-sm font-medium text-foreground mb-1">Profilbillede (URL)</label>
-				<input
-					id="ImageURL"
+				<span class="block text-sm font-medium text-foreground mb-1">Profilbillede</span>
+				<ImageUploader
 					name="ImageURL"
-					type="url"
-					value={data.profile.imageURL}
+					multiple={false}
+					initialUrls={data.profile.imageURL ? [data.profile.imageURL] : []}
+				/>
+			</div>
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="Age" class="block text-sm font-medium text-foreground mb-1">Alder</label>
+					<input
+						id="Age"
+						name="Age"
+						type="number"
+						value={data.profile.age ?? ''}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+				<div>
+					<label for="UserType" class="block text-sm font-medium text-foreground mb-1">Jeg er</label>
+					<select
+						id="UserType"
+						name="UserType"
+						value={data.profile.userType}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					>
+						<option value="tenant">Lejer</option>
+						<option value="landlord">Udlejer</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="FacebookURL" class="block text-sm font-medium text-foreground mb-1">Facebook link</label>
+				<input
+					id="FacebookURL"
+					name="FacebookURL"
+					type="text"
+					value={data.profile.facebookURL}
+					placeholder="https://facebook.com/..."
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>

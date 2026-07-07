@@ -10,9 +10,14 @@ export interface User {
 	UpdatedAt: string;
 }
 
+export type UserType = 'tenant' | 'landlord';
+
 export interface UserProfile {
 	displayName: string;
 	bio: string;
 	city: string;
 	imageURL: string;
+	age: number | null;
+	userType: UserType | string;
+	facebookURL: string;
 }

@@ -1,12 +1,50 @@
-import { getUserListings } from '$lib/api/listings';
-import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import { deleteListing, getUserListings } from '$lib/api/listings';
+import { deleteSeeker, getUserSeekers } from '$lib/api/seekers';
+import { fail, redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, cookies }) => {
 	if (!locals.user) redirect(302, '/login');
 
 	const token = cookies.get('session')!;
-	const listings = await getUserListings(locals.user.sub, token);
+	const [listings, seekers] = await Promise.all([
+		getUserListings(locals.user.sub, token),
+		getUserSeekers(locals.user.sub, token)
+	]);
 
-	return { user: locals.user, listings };
+	return { user: locals.user, listings, seekers };
+};
+
+export const actions: Actions = {
+	deleteListing: async ({ request, locals, cookies }) => {
+		if (!locals.user) redirect(302, '/login');
+
+		const token = cookies.get('session')!;
+		const data = await request.formData();
+		const id = Number(data.get('id'));
+
+		try {
+			await deleteListing(id, token);
+		} catch {
+			return fail(400, { error: 'Kunne ikke slette opslaget.' });
+		}
+
+		return { success: true };
+	},
+
+	deleteSeeker: async ({ request, locals, cookies }) => {
+		if (!locals.user) redirect(302, '/login');
+
+		const token = cookies.get('session')!;
+		const data = await request.formData();
+		const id = Number(data.get('id'));
+
+		try {
+			await deleteSeeker(id, token);
+		} catch {
+			return fail(400, { error: 'Kunne ikke slette opslaget.' });
+		}
+
+		return { success: true };
+	}
 };

@@ -8,8 +8,10 @@
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
 	let mobileOpen = $state(false);
+	let profileMenuOpen = $state(false);
 
 	const isActive = (path: string) => $page.url.pathname === path;
+	const isProfileSection = $derived(isActive('/dashboard') || isActive('/dashboard/indstillinger'));
 </script>
 
 <svelte:head>
@@ -33,30 +35,88 @@
 					href="/listings"
 					class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/listings') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
 				>
+					<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+					</svg>
 					Boliger
+				</a>
+
+				<a
+					href="/lejere"
+					class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/lejere') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
+				>
+					<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+					</svg>
+					Lejere
 				</a>
 
 				{#if data.user}
 					<a
-						href="/dashboard"
-						class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/dashboard') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
+						href="/dashboard/favoritter"
+						class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/dashboard/favoritter') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
 					>
-						Dashboard
+						Favoritter
 					</a>
 					<a
-						href="/dashboard/indstillinger"
-						class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/dashboard/indstillinger') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
+						href="/dashboard/beskeder"
+						class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/dashboard/beskeder') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
 					>
-						Indstillinger
+						Beskeder
 					</a>
-					<form method="POST" action="/logout" use:enhance>
-						<button
-							type="submit"
-							class="ml-2 flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase text-muted-foreground hover:text-foreground transition-colors"
+					{#if data.user.is_admin}
+						<a
+							href="/admin/rapporter"
+							class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/admin/rapporter') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
 						>
-							Log ud
+							Rapporter
+						</a>
+					{/if}
+					<div class="relative">
+						<button
+							type="button"
+							onclick={() => (profileMenuOpen = !profileMenuOpen)}
+							class="flex items-center gap-1.5 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isProfileSection ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
+						>
+							Min Profil
+							<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+							</svg>
 						</button>
-					</form>
+
+						{#if profileMenuOpen}
+							<div class="absolute right-0 top-full mt-1 w-44 bg-background border border-border shadow-lg z-10">
+								<a
+									href="/dashboard"
+									onclick={() => (profileMenuOpen = false)}
+									class="block px-4 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors {isActive('/dashboard') ? 'text-foreground bg-muted' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
+								>
+									Mine Opslag
+								</a>
+								<a
+									href="/dashboard/indstillinger"
+									onclick={() => (profileMenuOpen = false)}
+									class="block px-4 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors {isActive('/dashboard/indstillinger') ? 'text-foreground bg-muted' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
+								>
+									Indstillinger
+								</a>
+								<form method="POST" action="/logout" use:enhance>
+									<button
+										type="submit"
+										class="block w-full text-left px-4 py-2.5 text-xs font-medium uppercase tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+									>
+										Log ud
+									</button>
+								</form>
+							</div>
+						{/if}
+					</div>
+					<a
+						href="/dashboard/opret"
+						class="ml-2 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors"
+					>
+						+ Opret opslag
+					</a>
 				{:else}
 					<a
 						href="/login"
@@ -68,7 +128,7 @@
 						href="/register"
 						class="ml-2 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors"
 					>
-						Opret konto
+						Opret profil
 					</a>
 				{/if}
 			</div>
@@ -95,13 +155,44 @@
 				>
 					Boliger
 				</a>
+				<a
+					href="/lejere"
+					onclick={() => (mobileOpen = false)}
+					class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/lejere') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+				>
+					Lejere
+				</a>
 				{#if data.user}
+					<a
+						href="/dashboard/favoritter"
+						onclick={() => (mobileOpen = false)}
+						class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/dashboard/favoritter') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+					>
+						Favoritter
+					</a>
+					<a
+						href="/dashboard/beskeder"
+						onclick={() => (mobileOpen = false)}
+						class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/dashboard/beskeder') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+					>
+						Beskeder
+					</a>
+					{#if data.user.is_admin}
+						<a
+							href="/admin/rapporter"
+							onclick={() => (mobileOpen = false)}
+							class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/admin/rapporter') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+						>
+							Rapporter
+						</a>
+					{/if}
+					<p class="px-3 pt-2 pb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">Min Profil</p>
 					<a
 						href="/dashboard"
 						onclick={() => (mobileOpen = false)}
 						class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/dashboard') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
 					>
-						Dashboard
+						Mine Opslag
 					</a>
 					<a
 						href="/dashboard/indstillinger"
@@ -118,6 +209,13 @@
 							Log ud
 						</button>
 					</form>
+					<a
+						href="/dashboard/opret"
+						onclick={() => (mobileOpen = false)}
+						class="flex items-center justify-center mx-3 my-2 px-3 py-2.5 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest"
+					>
+						+ Opret opslag
+					</a>
 				{:else}
 					<a
 						href="/login"
@@ -131,7 +229,7 @@
 						onclick={() => (mobileOpen = false)}
 						class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide text-primary"
 					>
-						Opret konto
+						Opret profil
 					</a>
 				{/if}
 			</div>

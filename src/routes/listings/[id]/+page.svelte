@@ -1,12 +1,30 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
+	import FavoriteButton from '$lib/components/FavoriteButton.svelte';
+	import ReportButton from '$lib/components/ReportButton.svelte';
+	import type { PageData, ActionData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	let { data, form }: { data: PageData; form: ActionData } = $props();
 
 	const roomTypeLabel: Record<string, string> = {
 		private: 'Privat værelse',
 		shared: 'Delt værelse',
 		apartment: 'Lejlighed'
+	};
+
+	const listingKindLabel: Record<string, string> = {
+		room: 'Enkeltværelse',
+		'1v': '1-V-lejlighed',
+		'2v': '2-V-lejlighed',
+		'3v': '3-V-lejlighed',
+		'4v': '4-V-lejlighed',
+		'5v': '5-V+-lejlighed',
+		house: 'Hus'
+	};
+
+	const rentalPeriodLabel: Record<string, string> = {
+		unlimited: 'Ubegrænset lejeperiode',
+		limited: 'Tidsbegrænset lejeperiode'
 	};
 
 	const availableFrom = $derived(
@@ -54,7 +72,14 @@
 		Tilbage
 	</a>
 
-	<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide mb-4">{data.listing.Title}</h1>
+	<div class="flex items-start justify-between gap-4 mb-4">
+		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.listing.Title}</h1>
+		{#if data.user}
+			<div class="shrink-0">
+				<FavoriteButton favoriteType="listing" favoriteId={data.listing.ID} initialFavorited={data.isFavorite} variant="plain" />
+			</div>
+		{/if}
+	</div>
 
 	{#if data.listing.Images?.length}
 		<div class="relative mb-8">
@@ -103,7 +128,11 @@
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
 				</svg>
-				<span>{data.listing.City}{data.listing.Area ? `, ${data.listing.Area}` : ''}</span>
+				<span>
+					{data.listing.Zip ? `${data.listing.Zip} ` : ''}{data.listing.City}{data.listing.Area
+						? `, ${data.listing.Area}`
+						: ''}
+				</span>
 			</div>
 
 			<div class="flex flex-wrap gap-3">
@@ -111,20 +140,44 @@
 					{data.listing.Price.toLocaleString('da-DK')} kr/md
 				</span>
 				<span class="bg-muted px-4 py-2 text-sm">
-					{roomTypeLabel[data.listing.RoomType] ?? data.listing.RoomType}
+					{data.listing.ListingKind
+						? (listingKindLabel[data.listing.ListingKind] ?? data.listing.ListingKind)
+						: (roomTypeLabel[data.listing.RoomType] ?? data.listing.RoomType)}
 				</span>
+				{#if data.listing.SizeSqm}
+					<span class="bg-muted px-4 py-2 text-sm">{data.listing.SizeSqm} m²</span>
+				{/if}
 				<span class="bg-muted px-4 py-2 text-sm">
 					Ledig fra: {availableFrom}
 				</span>
-				{#if data.listing.Zip}
-					<span class="bg-muted px-4 py-2 text-sm">{data.listing.Zip}</span>
+				{#if data.listing.RentalPeriod}
+					<span class="bg-muted px-4 py-2 text-sm">
+						{rentalPeriodLabel[data.listing.RentalPeriod] ?? data.listing.RentalPeriod}
+					</span>
+				{/if}
+				{#if data.listing.Deposit}
+					<span class="bg-muted px-4 py-2 text-sm">Depositum: {data.listing.Deposit.toLocaleString('da-DK')} kr</span>
 				{/if}
 			</div>
+
+			{#if data.listing.Facilities?.length}
+				<div class="flex flex-wrap gap-2">
+					{#each data.listing.Facilities as facility (facility)}
+						<span class="border border-border px-3 py-1 text-xs">{facility}</span>
+					{/each}
+				</div>
+			{/if}
 
 			<div class="border-t border-border pt-6">
 				<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
 				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.listing.Description}</p>
 			</div>
+
+			{#if data.user}
+				<div>
+					<ReportButton targetType="listing" targetId={data.listing.ID} />
+				</div>
+			{/if}
 		</div>
 
 		<div class="space-y-4">
@@ -143,6 +196,49 @@
 						<p class="text-xs text-muted-foreground uppercase tracking-wide">Se profil</p>
 					</div>
 				</a>
+			</div>
+
+			<div class="border border-border p-5">
+				<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt udlejer</h3>
+
+				{#if form?.success}
+					<p class="text-sm text-green-700 bg-green-50 p-3">
+						Din besked er sendt! Udlejeren kontakter dig snart.
+					</p>
+				{:else if !data.user}
+					<p class="text-sm text-muted-foreground mb-3">Du skal være logget ind for at kontakte udlejer.</p>
+					<a
+						href="/login"
+						class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+					>
+						Log ind
+					</a>
+				{:else}
+					<form method="POST" action="?/contact" use:enhance class="space-y-3">
+						{#if form?.error}
+							<p class="text-sm text-red-600">{form.error}</p>
+						{/if}
+						<input
+							name="senderPhone"
+							type="tel"
+							placeholder="Telefon (valgfrit)"
+							class="w-full border border-border px-3 py-2 text-sm"
+						/>
+						<textarea
+							name="message"
+							rows="4"
+							placeholder="Skriv en besked til udlejeren..."
+							required
+							class="w-full border border-border px-3 py-2 text-sm"
+						></textarea>
+						<button
+							type="submit"
+							class="w-full bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+						>
+							Send besked
+						</button>
+					</form>
+				{/if}
 			</div>
 		</div>
 	</div>

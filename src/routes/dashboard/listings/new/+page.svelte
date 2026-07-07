@@ -1,8 +1,35 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import ImageUploader from '$lib/components/ImageUploader.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
+
+	const FACILITIES = [
+		'Altan',
+		'Opvaskemaskine',
+		'Vaskemaskine',
+		'Tørretumbler',
+		'Parkering',
+		'Kælder',
+		'Have',
+		'Husdyr tilladt',
+		'Møbleret',
+		'Internet inkl.',
+		'El inkl.',
+		'Vand inkl.'
+	];
+
+	const APARTMENT_KINDS = [
+		{ value: '1v', label: '1-værelses' },
+		{ value: '2v', label: '2-værelses' },
+		{ value: '3v', label: '3-værelses' },
+		{ value: '4v', label: '4-værelses' },
+		{ value: '5v', label: '5-værelses+' },
+		{ value: 'house', label: 'Hus' }
+	];
+
+	let boligKategori = $state<'room' | 'hele'>('room');
 </script>
 
 <svelte:head>
@@ -21,7 +48,7 @@
 	</a>
 
 	<div class="mb-8">
-		<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">Dashboard</p>
+		<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">Mine Opslag</p>
 		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">Nyt opslag</h1>
 	</div>
 
@@ -60,29 +87,58 @@
 					/>
 				</div>
 				<div>
-					<label for="RoomType" class="block text-sm font-medium text-foreground mb-1">Type *</label>
+					<label for="AvailableFrom" class="block text-sm font-medium text-foreground mb-1">Ledig fra *</label>
+					<input
+						id="AvailableFrom"
+						name="AvailableFrom"
+						type="date"
+						required
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			</div>
+
+			<div>
+				<label class="block text-sm font-medium text-foreground mb-1">Hvad udlejer du? *</label>
+				<div class="grid grid-cols-2 gap-px bg-border border border-border mb-3">
+					<button
+						type="button"
+						onclick={() => (boligKategori = 'room')}
+						class="px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors {boligKategori === 'room' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
+					>
+						Værelse
+					</button>
+					<button
+						type="button"
+						onclick={() => (boligKategori = 'hele')}
+						class="px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors {boligKategori === 'hele' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
+					>
+						Hel bolig / hus
+					</button>
+				</div>
+
+				{#if boligKategori === 'room'}
 					<select
-						id="RoomType"
 						name="RoomType"
 						required
 						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 					>
 						<option value="private">Privat værelse</option>
 						<option value="shared">Delt værelse</option>
-						<option value="apartment">Lejlighed</option>
 					</select>
-				</div>
-			</div>
-
-			<div>
-				<label for="AvailableFrom" class="block text-sm font-medium text-foreground mb-1">Ledig fra *</label>
-				<input
-					id="AvailableFrom"
-					name="AvailableFrom"
-					type="date"
-					required
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
+					<input type="hidden" name="ListingKind" value="room" />
+				{:else}
+					<select
+						name="ListingKind"
+						required
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					>
+						{#each APARTMENT_KINDS as kind (kind.value)}
+							<option value={kind.value}>{kind.label}</option>
+						{/each}
+					</select>
+					<input type="hidden" name="RoomType" value="apartment" />
+				{/if}
 			</div>
 		</section>
 
@@ -126,6 +182,110 @@
 			</div>
 		</section>
 
+		<!-- Extra details -->
+		<section class="border border-border p-6 space-y-4">
+			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Detaljer</h2>
+
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="SizeSqm" class="block text-sm font-medium text-foreground mb-1">Størrelse (m²)</label>
+					<input
+						id="SizeSqm"
+						name="SizeSqm"
+						type="number"
+						placeholder="45"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+				<div>
+					<label for="Deposit" class="block text-sm font-medium text-foreground mb-1">Depositum (kr)</label>
+					<input
+						id="Deposit"
+						name="Deposit"
+						type="number"
+						placeholder="15000"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			</div>
+
+			<div>
+				<label for="RentalPeriod" class="block text-sm font-medium text-foreground mb-1">Lejeperiode</label>
+				<select
+					id="RentalPeriod"
+					name="RentalPeriod"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+				>
+					<option value="">Vælg...</option>
+					<option value="unlimited">Ubegrænset</option>
+					<option value="limited">Tidsbegrænset</option>
+				</select>
+			</div>
+
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="LandlordType" class="block text-sm font-medium text-foreground mb-1">Udlejer</label>
+					<select
+						id="LandlordType"
+						name="LandlordType"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					>
+						<option value="">Vælg...</option>
+						<option value="boligselskab">Boligselskab</option>
+						<option value="privat">Privat udlejer</option>
+					</select>
+				</div>
+				<div>
+					<label for="FurnishedPreference" class="block text-sm font-medium text-foreground mb-1">Møblering</label>
+					<select
+						id="FurnishedPreference"
+						name="FurnishedPreference"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					>
+						<option value="">Vælg...</option>
+						<option value="furnished">Møbleret</option>
+						<option value="unfurnished">Umøbleret</option>
+						<option value="any">Ligegyldigt</option>
+					</select>
+				</div>
+			</div>
+
+			<div>
+				<label for="TargetAudience" class="block text-sm font-medium text-foreground mb-1">Hvem søger du?</label>
+				<input
+					id="TargetAudience"
+					name="TargetAudience"
+					type="text"
+					placeholder="F.eks. Studerende, par, rolig person"
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+				/>
+			</div>
+
+			<div>
+				<label for="FacebookURL" class="block text-sm font-medium text-foreground mb-1">Facebook link</label>
+				<input
+					id="FacebookURL"
+					name="FacebookURL"
+					type="text"
+					placeholder="https://facebook.com/..."
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+				/>
+			</div>
+		</section>
+
+		<!-- Facilities -->
+		<section class="border border-border p-6 space-y-4">
+			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Faciliteter</h2>
+			<div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+				{#each FACILITIES as facility (facility)}
+					<label class="flex items-center gap-2 text-sm cursor-pointer">
+						<input type="checkbox" name="Facilities" value={facility} class="accent-primary" />
+						{facility}
+					</label>
+				{/each}
+			</div>
+		</section>
+
 		<!-- Description -->
 		<section class="border border-border p-6 space-y-4">
 			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Beskrivelse</h2>
@@ -146,18 +306,7 @@
 		<!-- Images -->
 		<section class="border border-border p-6 space-y-4">
 			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Billeder</h2>
-			<p class="text-xs text-muted-foreground">Én billed-URL per linje.</p>
-
-			<div>
-				<label for="Images" class="block text-sm font-medium text-foreground mb-1">Billed-URLs</label>
-				<textarea
-					id="Images"
-					name="Images"
-					rows="4"
-					placeholder="https://example.com/billede1.jpg&#10;https://example.com/billede2.jpg"
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary font-mono"
-				></textarea>
-			</div>
+			<ImageUploader name="Images" />
 		</section>
 
 		<div class="flex gap-3 pt-2">

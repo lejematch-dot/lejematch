@@ -37,7 +37,22 @@
 				<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
 			{/if}
 
-			<form method="POST" use:enhance class="space-y-4">
+			{#if form && 'notVerified' in form && form.notVerified}
+				{#if 'resent' in form && form.resent}
+					<p class="mb-4 px-4 py-3 text-sm text-green-700 bg-green-50">
+						Vi har sendt et nyt bekræftelseslink til din e-mail.
+					</p>
+				{:else}
+					<form method="POST" action="?/resend" use:enhance class="mb-4">
+						<input type="hidden" name="email" value={'email' in form ? form.email : ''} />
+						<button type="submit" class="text-xs text-primary font-medium hover:underline">
+							Send bekræftelseslink igen
+						</button>
+					</form>
+				{/if}
+			{/if}
+
+			<form method="POST" action="?/login" use:enhance class="space-y-4">
 				<div>
 					<label for="email" class="block text-sm font-medium text-foreground mb-1">E-mail</label>
 					<input
@@ -49,7 +64,10 @@
 					/>
 				</div>
 				<div>
-					<label for="password" class="block text-sm font-medium text-foreground mb-1">Adgangskode</label>
+					<div class="flex items-center justify-between mb-1">
+						<label for="password" class="block text-sm font-medium text-foreground">Adgangskode</label>
+						<a href="/glemt-adgangskode" class="text-xs text-primary hover:underline">Glemt adgangskode?</a>
+					</div>
 					<input
 						id="password"
 						name="password"
@@ -68,7 +86,7 @@
 
 			<p class="text-xs text-muted-foreground text-center mt-6">
 				Har du ikke en konto?{' '}
-				<a href="/register" class="text-primary font-medium hover:underline">Opret konto</a>
+				<a href="/register" class="text-primary font-medium hover:underline">Opret profil</a>
 			</p>
 		</div>
 	</div>

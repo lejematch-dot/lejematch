@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>Opret konto – LejeMatch</title>
+	<title>Opret profil – LejeMatch</title>
 </svelte:head>
 
 <div class="min-h-screen bg-background flex items-center justify-center px-4">
@@ -31,7 +31,19 @@
 		</div>
 
 		<div class="bg-card border border-border p-8">
-			<h1 class="text-sm font-bold text-foreground mb-6 text-center uppercase tracking-widest">Opret konto</h1>
+			{#if form?.success}
+				<h1 class="text-sm font-bold text-foreground mb-2 text-center uppercase tracking-widest">Tjek din e-mail</h1>
+				<p class="text-sm text-muted-foreground text-center">
+					Vi har sendt et bekræftelseslink til din e-mail. Klik på linket for at aktivere din konto og logge ind.
+				</p>
+				<a
+					href="/login"
+					class="block w-full text-center mt-6 h-11 leading-[2.75rem] border border-border text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted transition-colors rounded-md"
+				>
+					Til log ind
+				</a>
+			{:else}
+			<h1 class="text-sm font-bold text-foreground mb-6 text-center uppercase tracking-widest">Opret profil</h1>
 
 			{#if form?.error}
 				<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
@@ -91,6 +103,19 @@
 					/>
 				</div>
 				<div>
+					<span class="block text-sm font-medium text-foreground mb-1">Jeg er</span>
+					<div class="grid grid-cols-2 gap-4">
+						<label class="flex items-center gap-2 text-sm border border-border rounded-md px-3 py-2 cursor-pointer">
+							<input type="radio" name="userType" value="tenant" checked class="accent-primary" />
+							Lejer
+						</label>
+						<label class="flex items-center gap-2 text-sm border border-border rounded-md px-3 py-2 cursor-pointer">
+							<input type="radio" name="userType" value="landlord" class="accent-primary" />
+							Udlejer
+						</label>
+					</div>
+				</div>
+				<div>
 					<label for="password" class="block text-sm font-medium text-foreground mb-1">Adgangskode</label>
 					<input
 						id="password"
@@ -105,7 +130,7 @@
 					type="submit"
 					class="w-full h-11 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"
 				>
-					Opret konto
+					Opret profil
 				</button>
 			</form>
 
@@ -113,6 +138,7 @@
 				Har du allerede en konto?{' '}
 				<a href="/login" class="text-primary font-medium hover:underline">Log ind</a>
 			</p>
+			{/if}
 		</div>
 	</div>
 </div>

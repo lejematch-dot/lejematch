@@ -1,4 +1,3 @@
-import { login } from '$lib/api/auth';
 import { registerUser } from '$lib/api/users';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
@@ -8,7 +7,7 @@ export const load: PageServerLoad = ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	default: async ({ request }) => {
 		const data = await request.formData();
 		const firstName = String(data.get('firstName') ?? '');
 		const lastName = String(data.get('lastName') ?? '');
@@ -16,21 +15,23 @@ export const actions: Actions = {
 		const phone = String(data.get('phone') ?? '');
 		const password = String(data.get('password') ?? '');
 		const city = String(data.get('city') ?? '');
+		const userType = String(data.get('userType') ?? 'tenant');
 
 		try {
-			await registerUser({ FirstName: firstName, LastName: lastName, Email: email, Phone: phone, Password: password, City: city });
-			const { token } = await login(email, password);
-			cookies.set('session', token, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				secure: process.env.NODE_ENV === 'production',
-				maxAge: 60 * 60 * 24 * 7
+			await registerUser({
+				FirstName: firstName,
+				LastName: lastName,
+				Email: email,
+				Phone: phone,
+				Password: password,
+				City: city,
+				UserType: userType
 			});
 		} catch {
 			return fail(400, { error: 'Kunne ikke oprette konto. Prøv igen.' });
 		}
 
-		redirect(302, '/dashboard');
+		// Kontoen er inaktiv indtil e-mailen er bekræftet — ingen auto-login.
+		return { success: true };
 	}
 };

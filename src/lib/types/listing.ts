@@ -2,6 +2,14 @@ export type RoomType = 'private' | 'shared' | 'apartment';
 
 export type ListingStatus = 'active' | 'rented' | 'archived';
 
+export type ListingKind = 'room' | '1v' | '2v' | '3v' | '4v' | '5v' | 'house';
+
+export type LandlordType = 'boligselskab' | 'privat';
+
+export type FurnishedPreference = 'furnished' | 'unfurnished' | 'any';
+
+export type RentalPeriod = 'unlimited' | 'limited';
+
 export interface Listing {
 	ID: number;
 	UserID: number;
@@ -17,6 +25,16 @@ export interface Listing {
 	Images: string[];
 	CreatedAt: string;
 	UpdatedAt: string;
+
+	ListingKind?: ListingKind;
+	SizeSqm?: number | null;
+	Deposit?: number | null;
+	RentalPeriod?: RentalPeriod | '';
+	LandlordType?: LandlordType | '';
+	FurnishedPreference?: FurnishedPreference | '';
+	Facilities?: string[];
+	TargetAudience?: string;
+	FacebookURL?: string;
 }
 
 export interface ListingsResponse {
@@ -32,5 +50,10 @@ export interface ListingFilters {
 	minPrice?: number;
 	maxPrice?: number;
 	roomType?: RoomType;
+	landlordType?: LandlordType[];
+	furnishedPreference?: FurnishedPreference[];
+	listingKind?: ListingKind[];
+	rentalPeriod?: RentalPeriod[];
+	category?: 'hele' | 'vaerelse';
 	page?: number;
 }

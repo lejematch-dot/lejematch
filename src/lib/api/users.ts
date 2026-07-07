@@ -35,7 +35,15 @@ export function getUserProfile(id: number): Promise<UserProfile> {
 
 export function updateUserProfile(
 	id: number,
-	data: { DisplayName?: string; Bio?: string; City?: string; ImageURL?: string },
+	data: {
+		DisplayName?: string;
+		Bio?: string;
+		City?: string;
+		ImageURL?: string;
+		Age?: number;
+		UserType?: string;
+		FacebookURL?: string;
+	},
 	token: string
 ): Promise<void> {
 	return apiFetch<void>(`/users/${id}/profile`, {
@@ -53,6 +61,9 @@ export function registerUser(data: {
 	Password: string;
 	City: string;
 	ImageURL?: string;
+	Age?: number;
+	UserType?: string;
+	FacebookURL?: string;
 }): Promise<{ id: number; createdAt: string }> {
 	return apiFetch<{ id: number; createdAt: string }>('/users', {
 		method: 'POST',
