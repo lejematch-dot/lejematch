@@ -34,11 +34,6 @@
 				</div>
 			{/if}
 			<div class="flex items-center gap-2 mt-2">
-				{#if data.profile.userType}
-					<span class="border border-border px-2 py-0.5 text-xs uppercase tracking-wide">
-						{data.profile.userType === 'landlord' ? 'Udlejer' : 'Lejer'}
-					</span>
-				{/if}
 				{#if data.profile.age}
 					<span class="text-xs text-muted-foreground">{data.profile.age} år</span>
 				{/if}
