@@ -240,14 +240,26 @@
 		{@render children()}
 	</main>
 
-	<footer class="border-t border-border py-6 mt-auto">
-		<div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-			<p class="text-sm text-muted-foreground">© {new Date().getFullYear()} LejeMatch</p>
-			<div class="flex gap-4 text-sm">
-				<a href="/privatlivspolitik" class="text-muted-foreground hover:text-foreground transition-colors">
-					Privatlivspolitik
-				</a>
+	<footer class="bg-primary py-10 mt-auto">
+		<div class="max-w-7xl mx-auto px-4">
+			<div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+				<div class="flex items-center gap-2">
+					<div class="w-7 h-7 border border-primary-foreground flex items-center justify-center">
+						<svg class="w-3.5 h-3.5 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+						</svg>
+					</div>
+					<span class="text-xs font-bold text-primary-foreground tracking-widest uppercase">LejeMatch</span>
+				</div>
+				<nav class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
+					<a href="/om-os" class="hover:text-primary-foreground transition-colors">Om os</a>
+					<a href="/faq" class="hover:text-primary-foreground transition-colors">FAQ</a>
+					<a href="/privatlivspolitik" class="hover:text-primary-foreground transition-colors">Privatlivspolitik</a>
+				</nav>
 			</div>
+			<p class="text-center sm:text-left text-[11px] text-primary-foreground/60 mt-6">
+				© {new Date().getFullYear()} LejeMatch
+			</p>
 		</div>
 	</footer>
 </div>
