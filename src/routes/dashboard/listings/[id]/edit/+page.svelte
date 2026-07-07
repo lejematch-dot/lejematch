@@ -122,6 +122,21 @@
 						<option value="shared">Delt værelse</option>
 					</select>
 					<input type="hidden" name="ListingKind" value="room" />
+
+					<div class="mt-3">
+						<label for="RoommatesWanted" class="block text-sm font-medium text-foreground mb-1">Antal nye roomies I søger</label>
+						<select
+							id="RoommatesWanted"
+							name="RoommatesWanted"
+							value={data.listing.RoommatesWanted ?? 1}
+							class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+						>
+							<option value="1">1 roomie</option>
+							<option value="2">2 roomies</option>
+							<option value="3">3 roomies</option>
+							<option value="4">4+ roomies</option>
+						</select>
+					</div>
 				{:else}
 					<select
 						name="ListingKind"

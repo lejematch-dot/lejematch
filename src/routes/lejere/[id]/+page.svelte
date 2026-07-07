@@ -6,10 +6,10 @@
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
-	const roomTypeLabel: Record<string, string> = {
-		private: 'Privat værelse',
-		shared: 'Delt værelse',
-		apartment: 'Lejlighed'
+	const seekingTypeLabel: Record<string, string> = {
+		bolig: 'Hel bolig',
+		roommate: 'Værelse i bofællesskab',
+		begge: 'Hel bolig eller værelse'
 	};
 
 	const rentalPeriodLabel: Record<string, string> = {
@@ -71,7 +71,9 @@
 					Max {data.seeker.MaxBudget.toLocaleString('da-DK')} kr/md
 				</span>
 				<span class="bg-muted px-4 py-2 text-sm">
-					{roomTypeLabel[data.seeker.RoomType] ?? data.seeker.RoomType}
+					{seekingTypeLabel[data.seeker.SeekingType ?? ''] ?? 'Hel bolig'}{#if (data.seeker.SeekingType === 'roommate' || data.seeker.SeekingType === 'begge') && data.seeker.NumRooms && data.seeker.NumRooms > 1}
+						({data.seeker.NumRooms} værelser)
+					{/if}
 				</span>
 				<span class="bg-muted px-4 py-2 text-sm">
 					Indflytning fra: {moveInFrom}

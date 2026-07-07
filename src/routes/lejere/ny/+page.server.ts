@@ -23,11 +23,12 @@ export const actions: Actions = {
 
 		const seekingType = String(data.get('SeekingType') ?? '');
 		const numPeopleRaw = String(data.get('NumPeople') ?? '');
+		const numRoomsRaw = String(data.get('NumRooms') ?? '');
 		const furnishedPreference = String(data.get('FurnishedPreference') ?? '');
 		const rentalPeriod = String(data.get('RentalPeriod') ?? '');
 		const rentalPeriodDetails = String(data.get('RentalPeriodDetails') ?? '');
 
-		if (!title || !description || !city || !maxBudget || !roomType || !moveInFrom) {
+		if (!title || !description || !city || !maxBudget || !roomType || !moveInFrom || !seekingType) {
 			return fail(400, { error: 'Udfyld venligst alle påkrævede felter.' });
 		}
 
@@ -41,8 +42,9 @@ export const actions: Actions = {
 					RoomType: roomType as 'private' | 'shared' | 'apartment',
 					MoveInFrom: moveInFrom,
 					Images: images,
-					SeekingType: (seekingType || undefined) as 'bolig' | 'roommate' | undefined,
+					SeekingType: (seekingType || undefined) as 'bolig' | 'roommate' | 'begge' | undefined,
 					NumPeople: numPeopleRaw ? Number(numPeopleRaw) : undefined,
+					NumRooms: numRoomsRaw ? Number(numRoomsRaw) : undefined,
 					FurnishedPreference: (furnishedPreference || undefined) as
 						| 'furnished'
 						| 'unfurnished'

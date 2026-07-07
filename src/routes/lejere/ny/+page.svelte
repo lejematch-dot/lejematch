@@ -5,7 +5,8 @@
 
 	let { form }: { form: ActionData } = $props();
 
-	let boligKategori = $state<'room' | 'hele'>('hele');
+	let wantsHele = $state(true);
+	let wantsRoom = $state(false);
 	let rentalPeriod = $state('');
 </script>
 
@@ -75,39 +76,58 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium text-foreground mb-1">Hvad søger du? *</label>
+				<label class="block text-sm font-medium text-foreground mb-1">Hvad søger du? (vælg en eller begge) *</label>
 				<div class="grid grid-cols-2 gap-px bg-border border border-border mb-3">
 					<button
 						type="button"
-						onclick={() => (boligKategori = 'hele')}
-						class="px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors {boligKategori === 'hele' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
+						onclick={() => (wantsHele = !wantsHele)}
+						class="px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors {wantsHele ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
 					>
 						Hel bolig
 					</button>
 					<button
 						type="button"
-						onclick={() => (boligKategori = 'room')}
-						class="px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors {boligKategori === 'room' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
+						onclick={() => (wantsRoom = !wantsRoom)}
+						class="px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors {wantsRoom ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
 					>
 						Værelse i bofællesskab
 					</button>
 				</div>
 
-				{#if boligKategori === 'room'}
-					<select
-						name="RoomType"
-						required
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					>
-						<option value="private">Privat værelse</option>
-						<option value="shared">Delt værelse</option>
-					</select>
-					<input type="hidden" name="SeekingType" value="roommate" />
+				{#if !wantsHele && !wantsRoom}
+					<p class="text-xs text-destructive">Vælg mindst én mulighed</p>
+				{/if}
+
+				{#if wantsRoom}
+					<input type="hidden" name="RoomType" value="shared" />
 				{:else}
 					<input type="hidden" name="RoomType" value="apartment" />
+				{/if}
+
+				{#if wantsHele && wantsRoom}
+					<input type="hidden" name="SeekingType" value="begge" />
+				{:else if wantsRoom}
+					<input type="hidden" name="SeekingType" value="roommate" />
+				{:else if wantsHele}
 					<input type="hidden" name="SeekingType" value="bolig" />
 				{/if}
 			</div>
+
+			{#if wantsRoom}
+				<div>
+					<label for="NumRooms" class="block text-sm font-medium text-foreground mb-1">Antal værelser</label>
+					<select
+						id="NumRooms"
+						name="NumRooms"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					>
+						<option value="1">1 værelse</option>
+						<option value="2">2 værelser</option>
+						<option value="3">3 værelser</option>
+						<option value="4">4+ værelser</option>
+					</select>
+				</div>
+			{/if}
 
 			<div class="grid grid-cols-2 gap-4">
 				<div>
@@ -205,7 +225,8 @@
 		<div class="flex gap-3 pt-2">
 			<button
 				type="submit"
-				class="flex-1 h-11 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"
+				disabled={!wantsHele && !wantsRoom}
+				class="flex-1 h-11 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
 			>
 				Publicér opslag
 			</button>

@@ -35,6 +35,7 @@ export interface Listing {
 	FurnishedPreference?: FurnishedPreference | '';
 	Facilities?: string[];
 	TargetAudience?: string;
+	RoommatesWanted?: number | null;
 }
 
 export interface ListingsResponse {

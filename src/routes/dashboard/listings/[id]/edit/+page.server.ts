@@ -51,6 +51,7 @@ export const actions: Actions = {
 		const furnishedPreference = String(data.get('FurnishedPreference') ?? '');
 		const facilities = data.getAll('Facilities').map(String);
 		const targetAudience = String(data.get('TargetAudience') ?? '');
+		const roommatesWantedRaw = String(data.get('RoommatesWanted') ?? '');
 
 		if (!title || !description || !price || !city || !roomType || !availableFrom) {
 			return fail(400, { error: 'Udfyld venligst alle påkrævede felter.' });
@@ -78,7 +79,8 @@ export const actions: Actions = {
 					LandlordType: (landlordType || undefined) as Listing['LandlordType'],
 					FurnishedPreference: (furnishedPreference || undefined) as Listing['FurnishedPreference'],
 					Facilities: facilities.length ? facilities : undefined,
-					TargetAudience: targetAudience || undefined
+					TargetAudience: targetAudience || undefined,
+					RoommatesWanted: roommatesWantedRaw ? Number(roommatesWantedRaw) : undefined
 				},
 				token
 			);

@@ -7,19 +7,16 @@
 
 	let city = $state<string>(data.filters.city ?? '');
 	let maxBudget = $state<string>(data.filters.maxBudget?.toString() ?? '');
-	let roomType = $state<string[]>(data.filters.roomType ?? []);
 	let furnishedPreference = $state<string[]>(data.filters.furnishedPreference ?? []);
 	let rentalPeriod = $state<string[]>(data.filters.rentalPeriod ?? []);
 	let showFilters = $state(
-		Boolean(
-			city || maxBudget || roomType.length || furnishedPreference.length || rentalPeriod.length
-		)
+		Boolean(city || maxBudget || furnishedPreference.length || rentalPeriod.length)
 	);
 
-	const roomTypeLabel: Record<string, string> = {
-		private: 'Privat værelse',
-		shared: 'Delt værelse',
-		apartment: 'Lejlighed'
+	const seekingTypeLabel: Record<string, string> = {
+		bolig: 'Hel bolig',
+		roommate: 'Værelse i bofællesskab',
+		begge: 'Hel bolig eller værelse'
 	};
 
 	const rentalPeriodLabel: Record<string, string> = {
@@ -33,14 +30,13 @@
 
 	const activeFilterCount = $derived(
 		[city, maxBudget].filter(Boolean).length +
-			[roomType, furnishedPreference, rentalPeriod].filter((arr) => arr.length > 0).length
+			[furnishedPreference, rentalPeriod].filter((arr) => arr.length > 0).length
 	);
 
 	function buildUrl(category = data.category) {
 		const params = new URLSearchParams();
 		if (city) params.set('city', city);
 		if (maxBudget) params.set('maxBudget', maxBudget);
-		if (category === 'vaerelse' && roomType.length) params.set('roomType', roomType.join(','));
 		if (furnishedPreference.length) params.set('furnishedPreference', furnishedPreference.join(','));
 		if (rentalPeriod.length) params.set('rentalPeriod', rentalPeriod.join(','));
 		if (category !== 'hele') params.set('category', category);
@@ -56,11 +52,6 @@
 		return list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 	}
 
-	function toggleRoomType(value: string) {
-		roomType = toggle(roomType, value);
-		applyFilters();
-	}
-
 	function toggleFurnishedPreference(value: string) {
 		furnishedPreference = toggle(furnishedPreference, value);
 		applyFilters();
@@ -74,7 +65,6 @@
 	function resetFilters() {
 		city = '';
 		maxBudget = '';
-		roomType = [];
 		furnishedPreference = [];
 		rentalPeriod = [];
 		applyFilters();
@@ -154,27 +144,6 @@
 						class="w-24 rounded-md border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
 					/>
 				</div>
-				{#if data.category === 'vaerelse'}
-					<div>
-						<label class="text-[11px] text-muted-foreground mb-1 block">Værelsestype</label>
-						<div class="flex flex-wrap gap-1">
-							<button
-								type="button"
-								onclick={() => toggleRoomType('private')}
-								class="px-2 py-1 text-[11px] font-medium border rounded transition-colors {roomType.includes('private') ? 'bg-primary text-primary-foreground border-primary' : 'bg-background text-foreground border-border hover:bg-muted'}"
-							>
-								Privat værelse
-							</button>
-							<button
-								type="button"
-								onclick={() => toggleRoomType('shared')}
-								class="px-2 py-1 text-[11px] font-medium border rounded transition-colors {roomType.includes('shared') ? 'bg-primary text-primary-foreground border-primary' : 'bg-background text-foreground border-border hover:bg-muted'}"
-							>
-								Delt værelse
-							</button>
-						</div>
-					</div>
-				{/if}
 				<div>
 					<label class="text-[11px] text-muted-foreground mb-1 block">Møblering</label>
 					<div class="flex flex-wrap gap-1">
@@ -277,7 +246,11 @@
 							{seeker.City}
 						</div>
 						<div class="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-							<span class="border border-border px-2 py-0.5">{roomTypeLabel[seeker.RoomType] ?? seeker.RoomType}</span>
+							<span class="border border-border px-2 py-0.5">
+								{seekingTypeLabel[seeker.SeekingType ?? ''] ?? 'Hel bolig'}{#if (seeker.SeekingType === 'roommate' || seeker.SeekingType === 'begge') && seeker.NumRooms && seeker.NumRooms > 1}
+									({seeker.NumRooms} værelser)
+								{/if}
+							</span>
 						</div>
 						<div class="flex items-center gap-1.5 mt-1 text-[11px] text-muted-foreground">
 							{#if seeker.RentalPeriod}

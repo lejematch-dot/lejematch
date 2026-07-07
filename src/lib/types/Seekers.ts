@@ -1,6 +1,6 @@
 import type { RoomType, ListingStatus, RentalPeriod } from './listing';
 
-export type SeekingType = 'bolig' | 'roommate';
+export type SeekingType = 'bolig' | 'roommate' | 'begge';
 
 export type FurnishedPreference = 'furnished' | 'unfurnished' | 'any';
 
@@ -20,6 +20,7 @@ export interface Seeker {
 
 	SeekingType?: SeekingType | '';
 	NumPeople?: number | null;
+	NumRooms?: number | null;
 	FurnishedPreference?: FurnishedPreference | '';
 	RentalPeriod?: RentalPeriod | '';
 	RentalPeriodDetails?: string;
@@ -53,6 +54,7 @@ export interface CreateSeekerRequest {
 	Images: string[];
 	SeekingType?: SeekingType;
 	NumPeople?: number;
+	NumRooms?: number;
 	FurnishedPreference?: FurnishedPreference;
 	RentalPeriod?: RentalPeriod;
 	RentalPeriodDetails?: string;
