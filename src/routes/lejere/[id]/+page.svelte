@@ -79,7 +79,7 @@
 				<button
 					type="button"
 					onclick={() => (lightboxIdx = 0)}
-					class="flex-[2] h-full overflow-hidden rounded-2xl bg-muted cursor-pointer"
+					class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
 				>
 					<img
 						src={data.seeker.Images[0]}
@@ -92,7 +92,7 @@
 						<button
 							type="button"
 							onclick={() => (lightboxIdx = 1)}
-							class="flex-1 overflow-hidden rounded-xl bg-muted cursor-pointer"
+							class="flex-1 overflow-hidden bg-muted cursor-pointer"
 						>
 							<img
 								src={data.seeker.Images[1]}
@@ -104,7 +104,7 @@
 							<button
 								type="button"
 								onclick={() => (lightboxIdx = 2)}
-								class="flex-1 overflow-hidden rounded-xl bg-muted cursor-pointer"
+								class="flex-1 overflow-hidden bg-muted cursor-pointer"
 							>
 								<img
 									src={data.seeker.Images[2]}
