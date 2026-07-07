@@ -6,6 +6,8 @@
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
+	const isOwner = $derived(data.user?.sub === data.listing.UserID);
+
 	const roomTypeLabel: Record<string, string> = {
 		private: 'Privat værelse',
 		shared: 'Delt værelse',
@@ -178,7 +180,7 @@
 				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.listing.Description}</p>
 			</div>
 
-			{#if data.user}
+			{#if data.user && !isOwner}
 				<div>
 					<ReportButton targetType="listing" targetId={data.listing.ID} />
 				</div>
@@ -186,65 +188,77 @@
 		</div>
 
 		<div class="space-y-4">
-			<div class="border border-border p-5">
-				<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Udlejer</h3>
-				<a
-					href="/profil/{data.listing.UserID}"
-					class="flex items-center gap-3 hover:opacity-80 transition-opacity"
-				>
-					<div class="w-10 h-10 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-						</svg>
-					</div>
-					<div>
-						<p class="text-xs text-muted-foreground uppercase tracking-wide">Se profil</p>
-					</div>
-				</a>
-			</div>
-
-			<div class="border border-border p-5">
-				<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt udlejer</h3>
-
-				{#if form?.success}
-					<p class="text-sm text-green-700 bg-green-50 p-3">
-						Din besked er sendt! Udlejeren kontakter dig snart.
-					</p>
-				{:else if !data.user}
-					<p class="text-sm text-muted-foreground mb-3">Du skal være logget ind for at kontakte udlejer.</p>
+			{#if isOwner}
+				<div class="border border-border p-5">
+					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
 					<a
-						href="/login"
+						href="/dashboard/listings/{data.listing.ID}/edit"
 						class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
 					>
-						Log ind
+						Rediger opslag
 					</a>
-				{:else}
-					<form method="POST" action="?/contact" use:enhance class="space-y-3">
-						{#if form?.error}
-							<p class="text-sm text-red-600">{form.error}</p>
-						{/if}
-						<input
-							name="senderPhone"
-							type="tel"
-							placeholder="Telefon (valgfrit)"
-							class="w-full border border-border px-3 py-2 text-sm"
-						/>
-						<textarea
-							name="message"
-							rows="4"
-							placeholder="Skriv en besked til udlejeren..."
-							required
-							class="w-full border border-border px-3 py-2 text-sm"
-						></textarea>
-						<button
-							type="submit"
-							class="w-full bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+				</div>
+			{:else}
+				<div class="border border-border p-5">
+					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Udlejer</h3>
+					<a
+						href="/profil/{data.listing.UserID}"
+						class="flex items-center gap-3 hover:opacity-80 transition-opacity"
+					>
+						<div class="w-10 h-10 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+							</svg>
+						</div>
+						<div>
+							<p class="text-xs text-muted-foreground uppercase tracking-wide">Se profil</p>
+						</div>
+					</a>
+				</div>
+
+				<div class="border border-border p-5">
+					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt udlejer</h3>
+
+					{#if form?.success}
+						<p class="text-sm text-green-700 bg-green-50 p-3">
+							Din besked er sendt! Udlejeren kontakter dig snart.
+						</p>
+					{:else if !data.user}
+						<p class="text-sm text-muted-foreground mb-3">Du skal være logget ind for at kontakte udlejer.</p>
+						<a
+							href="/login"
+							class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
 						>
-							Send besked
-						</button>
-					</form>
-				{/if}
-			</div>
+							Log ind
+						</a>
+					{:else}
+						<form method="POST" action="?/contact" use:enhance class="space-y-3">
+							{#if form?.error}
+								<p class="text-sm text-red-600">{form.error}</p>
+							{/if}
+							<input
+								name="senderPhone"
+								type="tel"
+								placeholder="Telefon (valgfrit)"
+								class="w-full border border-border px-3 py-2 text-sm"
+							/>
+							<textarea
+								name="message"
+								rows="4"
+								placeholder="Skriv en besked til udlejeren..."
+								required
+								class="w-full border border-border px-3 py-2 text-sm"
+							></textarea>
+							<button
+								type="submit"
+								class="w-full bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+							>
+								Send besked
+							</button>
+						</form>
+					{/if}
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>
