@@ -26,11 +26,32 @@
 			day: 'numeric'
 		})
 	);
+
+	let lightboxIdx = $state<number | null>(null);
+
+	function prevImage() {
+		if (lightboxIdx === null) return;
+		lightboxIdx = (lightboxIdx - 1 + data.seeker.Images.length) % data.seeker.Images.length;
+	}
+
+	function nextImage() {
+		if (lightboxIdx === null) return;
+		lightboxIdx = (lightboxIdx + 1) % data.seeker.Images.length;
+	}
 </script>
 
 <svelte:head>
 	<title>{data.seeker.Title} – LejeMatch</title>
 </svelte:head>
+
+<svelte:window
+	onkeydown={(e) => {
+		if (lightboxIdx === null) return;
+		if (e.key === 'Escape') lightboxIdx = null;
+		if (e.key === 'ArrowLeft') prevImage();
+		if (e.key === 'ArrowRight') nextImage();
+	}}
+/>
 
 <div class="max-w-5xl mx-auto px-4 py-6">
 	<a
@@ -53,8 +74,33 @@
 	</div>
 
 	{#if data.seeker.Images?.length}
-		<div class="h-[300px] bg-muted overflow-hidden mb-8">
-			<img src={data.seeker.Images[0]} alt={data.seeker.Title} class="w-full h-full object-cover" />
+		<div class="flex flex-col items-center mb-8">
+			<button
+				type="button"
+				onclick={() => (lightboxIdx = 0)}
+				class="relative w-full max-w-sm aspect-[3/4] overflow-hidden rounded-2xl bg-muted cursor-pointer"
+			>
+				<img
+					src={data.seeker.Images[0]}
+					alt={data.seeker.Title}
+					class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+				/>
+			</button>
+			{#if data.seeker.Images.length > 1}
+				<button
+					type="button"
+					onclick={() => (lightboxIdx = 0)}
+					class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
+				>
+					Vis alle billeder ({data.seeker.Images.length})
+				</button>
+			{/if}
+		</div>
+	{:else}
+		<div class="h-[300px] bg-muted flex items-center justify-center mb-8">
+			<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+			</svg>
 		</div>
 	{/if}
 
@@ -159,3 +205,46 @@
 		</div>
 	</div>
 </div>
+
+{#if lightboxIdx !== null}
+	<div
+		class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+		onclick={() => (lightboxIdx = null)}
+		role="dialog"
+		aria-modal="true"
+	>
+		<button
+			class="absolute top-4 right-4 text-white/80 hover:text-white"
+			onclick={() => (lightboxIdx = null)}
+		>
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</button>
+		{#if data.seeker.Images.length > 1}
+			<button
+				class="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-white/10 p-2"
+				onclick={(e) => { e.stopPropagation(); prevImage(); }}
+			>
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+				</svg>
+			</button>
+			<button
+				class="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-white/10 p-2"
+				onclick={(e) => { e.stopPropagation(); nextImage(); }}
+			>
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+				</svg>
+			</button>
+		{/if}
+		<img
+			src={data.seeker.Images[lightboxIdx]}
+			alt="{data.seeker.Title} {lightboxIdx + 1}"
+			class="max-w-[90vw] max-h-[85vh] object-contain"
+			onclick={(e) => e.stopPropagation()}
+		/>
+		<p class="absolute bottom-4 text-white/60 text-sm">{lightboxIdx + 1} / {data.seeker.Images.length}</p>
+	</div>
+{/if}
