@@ -74,8 +74,8 @@
 	</div>
 
 	{#if data.seeker.Images?.length}
-		<div class="flex flex-col items-center mb-8">
-			<div class="flex gap-2 w-full max-w-lg h-72 sm:h-80 justify-center">
+		<div class="flex flex-col items-start mb-8">
+			<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
 				<button
 					type="button"
 					onclick={() => (lightboxIdx = 0)}
