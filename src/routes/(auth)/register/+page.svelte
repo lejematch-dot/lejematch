@@ -103,19 +103,6 @@
 					/>
 				</div>
 				<div>
-					<span class="block text-sm font-medium text-foreground mb-1">Jeg er</span>
-					<div class="grid grid-cols-2 gap-4">
-						<label class="flex items-center gap-2 text-sm border border-border rounded-md px-3 py-2 cursor-pointer">
-							<input type="radio" name="userType" value="tenant" checked class="accent-primary" />
-							Lejer
-						</label>
-						<label class="flex items-center gap-2 text-sm border border-border rounded-md px-3 py-2 cursor-pointer">
-							<input type="radio" name="userType" value="landlord" class="accent-primary" />
-							Udlejer
-						</label>
-					</div>
-				</div>
-				<div>
 					<label for="password" class="block text-sm font-medium text-foreground mb-1">Adgangskode</label>
 					<input
 						id="password"

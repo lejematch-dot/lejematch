@@ -15,7 +15,6 @@ export const actions: Actions = {
 		const phone = String(data.get('phone') ?? '');
 		const password = String(data.get('password') ?? '');
 		const city = String(data.get('city') ?? '');
-		const userType = String(data.get('userType') ?? 'tenant');
 
 		try {
 			await registerUser({
@@ -25,7 +24,7 @@ export const actions: Actions = {
 				Phone: phone,
 				Password: password,
 				City: city,
-				UserType: userType
+				UserType: 'tenant'
 			});
 		} catch {
 			return fail(400, { error: 'Kunne ikke oprette konto. Prøv igen.' });
