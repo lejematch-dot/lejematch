@@ -9,6 +9,7 @@
 
 	let mobileOpen = $state(false);
 	let profileMenuOpen = $state(false);
+	let profileMenuEl: HTMLElement | undefined = $state();
 
 	const isActive = (path: string) => $page.url.pathname === path;
 	const isProfileSection = $derived(isActive('/dashboard') || isActive('/dashboard/indstillinger'));
@@ -17,6 +18,14 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
+
+<svelte:window
+	onclick={(e) => {
+		if (profileMenuOpen && profileMenuEl && !profileMenuEl.contains(e.target as Node)) {
+			profileMenuOpen = false;
+		}
+	}}
+/>
 
 <div class="min-h-screen bg-background flex flex-col">
 	<header class="sticky top-0 z-50 bg-background border-b border-border">
@@ -72,7 +81,7 @@
 							Rapporter
 						</a>
 					{/if}
-					<div class="relative">
+					<div class="relative" bind:this={profileMenuEl}>
 						<button
 							type="button"
 							onclick={() => (profileMenuOpen = !profileMenuOpen)}
