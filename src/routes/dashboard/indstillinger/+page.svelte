@@ -137,38 +137,13 @@
 					initialUrls={data.profile.imageURL ? [data.profile.imageURL] : []}
 				/>
 			</div>
-			<div class="grid grid-cols-2 gap-4">
-				<div>
-					<label for="Age" class="block text-sm font-medium text-foreground mb-1">Alder</label>
-					<input
-						id="Age"
-						name="Age"
-						type="number"
-						value={data.profile.age ?? ''}
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					/>
-				</div>
-				<div>
-					<label for="UserType" class="block text-sm font-medium text-foreground mb-1">Jeg er</label>
-					<select
-						id="UserType"
-						name="UserType"
-						value={data.profile.userType}
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					>
-						<option value="tenant">Lejer</option>
-						<option value="landlord">Udlejer</option>
-					</select>
-				</div>
-			</div>
 			<div>
-				<label for="FacebookURL" class="block text-sm font-medium text-foreground mb-1">Facebook link</label>
+				<label for="Age" class="block text-sm font-medium text-foreground mb-1">Alder</label>
 				<input
-					id="FacebookURL"
-					name="FacebookURL"
-					type="text"
-					value={data.profile.facebookURL}
-					placeholder="https://facebook.com/..."
+					id="Age"
+					name="Age"
+					type="number"
+					value={data.profile.age ?? ''}
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>

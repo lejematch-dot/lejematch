@@ -52,15 +52,11 @@ export const actions: Actions = {
 		const city = String(data.get('City') ?? '');
 		const imageURL = String(data.get('ImageURL') ?? '');
 		const age = String(data.get('Age') ?? '');
-		const userType = String(data.get('UserType') ?? '');
-		const facebookUrl = String(data.get('FacebookURL') ?? '');
 		if (displayName) profileData.DisplayName = displayName;
 		if (bio) profileData.Bio = bio;
 		if (city) profileData.City = city;
 		if (imageURL) profileData.ImageURL = imageURL;
 		if (age) profileData.Age = Number(age);
-		if (userType) profileData.UserType = userType;
-		if (facebookUrl) profileData.FacebookURL = facebookUrl;
 
 		try {
 			await updateUserProfile(locals.user.sub, profileData, token);
