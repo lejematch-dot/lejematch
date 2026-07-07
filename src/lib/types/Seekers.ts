@@ -22,7 +22,7 @@ export interface Seeker {
 	NumPeople?: number | null;
 	FurnishedPreference?: FurnishedPreference | '';
 	RentalPeriod?: RentalPeriod | '';
-	FacebookURL?: string;
+	RentalPeriodDetails?: string;
 }
 
 export interface SeekersResponse {
@@ -55,7 +55,7 @@ export interface CreateSeekerRequest {
 	NumPeople?: number;
 	FurnishedPreference?: FurnishedPreference;
 	RentalPeriod?: RentalPeriod;
-	FacebookURL?: string;
+	RentalPeriodDetails?: string;
 }
 
 export interface ContactSeekerRequest {

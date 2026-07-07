@@ -30,6 +30,7 @@
 	];
 
 	let boligKategori = $state<'room' | 'hele'>('room');
+	let rentalPeriod = $state('');
 </script>
 
 <svelte:head>
@@ -214,6 +215,7 @@
 				<select
 					id="RentalPeriod"
 					name="RentalPeriod"
+					bind:value={rentalPeriod}
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				>
 					<option value="">Vælg...</option>
@@ -221,6 +223,19 @@
 					<option value="limited">Tidsbegrænset</option>
 				</select>
 			</div>
+
+			{#if rentalPeriod === 'limited'}
+				<div>
+					<label for="RentalPeriodDetails" class="block text-sm font-medium text-foreground mb-1">Angiv periode</label>
+					<input
+						id="RentalPeriodDetails"
+						name="RentalPeriodDetails"
+						type="text"
+						placeholder="F.eks. 6 måneder, til 31. december 2026"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			{/if}
 
 			<div class="grid grid-cols-2 gap-4">
 				<div>
@@ -257,17 +272,6 @@
 					name="TargetAudience"
 					type="text"
 					placeholder="F.eks. Studerende, par, rolig person"
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
-			</div>
-
-			<div>
-				<label for="FacebookURL" class="block text-sm font-medium text-foreground mb-1">Facebook link</label>
-				<input
-					id="FacebookURL"
-					name="FacebookURL"
-					type="text"
-					placeholder="https://facebook.com/..."
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>

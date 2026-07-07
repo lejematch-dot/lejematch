@@ -46,11 +46,11 @@ export const actions: Actions = {
 		const sizeSqmRaw = String(data.get('SizeSqm') ?? '');
 		const depositRaw = String(data.get('Deposit') ?? '');
 		const rentalPeriod = String(data.get('RentalPeriod') ?? '');
+		const rentalPeriodDetails = String(data.get('RentalPeriodDetails') ?? '');
 		const landlordType = String(data.get('LandlordType') ?? '');
 		const furnishedPreference = String(data.get('FurnishedPreference') ?? '');
 		const facilities = data.getAll('Facilities').map(String);
 		const targetAudience = String(data.get('TargetAudience') ?? '');
-		const facebookUrl = String(data.get('FacebookURL') ?? '');
 
 		if (!title || !description || !price || !city || !roomType || !availableFrom) {
 			return fail(400, { error: 'Udfyld venligst alle påkrævede felter.' });
@@ -74,11 +74,11 @@ export const actions: Actions = {
 					SizeSqm: sizeSqmRaw ? Number(sizeSqmRaw) : undefined,
 					Deposit: depositRaw ? Number(depositRaw) : undefined,
 					RentalPeriod: (rentalPeriod || undefined) as Listing['RentalPeriod'],
+					RentalPeriodDetails: rentalPeriodDetails || undefined,
 					LandlordType: (landlordType || undefined) as Listing['LandlordType'],
 					FurnishedPreference: (furnishedPreference || undefined) as Listing['FurnishedPreference'],
 					Facilities: facilities.length ? facilities : undefined,
-					TargetAudience: targetAudience || undefined,
-					FacebookURL: facebookUrl || undefined
+					TargetAudience: targetAudience || undefined
 				},
 				token
 			);

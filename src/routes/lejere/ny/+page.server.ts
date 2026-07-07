@@ -25,7 +25,7 @@ export const actions: Actions = {
 		const numPeopleRaw = String(data.get('NumPeople') ?? '');
 		const furnishedPreference = String(data.get('FurnishedPreference') ?? '');
 		const rentalPeriod = String(data.get('RentalPeriod') ?? '');
-		const facebookUrl = String(data.get('FacebookURL') ?? '');
+		const rentalPeriodDetails = String(data.get('RentalPeriodDetails') ?? '');
 
 		if (!title || !description || !city || !maxBudget || !roomType || !moveInFrom) {
 			return fail(400, { error: 'Udfyld venligst alle påkrævede felter.' });
@@ -49,7 +49,7 @@ export const actions: Actions = {
 						| 'any'
 						| undefined,
 					RentalPeriod: (rentalPeriod || undefined) as 'unlimited' | 'limited' | undefined,
-					FacebookURL: facebookUrl || undefined
+					RentalPeriodDetails: rentalPeriodDetails || undefined
 				},
 				token
 			);

@@ -8,6 +8,7 @@
 	let boligKategori = $state<'room' | 'hele'>(
 		data.seeker.SeekingType === 'roommate' ? 'room' : 'hele'
 	);
+	let rentalPeriod = $state(data.seeker.RentalPeriod ?? '');
 </script>
 
 <svelte:head>
@@ -169,7 +170,7 @@
 					<select
 						id="RentalPeriod"
 						name="RentalPeriod"
-						value={data.seeker.RentalPeriod ?? ''}
+						bind:value={rentalPeriod}
 						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 					>
 						<option value="">Vælg...</option>
@@ -179,16 +180,19 @@
 				</div>
 			</div>
 
-			<div>
-				<label for="FacebookURL" class="block text-sm font-medium text-foreground mb-1">Facebook link</label>
-				<input
-					id="FacebookURL"
-					name="FacebookURL"
-					type="text"
-					value={data.seeker.FacebookURL ?? ''}
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
-			</div>
+			{#if rentalPeriod === 'limited'}
+				<div>
+					<label for="RentalPeriodDetails" class="block text-sm font-medium text-foreground mb-1">Angiv periode</label>
+					<input
+						id="RentalPeriodDetails"
+						name="RentalPeriodDetails"
+						type="text"
+						value={data.seeker.RentalPeriodDetails ?? ''}
+						placeholder="F.eks. 6 måneder, til 31. december 2026"
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			{/if}
 		</section>
 
 		<section class="border border-border p-6 space-y-4">

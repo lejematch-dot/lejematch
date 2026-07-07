@@ -30,11 +30,11 @@ export interface Listing {
 	SizeSqm?: number | null;
 	Deposit?: number | null;
 	RentalPeriod?: RentalPeriod | '';
+	RentalPeriodDetails?: string;
 	LandlordType?: LandlordType | '';
 	FurnishedPreference?: FurnishedPreference | '';
 	Facilities?: string[];
 	TargetAudience?: string;
-	FacebookURL?: string;
 }
 
 export interface ListingsResponse {

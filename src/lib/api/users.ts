@@ -42,7 +42,6 @@ export function updateUserProfile(
 		ImageURL?: string;
 		Age?: number;
 		UserType?: string;
-		FacebookURL?: string;
 	},
 	token: string
 ): Promise<void> {
@@ -63,7 +62,6 @@ export function registerUser(data: {
 	ImageURL?: string;
 	Age?: number;
 	UserType?: string;
-	FacebookURL?: string;
 }): Promise<{ id: number; createdAt: string }> {
 	return apiFetch<{ id: number; createdAt: string }>('/users', {
 		method: 'POST',
