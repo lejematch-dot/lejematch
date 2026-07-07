@@ -74,46 +74,67 @@
 		Tilbage
 	</a>
 
-	<div class="flex items-start justify-between gap-4 mb-4">
-		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.listing.Title}</h1>
+	<div class="relative mb-4">
+		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide text-center">{data.listing.Title}</h1>
 		{#if data.user}
-			<div class="shrink-0">
+			<div class="absolute top-0 right-0 shrink-0">
 				<FavoriteButton favoriteType="listing" favoriteId={data.listing.ID} initialFavorited={data.isFavorite} variant="plain" />
 			</div>
 		{/if}
 	</div>
 
 	{#if data.listing.Images?.length}
-		<div class="relative mb-8">
-			<div class="grid grid-cols-4 grid-rows-2 gap-2 max-h-[420px] overflow-hidden">
-				<div
-					class="col-span-2 row-span-2 cursor-pointer overflow-hidden"
+		<div class="flex flex-col items-center mb-8">
+			<div class="flex gap-2 w-full max-w-lg h-72 sm:h-80 justify-center">
+				<button
+					type="button"
 					onclick={() => (lightboxIdx = 0)}
-					role="button"
-					tabindex="0"
-					onkeydown={(e) => e.key === 'Enter' && (lightboxIdx = 0)}
+					class="flex-[2] h-full overflow-hidden rounded-2xl bg-muted cursor-pointer"
 				>
-					<img src={data.listing.Images[0]} alt={data.listing.Title} class="w-full h-full object-cover hover:opacity-90 transition-opacity" style="min-height:420px" />
-				</div>
-				{#each data.listing.Images.slice(1, 5) as img, i}
-					<div
-						class="cursor-pointer overflow-hidden"
-						onclick={() => (lightboxIdx = i + 1)}
-						role="button"
-						tabindex="0"
-						onkeydown={(e) => e.key === 'Enter' && (lightboxIdx = i + 1)}
-					>
-						<img src={img} alt="{data.listing.Title} {i + 2}" class="w-full h-full object-cover hover:opacity-90 transition-opacity" style="min-height:207px" />
+					<img
+						src={data.listing.Images[0]}
+						alt={data.listing.Title}
+						class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+					/>
+				</button>
+				{#if data.listing.Images.length > 1}
+					<div class="flex-1 flex flex-col gap-2 h-full">
+						<button
+							type="button"
+							onclick={() => (lightboxIdx = 1)}
+							class="flex-1 overflow-hidden rounded-xl bg-muted cursor-pointer"
+						>
+							<img
+								src={data.listing.Images[1]}
+								alt="{data.listing.Title} 2"
+								class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+							/>
+						</button>
+						{#if data.listing.Images.length > 2}
+							<button
+								type="button"
+								onclick={() => (lightboxIdx = 2)}
+								class="flex-1 overflow-hidden rounded-xl bg-muted cursor-pointer"
+							>
+								<img
+									src={data.listing.Images[2]}
+									alt="{data.listing.Title} 3"
+									class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+								/>
+							</button>
+						{/if}
 					</div>
-				{/each}
-				{#each Array(Math.max(0, Math.min(4, 5 - data.listing.Images.length))) as _, i (i)}
-					<div class="bg-muted flex items-center justify-center">
-						<svg class="w-8 h-8 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-						</svg>
-					</div>
-				{/each}
+				{/if}
 			</div>
+			{#if data.listing.Images.length > 3}
+				<button
+					type="button"
+					onclick={() => (lightboxIdx = 0)}
+					class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
+				>
+					Vis alle billeder ({data.listing.Images.length})
+				</button>
+			{/if}
 		</div>
 	{:else}
 		<div class="h-[300px] bg-muted flex items-center justify-center mb-8">

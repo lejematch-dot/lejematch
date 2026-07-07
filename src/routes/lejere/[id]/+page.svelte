@@ -64,10 +64,10 @@
 		Tilbage
 	</a>
 
-	<div class="flex items-start justify-between gap-4 mb-4">
-		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.seeker.Title}</h1>
+	<div class="relative mb-4">
+		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide text-center">{data.seeker.Title}</h1>
 		{#if data.user}
-			<div class="shrink-0">
+			<div class="absolute top-0 right-0 shrink-0">
 				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
 			</div>
 		{/if}
