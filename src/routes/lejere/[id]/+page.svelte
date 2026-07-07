@@ -75,18 +75,48 @@
 
 	{#if data.seeker.Images?.length}
 		<div class="flex flex-col items-center mb-8">
-			<button
-				type="button"
-				onclick={() => (lightboxIdx = 0)}
-				class="relative w-full max-w-sm aspect-[3/4] overflow-hidden rounded-2xl bg-muted cursor-pointer"
-			>
-				<img
-					src={data.seeker.Images[0]}
-					alt={data.seeker.Title}
-					class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-				/>
-			</button>
-			{#if data.seeker.Images.length > 1}
+			<div class="flex gap-2 w-full max-w-lg h-72 sm:h-80 justify-center">
+				<button
+					type="button"
+					onclick={() => (lightboxIdx = 0)}
+					class="flex-[2] h-full overflow-hidden rounded-2xl bg-muted cursor-pointer"
+				>
+					<img
+						src={data.seeker.Images[0]}
+						alt={data.seeker.Title}
+						class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+					/>
+				</button>
+				{#if data.seeker.Images.length > 1}
+					<div class="flex-1 flex flex-col gap-2 h-full">
+						<button
+							type="button"
+							onclick={() => (lightboxIdx = 1)}
+							class="flex-1 overflow-hidden rounded-xl bg-muted cursor-pointer"
+						>
+							<img
+								src={data.seeker.Images[1]}
+								alt="{data.seeker.Title} 2"
+								class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+							/>
+						</button>
+						{#if data.seeker.Images.length > 2}
+							<button
+								type="button"
+								onclick={() => (lightboxIdx = 2)}
+								class="flex-1 overflow-hidden rounded-xl bg-muted cursor-pointer"
+							>
+								<img
+									src={data.seeker.Images[2]}
+									alt="{data.seeker.Title} 3"
+									class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+								/>
+							</button>
+						{/if}
+					</div>
+				{/if}
+			</div>
+			{#if data.seeker.Images.length > 3}
 				<button
 					type="button"
 					onclick={() => (lightboxIdx = 0)}
