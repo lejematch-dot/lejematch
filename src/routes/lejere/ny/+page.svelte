@@ -108,10 +108,6 @@
 					<input type="hidden" name="SeekingType" value="bolig" />
 				{/if}
 			</div>
-		</section>
-
-		<section class="border border-border p-6 space-y-4">
-			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Detaljer</h2>
 
 			<div class="grid grid-cols-2 gap-4">
 				<div>

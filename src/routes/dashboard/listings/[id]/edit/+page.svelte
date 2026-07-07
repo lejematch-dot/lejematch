@@ -163,51 +163,6 @@
 					</select>
 				</div>
 			</div>
-		</section>
-
-		<!-- Location -->
-		<section class="border border-border p-6 space-y-4">
-			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Placering</h2>
-
-			<div>
-				<label for="City" class="block text-sm font-medium text-foreground mb-1">By *</label>
-				<input
-					id="City"
-					name="City"
-					type="text"
-					required
-					value={data.listing.City}
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
-			</div>
-
-			<div class="grid grid-cols-2 gap-4">
-				<div>
-					<label for="Zip" class="block text-sm font-medium text-foreground mb-1">Postnummer</label>
-					<input
-						id="Zip"
-						name="Zip"
-						type="text"
-						value={data.listing.Zip}
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					/>
-				</div>
-				<div>
-					<label for="Area" class="block text-sm font-medium text-foreground mb-1">Område</label>
-					<input
-						id="Area"
-						name="Area"
-						type="text"
-						value={data.listing.Area}
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					/>
-				</div>
-			</div>
-		</section>
-
-		<!-- Extra details -->
-		<section class="border border-border p-6 space-y-4">
-			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Detaljer</h2>
 
 			<div class="grid grid-cols-2 gap-4">
 				<div>
@@ -300,7 +255,46 @@
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
 			</div>
+		</section>
 
+		<!-- Location -->
+		<section class="border border-border p-6 space-y-4">
+			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Placering</h2>
+
+			<div>
+				<label for="City" class="block text-sm font-medium text-foreground mb-1">By *</label>
+				<input
+					id="City"
+					name="City"
+					type="text"
+					required
+					value={data.listing.City}
+					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+				/>
+			</div>
+
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="Zip" class="block text-sm font-medium text-foreground mb-1">Postnummer</label>
+					<input
+						id="Zip"
+						name="Zip"
+						type="text"
+						value={data.listing.Zip}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+				<div>
+					<label for="Area" class="block text-sm font-medium text-foreground mb-1">Område</label>
+					<input
+						id="Area"
+						name="Area"
+						type="text"
+						value={data.listing.Area}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			</div>
 		</section>
 
 		<!-- Facilities -->
