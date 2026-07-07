@@ -121,12 +121,20 @@
 		<div class="grid grid-cols-2 gap-px bg-border border border-border mb-4">
 			<a
 				href={buildUrl('hele')}
+				onclick={(e) => {
+					e.preventDefault();
+					goto(buildUrl('hele'), { replaceState: true, noScroll: true });
+				}}
 				class="px-4 py-3 text-xs font-bold uppercase tracking-widest transition-colors text-center {data.category === 'hele' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
 			>
 				Hel bolig
 			</a>
 			<a
 				href={buildUrl('vaerelse')}
+				onclick={(e) => {
+					e.preventDefault();
+					goto(buildUrl('vaerelse'), { replaceState: true, noScroll: true });
+				}}
 				class="px-4 py-3 text-xs font-bold uppercase tracking-widest transition-colors text-center {data.category === 'vaerelse' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
 			>
 				Værelse i bofællesskab
