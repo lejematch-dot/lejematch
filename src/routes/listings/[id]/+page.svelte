@@ -152,7 +152,9 @@
 				</span>
 				{#if data.listing.RentalPeriod}
 					<span class="bg-muted px-4 py-2 text-sm">
-						{rentalPeriodLabel[data.listing.RentalPeriod] ?? data.listing.RentalPeriod}
+						{rentalPeriodLabel[data.listing.RentalPeriod] ?? data.listing.RentalPeriod}{#if data.listing.RentalPeriod === 'limited' && data.listing.RentalPeriodDetails}
+							: {data.listing.RentalPeriodDetails}
+						{/if}
 					</span>
 				{/if}
 				{#if data.listing.Deposit}

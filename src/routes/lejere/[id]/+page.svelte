@@ -78,7 +78,9 @@
 				</span>
 				{#if data.seeker.RentalPeriod}
 					<span class="bg-muted px-4 py-2 text-sm">
-						{rentalPeriodLabel[data.seeker.RentalPeriod] ?? data.seeker.RentalPeriod}
+						{rentalPeriodLabel[data.seeker.RentalPeriod] ?? data.seeker.RentalPeriod}{#if data.seeker.RentalPeriod === 'limited' && data.seeker.RentalPeriodDetails}
+							: {data.seeker.RentalPeriodDetails}
+						{/if}
 					</span>
 				{/if}
 			</div>
