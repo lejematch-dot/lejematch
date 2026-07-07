@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request, locals, cookies }) => {
 		// Make it absolute so it resolves correctly wherever the image is later
 		// rendered (this app's origin differs from the API's origin).
 		return json({ url: `${API_BASE_URL}${result.url}` });
-	} catch {
-		error(400, 'Kunne ikke uploade billedet');
+	} catch (e) {
+		error(400, e instanceof Error ? e.message : 'Kunne ikke uploade billedet');
 	}
 };

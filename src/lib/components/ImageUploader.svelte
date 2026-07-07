@@ -28,12 +28,15 @@
 				const formData = new FormData();
 				formData.append('file', file);
 				const res = await fetch('/api/uploads', { method: 'POST', body: formData });
-				if (!res.ok) throw new Error('upload failed');
+				if (!res.ok) {
+					const body = await res.json().catch(() => null);
+					throw new Error(body?.message || 'Kunne ikke uploade billedet. Prøv igen.');
+				}
 				const { url } = await res.json();
 				images = multiple ? [...images, url] : [url];
 			}
-		} catch {
-			error = 'Kunne ikke uploade billedet. Prøv igen.';
+		} catch (e) {
+			error = e instanceof Error ? e.message : 'Kunne ikke uploade billedet. Prøv igen.';
 		} finally {
 			uploading = false;
 			if (fileInput) fileInput.value = '';

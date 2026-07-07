@@ -11,8 +11,8 @@ export async function uploadImage(file: File, token: string): Promise<{ url: str
 	});
 
 	if (!res.ok) {
-		const text = await res.text().catch(() => res.statusText);
-		throw new Error(`Upload ${res.status}: ${text}`);
+		const body = await res.json().catch(() => null);
+		throw new Error(body?.error || res.statusText || 'Upload fejlede');
 	}
 
 	return res.json();
