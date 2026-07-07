@@ -280,11 +280,11 @@
 			<p class="text-sm text-muted-foreground mt-1">Prøv at ændre dine søgekriterier</p>
 		</div>
 	{:else}
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 			{#each data.listings as listing (listing.ID)}
 				<a
 					href="/listings/{listing.ID}"
-					class="group bg-background hover:bg-muted transition-colors block"
+					class="group bg-background border border-border hover:bg-muted transition-colors block"
 				>
 					<div class="aspect-[4/3] bg-muted relative overflow-hidden">
 						{#if listing.Images?.length}
