@@ -1,5 +1,6 @@
 import { getFavorites } from '$lib/api/favorites';
 import { contactListing, getListing } from '$lib/api/listings';
+import { getUserProfile } from '$lib/api/users';
 import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -16,7 +17,9 @@ export const load: PageServerLoad = async ({ params, locals, cookies }) => {
 			isFavorite = favorites.some((f) => f.FavoriteType === 'listing' && f.FavoriteID === id);
 		}
 
-		return { listing, isFavorite };
+		const posterProfile = await getUserProfile(listing.UserID).catch(() => null);
+
+		return { listing, isFavorite, posterProfile };
 	} catch {
 		error(404, 'Bolig ikke fundet');
 	}

@@ -64,120 +64,78 @@
 		Tilbage
 	</a>
 
-	<div class="relative mb-4">
-		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide text-center">{data.seeker.Title}</h1>
+	<div class="flex items-start justify-between gap-4 mb-4">
+		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.seeker.Title}</h1>
 		{#if data.user}
-			<div class="absolute top-0 right-0 shrink-0">
+			<div class="shrink-0">
 				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
 			</div>
 		{/if}
 	</div>
 
-	{#if data.seeker.Images?.length}
-		<div class="flex flex-col items-start mb-8">
-			<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
-				<button
-					type="button"
-					onclick={() => (lightboxIdx = 0)}
-					class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
-				>
-					<img
-						src={data.seeker.Images[0]}
-						alt={data.seeker.Title}
-						class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-					/>
-				</button>
-				{#if data.seeker.Images.length > 1}
-					<div class="flex-1 flex flex-col gap-2 h-full">
-						<button
-							type="button"
-							onclick={() => (lightboxIdx = 1)}
-							class="flex-1 overflow-hidden bg-muted cursor-pointer"
-						>
-							<img
-								src={data.seeker.Images[1]}
-								alt="{data.seeker.Title} 2"
-								class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-							/>
-						</button>
-						{#if data.seeker.Images.length > 2}
+	<div class="flex flex-col lg:flex-row gap-6 mb-8">
+		{#if data.seeker.Images?.length}
+			<div class="flex flex-col items-start">
+				<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
+					<button
+						type="button"
+						onclick={() => (lightboxIdx = 0)}
+						class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
+					>
+						<img
+							src={data.seeker.Images[0]}
+							alt={data.seeker.Title}
+							class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+						/>
+					</button>
+					{#if data.seeker.Images.length > 1}
+						<div class="flex-1 flex flex-col gap-2 h-full">
 							<button
 								type="button"
-								onclick={() => (lightboxIdx = 2)}
+								onclick={() => (lightboxIdx = 1)}
 								class="flex-1 overflow-hidden bg-muted cursor-pointer"
 							>
 								<img
-									src={data.seeker.Images[2]}
-									alt="{data.seeker.Title} 3"
+									src={data.seeker.Images[1]}
+									alt="{data.seeker.Title} 2"
 									class="w-full h-full object-cover hover:opacity-90 transition-opacity"
 								/>
 							</button>
-						{/if}
-					</div>
-				{/if}
-			</div>
-			{#if data.seeker.Images.length > 3}
-				<button
-					type="button"
-					onclick={() => (lightboxIdx = 0)}
-					class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
-				>
-					Vis alle billeder ({data.seeker.Images.length})
-				</button>
-			{/if}
-		</div>
-	{:else}
-		<div class="h-[300px] bg-muted flex items-center justify-center mb-8">
-			<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-			</svg>
-		</div>
-	{/if}
-
-	<div class="grid lg:grid-cols-3 gap-8">
-		<div class="lg:col-span-2 space-y-6">
-			<div class="flex items-center gap-2 text-muted-foreground">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-				</svg>
-				<span>{data.seeker.City}</span>
-			</div>
-
-			<div class="flex flex-wrap gap-3">
-				<span class="bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm">
-					Max {data.seeker.MaxBudget.toLocaleString('da-DK')} kr/md
-				</span>
-				<span class="bg-muted px-4 py-2 text-sm">
-					{seekingTypeLabel[data.seeker.SeekingType ?? ''] ?? 'Hel bolig'}{#if (data.seeker.SeekingType === 'roommate' || data.seeker.SeekingType === 'begge') && data.seeker.NumRooms && data.seeker.NumRooms > 1}
-						({data.seeker.NumRooms} værelser)
+							{#if data.seeker.Images.length > 2}
+								<button
+									type="button"
+									onclick={() => (lightboxIdx = 2)}
+									class="flex-1 overflow-hidden bg-muted cursor-pointer"
+								>
+									<img
+										src={data.seeker.Images[2]}
+										alt="{data.seeker.Title} 3"
+										class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+									/>
+								</button>
+							{/if}
+						</div>
 					{/if}
-				</span>
-				<span class="bg-muted px-4 py-2 text-sm">
-					Indflytning fra: {moveInFrom}
-				</span>
-				{#if data.seeker.RentalPeriod}
-					<span class="bg-muted px-4 py-2 text-sm">
-						{rentalPeriodLabel[data.seeker.RentalPeriod] ?? data.seeker.RentalPeriod}{#if data.seeker.RentalPeriod === 'limited' && data.seeker.RentalPeriodDetails}
-							: {data.seeker.RentalPeriodDetails}
-						{/if}
-					</span>
+				</div>
+				{#if data.seeker.Images.length > 3}
+					<button
+						type="button"
+						onclick={() => (lightboxIdx = 0)}
+						class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
+					>
+						Vis alle billeder ({data.seeker.Images.length})
+					</button>
 				{/if}
 			</div>
-
-			<div class="border-t border-border pt-6">
-				<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
-				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.seeker.Description}</p>
+		{:else}
+			<div class="w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem] bg-muted flex items-center justify-center shrink-0">
+				<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+				</svg>
 			</div>
+		{/if}
 
-			{#if data.user && !isOwner}
-				<div>
-					<ReportButton targetType="seeker" targetId={data.seeker.ID} />
-				</div>
-			{/if}
-		</div>
-
-		<div class="space-y-4">
+		<div class="w-full lg:w-72 shrink-0 space-y-4">
 			{#if isOwner}
 				<div class="border border-border p-5">
 					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
@@ -189,6 +147,36 @@
 					</a>
 				</div>
 			{:else}
+				<div class="border border-border p-5">
+					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-4">Lejer</h3>
+					<a
+						href="/profil/{data.seeker.UserID}"
+						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
+					>
+						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
+							{#if data.posterProfile?.imageURL}
+								<img src={data.posterProfile.imageURL} alt="" class="w-full h-full object-cover" />
+							{:else}
+								<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+								</svg>
+							{/if}
+						</div>
+						<div>
+							<p class="font-semibold text-foreground">{data.posterProfile?.displayName || 'Bruger'}</p>
+							{#if data.posterProfile?.age}
+								<p class="text-sm text-muted-foreground">{data.posterProfile.age} år</p>
+							{/if}
+						</div>
+					</a>
+					<a
+						href="/profil/{data.seeker.UserID}"
+						class="block w-full text-center border border-border px-4 py-2 text-xs font-medium uppercase tracking-wide hover:bg-muted transition-colors"
+					>
+						Se lejer
+					</a>
+				</div>
+
 				<div class="border border-border p-5">
 					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt lejer</h3>
 
@@ -233,6 +221,48 @@
 				</div>
 			{/if}
 		</div>
+	</div>
+
+	<div class="space-y-6">
+		<div class="flex items-center gap-2 text-muted-foreground">
+			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+			</svg>
+			<span>{data.seeker.City}</span>
+		</div>
+
+		<div class="flex flex-wrap gap-3">
+			<span class="bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm">
+				Max {data.seeker.MaxBudget.toLocaleString('da-DK')} kr/md
+			</span>
+			<span class="bg-muted px-4 py-2 text-sm">
+				{seekingTypeLabel[data.seeker.SeekingType ?? ''] ?? 'Hel bolig'}{#if (data.seeker.SeekingType === 'roommate' || data.seeker.SeekingType === 'begge') && data.seeker.NumRooms && data.seeker.NumRooms > 1}
+					({data.seeker.NumRooms} værelser)
+				{/if}
+			</span>
+			<span class="bg-muted px-4 py-2 text-sm">
+				Indflytning fra: {moveInFrom}
+			</span>
+			{#if data.seeker.RentalPeriod}
+				<span class="bg-muted px-4 py-2 text-sm">
+					{rentalPeriodLabel[data.seeker.RentalPeriod] ?? data.seeker.RentalPeriod}{#if data.seeker.RentalPeriod === 'limited' && data.seeker.RentalPeriodDetails}
+						: {data.seeker.RentalPeriodDetails}
+					{/if}
+				</span>
+			{/if}
+		</div>
+
+		<div class="border-t border-border pt-6">
+			<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
+			<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.seeker.Description}</p>
+		</div>
+
+		{#if data.user && !isOwner}
+			<div>
+				<ReportButton targetType="seeker" targetId={data.seeker.ID} />
+			</div>
+		{/if}
 	</div>
 </div>
 

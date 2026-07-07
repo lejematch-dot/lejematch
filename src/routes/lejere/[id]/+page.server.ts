@@ -1,5 +1,6 @@
 import { getFavorites } from '$lib/api/favorites';
 import { contactSeeker, getSeeker } from '$lib/api/seekers';
+import { getUserProfile } from '$lib/api/users';
 import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -16,7 +17,9 @@ export const load: PageServerLoad = async ({ params, locals, cookies }) => {
 			isFavorite = favorites.some((f) => f.FavoriteType === 'seeker' && f.FavoriteID === id);
 		}
 
-		return { seeker, isFavorite };
+		const posterProfile = await getUserProfile(seeker.UserID).catch(() => null);
+
+		return { seeker, isFavorite, posterProfile };
 	} catch {
 		error(404, 'Opslag ikke fundet');
 	}
