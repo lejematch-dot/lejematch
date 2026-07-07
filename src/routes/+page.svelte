@@ -1,3 +1,7 @@
+<script lang="ts">
+	import HowItWorksModal from '$lib/components/HowItWorksModal.svelte';
+</script>
+
 <svelte:head>
 	<title>LejeMatch – Find din næste bolig</title>
 </svelte:head>
@@ -42,6 +46,7 @@
 			>
 				Opret profil
 			</a>
+			<HowItWorksModal />
 		</div>
 	</div>
 </section>
