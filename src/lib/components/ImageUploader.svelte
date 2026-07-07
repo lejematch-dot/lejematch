@@ -2,11 +2,13 @@
 	let {
 		name = 'Images',
 		multiple = true,
-		initialUrls = []
+		initialUrls = [],
+		min = 0
 	}: {
 		name?: string;
 		multiple?: boolean;
 		initialUrls?: string[];
+		min?: number;
 	} = $props();
 
 	let images = $state<string[]>([...initialUrls]);
@@ -47,6 +49,12 @@
 	{#each images as url, i (url + i)}
 		<input type="hidden" {name} value={url} />
 	{/each}
+
+	{#if min > 0}
+		<p class="text-xs {images.length < min ? 'text-destructive' : 'text-muted-foreground'}">
+			{images.length} af mindst {min} billeder
+		</p>
+	{/if}
 
 	{#if images.length > 0}
 		<div class="grid grid-cols-3 sm:grid-cols-4 gap-2">

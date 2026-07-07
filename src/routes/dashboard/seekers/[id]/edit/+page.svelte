@@ -242,7 +242,7 @@
 
 		<section class="border border-border p-6 space-y-4">
 			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Billeder</h2>
-			<ImageUploader name="Images" initialUrls={data.seeker.Images ?? []} />
+			<ImageUploader name="Images" initialUrls={data.seeker.Images ?? []} min={3} />
 		</section>
 
 		<div class="flex gap-3 pt-2">

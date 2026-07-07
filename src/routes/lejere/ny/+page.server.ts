@@ -31,6 +31,9 @@ export const actions: Actions = {
 		if (!title || !description || !city || !maxBudget || !roomType || !moveInFrom || !seekingType) {
 			return fail(400, { error: 'Udfyld venligst alle påkrævede felter.' });
 		}
+		if (images.length < 3) {
+			return fail(400, { error: 'Tilføj mindst 3 billeder.' });
+		}
 
 		try {
 			await createSeeker(

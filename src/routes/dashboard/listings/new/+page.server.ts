@@ -38,6 +38,9 @@ export const actions: Actions = {
 		if (!title || !description || !price || !city || !roomType || !availableFrom) {
 			return fail(400, { error: 'Udfyld venligst alle påkrævede felter.' });
 		}
+		if (images.length < 5) {
+			return fail(400, { error: 'Tilføj mindst 5 billeder.' });
+		}
 
 		try {
 			await createListing(
