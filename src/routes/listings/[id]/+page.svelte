@@ -83,69 +83,132 @@
 		{/if}
 	</div>
 
-	<div class="flex flex-col lg:flex-row gap-6 mb-8">
-		{#if data.listing.Images?.length}
-			<div class="flex flex-col items-start">
-				<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
-					<button
-						type="button"
-						onclick={() => (lightboxIdx = 0)}
-						class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
-					>
-						<img
-							src={data.listing.Images[0]}
-							alt={data.listing.Title}
-							class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-						/>
-					</button>
-					{#if data.listing.Images.length > 1}
-						<div class="flex-1 flex flex-col gap-2 h-full">
+	{#if data.listing.Images?.length}
+		<div class="flex flex-col items-start mb-8">
+			<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
+				<button
+					type="button"
+					onclick={() => (lightboxIdx = 0)}
+					class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
+				>
+					<img
+						src={data.listing.Images[0]}
+						alt={data.listing.Title}
+						class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+					/>
+				</button>
+				{#if data.listing.Images.length > 1}
+					<div class="flex-1 flex flex-col gap-2 h-full">
+						<button
+							type="button"
+							onclick={() => (lightboxIdx = 1)}
+							class="flex-1 overflow-hidden bg-muted cursor-pointer"
+						>
+							<img
+								src={data.listing.Images[1]}
+								alt="{data.listing.Title} 2"
+								class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+							/>
+						</button>
+						{#if data.listing.Images.length > 2}
 							<button
 								type="button"
-								onclick={() => (lightboxIdx = 1)}
+								onclick={() => (lightboxIdx = 2)}
 								class="flex-1 overflow-hidden bg-muted cursor-pointer"
 							>
 								<img
-									src={data.listing.Images[1]}
-									alt="{data.listing.Title} 2"
+									src={data.listing.Images[2]}
+									alt="{data.listing.Title} 3"
 									class="w-full h-full object-cover hover:opacity-90 transition-opacity"
 								/>
 							</button>
-							{#if data.listing.Images.length > 2}
-								<button
-									type="button"
-									onclick={() => (lightboxIdx = 2)}
-									class="flex-1 overflow-hidden bg-muted cursor-pointer"
-								>
-									<img
-										src={data.listing.Images[2]}
-										alt="{data.listing.Title} 3"
-										class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-									/>
-								</button>
-							{/if}
-						</div>
-					{/if}
-				</div>
-				{#if data.listing.Images.length > 3}
-					<button
-						type="button"
-						onclick={() => (lightboxIdx = 0)}
-						class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
-					>
-						Vis alle billeder ({data.listing.Images.length})
-					</button>
+						{/if}
+					</div>
 				{/if}
 			</div>
-		{:else}
-			<div class="w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem] bg-muted flex items-center justify-center shrink-0">
-				<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-				</svg>
-			</div>
-		{/if}
+			{#if data.listing.Images.length > 3}
+				<button
+					type="button"
+					onclick={() => (lightboxIdx = 0)}
+					class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
+				>
+					Vis alle billeder ({data.listing.Images.length})
+				</button>
+			{/if}
+		</div>
+	{:else}
+		<div class="h-[300px] bg-muted flex items-center justify-center mb-8">
+			<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+			</svg>
+		</div>
+	{/if}
 
-		<div class="w-full lg:w-72 shrink-0 space-y-4">
+	<div class="grid lg:grid-cols-3 gap-8">
+		<div class="lg:col-span-2 space-y-6">
+			<div class="flex items-center gap-2 text-muted-foreground">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+				</svg>
+				<span>
+					{data.listing.Zip ? `${data.listing.Zip} ` : ''}{data.listing.City}{data.listing.Area
+						? `, ${data.listing.Area}`
+						: ''}
+				</span>
+			</div>
+
+			<div class="flex flex-wrap gap-3">
+				<span class="bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm">
+					{data.listing.Price.toLocaleString('da-DK')} kr/md
+				</span>
+				<span class="bg-muted px-4 py-2 text-sm">
+					{data.listing.ListingKind
+						? (listingKindLabel[data.listing.ListingKind] ?? data.listing.ListingKind)
+						: (roomTypeLabel[data.listing.RoomType] ?? data.listing.RoomType)}
+				</span>
+				{#if data.listing.SizeSqm}
+					<span class="bg-muted px-4 py-2 text-sm">{data.listing.SizeSqm} m²</span>
+				{/if}
+				{#if data.listing.ListingKind === 'room' && data.listing.RoommatesWanted}
+					<span class="bg-muted px-4 py-2 text-sm">Søger {data.listing.RoommatesWanted} nye roomies</span>
+				{/if}
+				<span class="bg-muted px-4 py-2 text-sm">
+					Ledig fra: {availableFrom}
+				</span>
+				{#if data.listing.RentalPeriod}
+					<span class="bg-muted px-4 py-2 text-sm">
+						{rentalPeriodLabel[data.listing.RentalPeriod] ?? data.listing.RentalPeriod}{#if data.listing.RentalPeriod === 'limited' && data.listing.RentalPeriodDetails}
+							: {data.listing.RentalPeriodDetails}
+						{/if}
+					</span>
+				{/if}
+				{#if data.listing.Deposit}
+					<span class="bg-muted px-4 py-2 text-sm">Depositum: {data.listing.Deposit.toLocaleString('da-DK')} kr</span>
+				{/if}
+			</div>
+
+			{#if data.listing.Facilities?.length}
+				<div class="flex flex-wrap gap-2">
+					{#each data.listing.Facilities as facility (facility)}
+						<span class="border border-border px-3 py-1 text-xs">{facility}</span>
+					{/each}
+				</div>
+			{/if}
+
+			<div class="border-t border-border pt-6">
+				<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
+				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.listing.Description}</p>
+			</div>
+
+			{#if data.user && !isOwner}
+				<div>
+					<ReportButton targetType="listing" targetId={data.listing.ID} />
+				</div>
+			{/if}
+		</div>
+
+		<div class="space-y-4">
 			{#if isOwner}
 				<div class="border border-border p-5">
 					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
@@ -231,69 +294,6 @@
 				</div>
 			{/if}
 		</div>
-	</div>
-
-	<div class="space-y-6">
-		<div class="flex items-center gap-2 text-muted-foreground">
-			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-			</svg>
-			<span>
-				{data.listing.Zip ? `${data.listing.Zip} ` : ''}{data.listing.City}{data.listing.Area
-					? `, ${data.listing.Area}`
-					: ''}
-			</span>
-		</div>
-
-		<div class="flex flex-wrap gap-3">
-			<span class="bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm">
-				{data.listing.Price.toLocaleString('da-DK')} kr/md
-			</span>
-			<span class="bg-muted px-4 py-2 text-sm">
-				{data.listing.ListingKind
-					? (listingKindLabel[data.listing.ListingKind] ?? data.listing.ListingKind)
-					: (roomTypeLabel[data.listing.RoomType] ?? data.listing.RoomType)}
-			</span>
-			{#if data.listing.SizeSqm}
-				<span class="bg-muted px-4 py-2 text-sm">{data.listing.SizeSqm} m²</span>
-			{/if}
-			{#if data.listing.ListingKind === 'room' && data.listing.RoommatesWanted}
-				<span class="bg-muted px-4 py-2 text-sm">Søger {data.listing.RoommatesWanted} nye roomies</span>
-			{/if}
-			<span class="bg-muted px-4 py-2 text-sm">
-				Ledig fra: {availableFrom}
-			</span>
-			{#if data.listing.RentalPeriod}
-				<span class="bg-muted px-4 py-2 text-sm">
-					{rentalPeriodLabel[data.listing.RentalPeriod] ?? data.listing.RentalPeriod}{#if data.listing.RentalPeriod === 'limited' && data.listing.RentalPeriodDetails}
-						: {data.listing.RentalPeriodDetails}
-					{/if}
-				</span>
-			{/if}
-			{#if data.listing.Deposit}
-				<span class="bg-muted px-4 py-2 text-sm">Depositum: {data.listing.Deposit.toLocaleString('da-DK')} kr</span>
-			{/if}
-		</div>
-
-		{#if data.listing.Facilities?.length}
-			<div class="flex flex-wrap gap-2">
-				{#each data.listing.Facilities as facility (facility)}
-					<span class="border border-border px-3 py-1 text-xs">{facility}</span>
-				{/each}
-			</div>
-		{/if}
-
-		<div class="border-t border-border pt-6">
-			<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
-			<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.listing.Description}</p>
-		</div>
-
-		{#if data.user && !isOwner}
-			<div>
-				<ReportButton targetType="listing" targetId={data.listing.ID} />
-			</div>
-		{/if}
 	</div>
 </div>
 
