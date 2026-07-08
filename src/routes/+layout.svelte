@@ -18,6 +18,26 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta
+		name="description"
+		content="LejeMatch samler lejeboliger og boligsøgende ét sted. Find en ledig lejebolig, eller opret dit eget opslag som boligsøgende — gratis, overskueligt og uden mellemled."
+	/>
+	<meta property="og:site_name" content="LejeMatch" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="LejeMatch – Find din næste bolig" />
+	<meta
+		property="og:description"
+		content="LejeMatch samler lejeboliger og boligsøgende ét sted. Find en ledig lejebolig, eller opret dit eget opslag som boligsøgende — gratis, overskueligt og uden mellemled."
+	/>
+	<meta property="og:image" content="https://lejematch.dk/og-image.png" />
+	<meta property="og:url" content="https://lejematch.dk/" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="LejeMatch – Find din næste bolig" />
+	<meta
+		name="twitter:description"
+		content="LejeMatch samler lejeboliger og boligsøgende ét sted. Find en ledig lejebolig, eller opret dit eget opslag som boligsøgende — gratis, overskueligt og uden mellemled."
+	/>
+	<meta name="twitter:image" content="https://lejematch.dk/og-image.png" />
 </svelte:head>
 
 <svelte:window
