@@ -63,7 +63,7 @@
 	}}
 />
 
-<div class="max-w-5xl mx-auto px-4 py-6">
+<div class="max-w-6xl mx-auto px-4 py-6">
 	<a
 		href="/listings"
 		class="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground uppercase tracking-widest mb-4 transition-colors"
@@ -76,10 +76,10 @@
 
 	<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide mb-4">{data.listing.Title}</h1>
 
-	<div class="flex flex-col lg:flex-row gap-6 mb-8">
+	<div class="grid lg:grid-cols-[1fr_18rem] gap-6 mb-8">
 		{#if data.listing.Images?.length}
 			<div class="flex flex-col items-start">
-				<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
+				<div class="flex gap-2 w-full max-w-[36.8rem] lg:max-w-[48rem] h-[20.7rem] sm:h-[23rem] lg:h-[30rem]">
 					<button
 						type="button"
 						onclick={() => (lightboxIdx = 0)}
@@ -131,14 +131,14 @@
 				{/if}
 			</div>
 		{:else}
-			<div class="w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem] bg-muted flex items-center justify-center shrink-0">
+			<div class="w-full max-w-[36.8rem] lg:max-w-[48rem] h-[20.7rem] sm:h-[23rem] lg:h-[30rem] bg-muted flex items-center justify-center shrink-0">
 				<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
 				</svg>
 			</div>
 		{/if}
 
-		<div class="w-full lg:w-72 shrink-0 space-y-4">
+		<div class="w-full space-y-4">
 			{#if data.user}
 				<FavoriteButton favoriteType="listing" favoriteId={data.listing.ID} initialFavorited={data.isFavorite} variant="plain" />
 			{/if}
@@ -186,8 +186,8 @@
 		</div>
 	</div>
 
-	<div class="grid lg:grid-cols-3 gap-8">
-		<div class="lg:col-span-2 space-y-6">
+	<div class="grid lg:grid-cols-[1fr_18rem] gap-8">
+		<div class="space-y-6">
 			<div class="flex items-center gap-2 text-muted-foreground">
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -241,6 +241,10 @@
 			<div class="border-t border-border pt-6">
 				<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
 				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.listing.Description}</p>
+			</div>
+
+			<div class="border-2 border-dashed border-muted-foreground/30 bg-muted/30 flex items-center justify-center h-24 sm:h-28 text-xs text-muted-foreground uppercase tracking-widest">
+				Annonceplads (AdSense) — ca. 728×90
 			</div>
 
 			{#if data.user && !isOwner}
