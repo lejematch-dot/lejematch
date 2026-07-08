@@ -2,10 +2,6 @@
 	import HowItWorksModal from '$lib/components/HowItWorksModal.svelte';
 </script>
 
-<svelte:head>
-	<title>LejeMatch – Find din næste bolig</title>
-</svelte:head>
-
 <!-- Hero -->
 <section class="relative pt-28 pb-24 bg-background overflow-hidden">
 	<div

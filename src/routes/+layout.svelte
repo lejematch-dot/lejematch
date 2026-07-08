@@ -3,6 +3,8 @@
 	import { page } from '$app/stores';
 	import favicon from '$lib/assets/favicon.svg';
 	import { CVR_NUMBER } from '$lib/legal';
+	import { blogPosts } from '$lib/blog';
+	import { DEFAULT_META, STATIC_ROUTE_META } from '$lib/seo';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -14,30 +16,30 @@
 
 	const isActive = (path: string) => $page.url.pathname === path;
 	const isProfileSection = $derived(isActive('/dashboard') || isActive('/dashboard/indstillinger'));
+
+	const routeMeta = $derived.by(() => {
+		const path = $page.url.pathname;
+		if (STATIC_ROUTE_META[path]) return { ...DEFAULT_META, ...STATIC_ROUTE_META[path] };
+		const post = blogPosts.find((p) => `/blog/${p.slug}` === path);
+		if (post) return { ...DEFAULT_META, title: post.title, description: post.description };
+		return DEFAULT_META;
+	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<meta
-		name="description"
-		content="LejeMatch samler lejeboliger og boligsøgende ét sted. Find en ledig lejebolig, eller opret dit eget opslag som boligsøgende — gratis, overskueligt og uden mellemled."
-	/>
+	<title>{routeMeta.title}</title>
+	<meta name="description" content={routeMeta.description} />
 	<meta property="og:site_name" content="LejeMatch" />
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="LejeMatch – Find din næste bolig" />
-	<meta
-		property="og:description"
-		content="LejeMatch samler lejeboliger og boligsøgende ét sted. Find en ledig lejebolig, eller opret dit eget opslag som boligsøgende — gratis, overskueligt og uden mellemled."
-	/>
-	<meta property="og:image" content="https://lejematch.dk/og-image.png" />
-	<meta property="og:url" content="https://lejematch.dk/" />
+	<meta property="og:title" content={routeMeta.title} />
+	<meta property="og:description" content={routeMeta.description} />
+	<meta property="og:image" content={routeMeta.image} />
+	<meta property="og:url" content="https://lejematch.dk{$page.url.pathname}" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="LejeMatch – Find din næste bolig" />
-	<meta
-		name="twitter:description"
-		content="LejeMatch samler lejeboliger og boligsøgende ét sted. Find en ledig lejebolig, eller opret dit eget opslag som boligsøgende — gratis, overskueligt og uden mellemled."
-	/>
-	<meta name="twitter:image" content="https://lejematch.dk/og-image.png" />
+	<meta name="twitter:title" content={routeMeta.title} />
+	<meta name="twitter:description" content={routeMeta.description} />
+	<meta name="twitter:image" content={routeMeta.image} />
 </svelte:head>
 
 <svelte:window
@@ -287,6 +289,7 @@
 			</div>
 			<nav class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
 				<a href="/om-os" class="hover:text-primary-foreground transition-colors">Om os</a>
+				<a href="/blog" class="hover:text-primary-foreground transition-colors">Blog</a>
 				<a href="/faq" class="hover:text-primary-foreground transition-colors">FAQ</a>
 				<a href="/brugervilkaar" class="hover:text-primary-foreground transition-colors">Brugervilkår</a>
 				<a href="/privatlivspolitik" class="hover:text-primary-foreground transition-colors">Privatlivspolitik</a>
