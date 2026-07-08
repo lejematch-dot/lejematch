@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import favicon from '$lib/assets/favicon.svg';
+	import { CVR_NUMBER } from '$lib/legal';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -13,9 +14,6 @@
 
 	const isActive = (path: string) => $page.url.pathname === path;
 	const isProfileSection = $derived(isActive('/dashboard') || isActive('/dashboard/indstillinger'));
-
-	// TODO: udfyld når CVR-nummeret er modtaget.
-	const CVR_NUMBER = '';
 </script>
 
 <svelte:head>
@@ -270,6 +268,7 @@
 			<nav class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
 				<a href="/om-os" class="hover:text-primary-foreground transition-colors">Om os</a>
 				<a href="/faq" class="hover:text-primary-foreground transition-colors">FAQ</a>
+				<a href="/brugervilkaar" class="hover:text-primary-foreground transition-colors">Brugervilkår</a>
 				<a href="/privatlivspolitik" class="hover:text-primary-foreground transition-colors">Privatlivspolitik</a>
 			</nav>
 		</div>
