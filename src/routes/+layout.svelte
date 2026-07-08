@@ -98,21 +98,21 @@
 								<a
 									href="/dashboard"
 									onclick={() => (profileMenuOpen = false)}
-									class="block px-4 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors {isActive('/dashboard') ? 'text-foreground bg-muted' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
+									class="block px-4 py-2.5 text-[11px] font-medium uppercase tracking-wide transition-colors {isActive('/dashboard') ? 'text-foreground bg-muted' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
 								>
 									Mine Opslag
 								</a>
 								<a
 									href="/dashboard/indstillinger"
 									onclick={() => (profileMenuOpen = false)}
-									class="block px-4 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors {isActive('/dashboard/indstillinger') ? 'text-foreground bg-muted' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
+									class="block px-4 py-2.5 text-[11px] font-medium uppercase tracking-wide transition-colors {isActive('/dashboard/indstillinger') ? 'text-foreground bg-muted' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
 								>
 									Indstillinger
 								</a>
 								<form method="POST" action="/logout" use:enhance>
 									<button
 										type="submit"
-										class="block w-full text-left px-4 py-2.5 text-xs font-medium uppercase tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+										class="block w-full text-left px-4 py-2.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
 									>
 										Log ud
 									</button>
@@ -195,25 +195,25 @@
 							Rapporter
 						</a>
 					{/if}
-					<p class="px-3 pt-2 pb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">Min Profil</p>
+					<p class="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-wide text-foreground">Min Profil</p>
 					<a
 						href="/dashboard"
 						onclick={() => (mobileOpen = false)}
-						class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/dashboard') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+						class="flex items-center gap-3 px-3 py-2.5 text-[11px] font-medium uppercase tracking-wide {isActive('/dashboard') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
 					>
 						Mine Opslag
 					</a>
 					<a
 						href="/dashboard/indstillinger"
 						onclick={() => (mobileOpen = false)}
-						class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/dashboard/indstillinger') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+						class="flex items-center gap-3 px-3 py-2.5 text-[11px] font-medium uppercase tracking-wide {isActive('/dashboard/indstillinger') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
 					>
 						Indstillinger
 					</a>
 					<form method="POST" action="/logout" use:enhance>
 						<button
 							type="submit"
-							class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide text-muted-foreground w-full"
+							class="flex items-center gap-3 px-3 py-2.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground w-full"
 						>
 							Log ud
 						</button>

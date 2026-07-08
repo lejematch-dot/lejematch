@@ -83,9 +83,9 @@
 		{/if}
 	</div>
 
-	<div class="grid lg:grid-cols-[1fr_18rem] gap-6 mb-8">
+	<div class="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_18rem] lg:grid-rows-[auto_auto] lg:gap-x-6 lg:gap-y-8 mb-8">
 		{#if data.listing.Images?.length}
-			<div class="flex flex-col items-start">
+			<div class="flex flex-col items-start lg:col-start-1 lg:row-start-1">
 				<div class="flex gap-2 w-full max-w-[36.8rem] lg:max-w-[48rem] h-[20.7rem] sm:h-[23rem] lg:h-[30rem]">
 					<button
 						type="button"
@@ -138,60 +138,14 @@
 				{/if}
 			</div>
 		{:else}
-			<div class="w-full max-w-[36.8rem] lg:max-w-[48rem] h-[20.7rem] sm:h-[23rem] lg:h-[30rem] bg-muted flex items-center justify-center shrink-0">
+			<div class="w-full max-w-[36.8rem] lg:max-w-[48rem] h-[20.7rem] sm:h-[23rem] lg:h-[30rem] bg-muted flex items-center justify-center shrink-0 lg:col-start-1 lg:row-start-1">
 				<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
 				</svg>
 			</div>
 		{/if}
 
-		<div class="w-full space-y-4">
-			{#if isOwner}
-				<div class="border border-border p-5">
-					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
-					<a
-						href="/dashboard/listings/{data.listing.ID}/edit"
-						class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
-					>
-						Rediger opslag
-					</a>
-				</div>
-			{:else}
-				<div class="border border-border p-5">
-					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-4">Udlejer</h3>
-					<a
-						href="/profil/{data.listing.UserID}"
-						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
-					>
-						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
-							{#if data.posterProfile?.imageURL}
-								<img src={data.posterProfile.imageURL} alt="" class="w-full h-full object-cover" />
-							{:else}
-								<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-								</svg>
-							{/if}
-						</div>
-						<div>
-							<p class="font-semibold text-foreground">{data.posterProfile?.displayName || 'Bruger'}</p>
-							{#if data.posterProfile?.age}
-								<p class="text-sm text-muted-foreground">{data.posterProfile.age} år</p>
-							{/if}
-						</div>
-					</a>
-					<a
-						href="/profil/{data.listing.UserID}"
-						class="block w-full text-center border border-border px-4 py-2 text-xs font-medium uppercase tracking-wide hover:bg-muted transition-colors"
-					>
-						Se udlejer
-					</a>
-				</div>
-			{/if}
-		</div>
-	</div>
-
-	<div class="grid lg:grid-cols-[1fr_18rem] gap-8">
-		<div class="space-y-6">
+		<div class="order-2 lg:order-none space-y-6 lg:col-start-1 lg:row-start-2">
 			<div class="flex items-center gap-2 text-muted-foreground">
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -258,7 +212,51 @@
 			{/if}
 		</div>
 
-		<div class="space-y-4">
+		<div class="order-3 lg:order-none w-full space-y-4 lg:col-start-2 lg:row-start-1">
+			{#if isOwner}
+				<div class="border border-border p-5">
+					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
+					<a
+						href="/dashboard/listings/{data.listing.ID}/edit"
+						class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+					>
+						Rediger opslag
+					</a>
+				</div>
+			{:else}
+				<div class="border border-border p-5">
+					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-4">Udlejer</h3>
+					<a
+						href="/profil/{data.listing.UserID}"
+						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
+					>
+						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
+							{#if data.posterProfile?.imageURL}
+								<img src={data.posterProfile.imageURL} alt="" class="w-full h-full object-cover" />
+							{:else}
+								<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+								</svg>
+							{/if}
+						</div>
+						<div>
+							<p class="font-semibold text-foreground">{data.posterProfile?.displayName || 'Bruger'}</p>
+							{#if data.posterProfile?.age}
+								<p class="text-sm text-muted-foreground">{data.posterProfile.age} år</p>
+							{/if}
+						</div>
+					</a>
+					<a
+						href="/profil/{data.listing.UserID}"
+						class="block w-full text-center border border-border px-4 py-2 text-xs font-medium uppercase tracking-wide hover:bg-muted transition-colors"
+					>
+						Se udlejer
+					</a>
+				</div>
+			{/if}
+		</div>
+
+		<div class="order-4 lg:order-none space-y-4 lg:col-start-2 lg:row-start-2">
 			{#if !isOwner}
 				<div class="border border-border p-5">
 					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt udlejer</h3>

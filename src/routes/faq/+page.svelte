@@ -2,7 +2,7 @@
 	const faqs = [
 		{
 			q: 'Er LejeMatch gratis at bruge?',
-			a: 'Ja. Det er helt gratis at oprette en konto, søge boliger, oprette opslag som lejer og kontakte andre brugere — ingen gebyrer, ingen skjulte omkostninger.'
+			a: 'Ja, helt gratis — det er gratis at oprette en konto, søge boliger, oprette opslag som lejer og kontakte andre brugere, uden gebyrer eller skjulte omkostninger. Vi finansierer driften via annoncer på hjemmesiden i stedet for at tage betaling fra vores brugere.'
 		},
 		{
 			q: 'Hvordan opretter jeg et boligopslag?',

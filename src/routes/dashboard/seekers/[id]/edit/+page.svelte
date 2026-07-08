@@ -50,7 +50,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="MaxBudget" class="block text-sm font-medium text-foreground mb-1">Max budget/måned (kr) *</label>
 					<input
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="Status" class="block text-sm font-medium text-foreground mb-1">Status</label>
 					<select
@@ -147,7 +147,7 @@
 				</div>
 			{/if}
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="NumPeople" class="block text-sm font-medium text-foreground mb-1">Antal personer</label>
 					<select
@@ -164,7 +164,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="FurnishedPreference" class="block text-sm font-medium text-foreground mb-1">Møblering</label>
 					<select

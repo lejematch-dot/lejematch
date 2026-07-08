@@ -40,6 +40,15 @@
 		</section>
 
 		<section>
+			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">Sletning af data</h2>
+			<p>
+				Når du sletter din profil, sletter vi permanent alle dine personoplysninger fra vores systemer —
+				herunder din profil, dine opslag (boliger og lejerprofiler), billeder tilknyttet dine opslag,
+				favoritter og beskeder du har sendt eller modtaget. Sletningen kan ikke fortrydes.
+			</p>
+		</section>
+
+		<section>
 			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">Kontakt</h2>
 			<p>
 				Spørgsmål om denne politik eller dine data kan sendes til

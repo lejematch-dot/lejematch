@@ -152,7 +152,7 @@
 				{/if}
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="AvailableFrom" class="block text-sm font-medium text-foreground mb-1">Ledig fra *</label>
 					<input
@@ -179,7 +179,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="SizeSqm" class="block text-sm font-medium text-foreground mb-1">Størrelse (m²)</label>
 					<input
@@ -230,7 +230,7 @@
 				</div>
 			{/if}
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="LandlordType" class="block text-sm font-medium text-foreground mb-1">Udlejer</label>
 					<select
@@ -288,7 +288,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label for="Zip" class="block text-sm font-medium text-foreground mb-1">Postnummer</label>
 					<input
