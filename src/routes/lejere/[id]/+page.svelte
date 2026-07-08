@@ -178,10 +178,6 @@
 				<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
 				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.seeker.Description}</p>
 			</div>
-
-			<div class="border-2 border-dashed border-muted-foreground/30 bg-muted/30 flex items-center justify-center h-24 sm:h-28 text-xs text-muted-foreground uppercase tracking-widest">
-				Annonceplads (AdSense) — ca. 728×90
-			</div>
 		</div>
 
 		<div class="order-3 lg:order-none w-full space-y-4 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-start">
