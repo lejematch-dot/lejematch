@@ -70,6 +70,18 @@
 		images = images.filter((_, i) => i !== index);
 		imageKeys = imageKeys.filter((_, i) => i !== index);
 	}
+
+	function moveImage(index: number, direction: -1 | 1) {
+		const target = index + direction;
+		if (target < 0 || target >= images.length) return;
+
+		const newImages = [...images];
+		const newKeys = [...imageKeys];
+		[newImages[index], newImages[target]] = [newImages[target], newImages[index]];
+		[newKeys[index], newKeys[target]] = [newKeys[target], newKeys[index]];
+		images = newImages;
+		imageKeys = newKeys;
+	}
 </script>
 
 <div class="space-y-3">
@@ -84,6 +96,9 @@
 	{/if}
 
 	{#if images.length > 0}
+		{#if multiple && images.length > 1}
+			<p class="text-xs text-muted-foreground">Det første billede vises som hovedbillede. Brug pilene til at ændre rækkefølgen.</p>
+		{/if}
 		<div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
 			{#each images as url, i (url + i)}
 				<div class="relative aspect-square bg-muted overflow-hidden group">
@@ -98,6 +113,32 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 						</svg>
 					</button>
+					{#if multiple && images.length > 1}
+						<div class="absolute bottom-1 left-1 right-1 flex justify-between">
+							<button
+								type="button"
+								onclick={() => moveImage(i, -1)}
+								disabled={i === 0}
+								aria-label="Flyt billede tidligere"
+								class="w-6 h-6 flex items-center justify-center bg-foreground/80 text-background hover:bg-foreground transition-colors disabled:opacity-0 disabled:pointer-events-none"
+							>
+								<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+								</svg>
+							</button>
+							<button
+								type="button"
+								onclick={() => moveImage(i, 1)}
+								disabled={i === images.length - 1}
+								aria-label="Flyt billede senere"
+								class="w-6 h-6 flex items-center justify-center bg-foreground/80 text-background hover:bg-foreground transition-colors disabled:opacity-0 disabled:pointer-events-none"
+							>
+								<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								</svg>
+							</button>
+						</div>
+					{/if}
 				</div>
 			{/each}
 		</div>

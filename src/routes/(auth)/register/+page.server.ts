@@ -15,6 +15,11 @@ export const actions: Actions = {
 		const phone = String(data.get('phone') ?? '');
 		const password = String(data.get('password') ?? '');
 		const city = String(data.get('city') ?? '');
+		const imageURL = String(data.get('ImageURL') ?? '');
+
+		if (!imageURL) {
+			return fail(400, { error: 'Tilføj et profilbillede.' });
+		}
 
 		try {
 			await registerUser({
@@ -24,6 +29,7 @@ export const actions: Actions = {
 				Phone: phone,
 				Password: password,
 				City: city,
+				ImageURL: imageURL,
 				UserType: 'tenant'
 			});
 		} catch {
