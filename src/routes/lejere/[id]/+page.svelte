@@ -64,75 +64,117 @@
 		Tilbage
 	</a>
 
-	<div class="flex items-start justify-between gap-4 mb-4">
-		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.seeker.Title}</h1>
-		{#if data.user}
-			<div class="shrink-0">
-				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
-			</div>
-		{/if}
-	</div>
+	<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide mb-4">{data.seeker.Title}</h1>
 
-	{#if data.seeker.Images?.length}
-		<div class="flex flex-col items-start mb-8">
-			<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
-				<button
-					type="button"
-					onclick={() => (lightboxIdx = 0)}
-					class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
-				>
-					<img
-						src={data.seeker.Images[0]}
-						alt={data.seeker.Title}
-						class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-					/>
-				</button>
-				{#if data.seeker.Images.length > 1}
-					<div class="flex-1 flex flex-col gap-2 h-full">
-						<button
-							type="button"
-							onclick={() => (lightboxIdx = 1)}
-							class="flex-1 overflow-hidden bg-muted cursor-pointer"
-						>
-							<img
-								src={data.seeker.Images[1]}
-								alt="{data.seeker.Title} 2"
-								class="w-full h-full object-cover hover:opacity-90 transition-opacity"
-							/>
-						</button>
-						{#if data.seeker.Images.length > 2}
+	<div class="flex flex-col lg:flex-row gap-6 mb-8">
+		{#if data.seeker.Images?.length}
+			<div class="flex flex-col items-start">
+				<div class="flex gap-2 w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem]">
+					<button
+						type="button"
+						onclick={() => (lightboxIdx = 0)}
+						class="flex-[2] h-full overflow-hidden bg-muted cursor-pointer"
+					>
+						<img
+							src={data.seeker.Images[0]}
+							alt={data.seeker.Title}
+							class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+						/>
+					</button>
+					{#if data.seeker.Images.length > 1}
+						<div class="flex-1 flex flex-col gap-2 h-full">
 							<button
 								type="button"
-								onclick={() => (lightboxIdx = 2)}
+								onclick={() => (lightboxIdx = 1)}
 								class="flex-1 overflow-hidden bg-muted cursor-pointer"
 							>
 								<img
-									src={data.seeker.Images[2]}
-									alt="{data.seeker.Title} 3"
+									src={data.seeker.Images[1]}
+									alt="{data.seeker.Title} 2"
 									class="w-full h-full object-cover hover:opacity-90 transition-opacity"
 								/>
 							</button>
-						{/if}
-					</div>
+							{#if data.seeker.Images.length > 2}
+								<button
+									type="button"
+									onclick={() => (lightboxIdx = 2)}
+									class="flex-1 overflow-hidden bg-muted cursor-pointer"
+								>
+									<img
+										src={data.seeker.Images[2]}
+										alt="{data.seeker.Title} 3"
+										class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+									/>
+								</button>
+							{/if}
+						</div>
+					{/if}
+				</div>
+				{#if data.seeker.Images.length > 3}
+					<button
+						type="button"
+						onclick={() => (lightboxIdx = 0)}
+						class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
+					>
+						Vis alle billeder ({data.seeker.Images.length})
+					</button>
 				{/if}
 			</div>
-			{#if data.seeker.Images.length > 3}
-				<button
-					type="button"
-					onclick={() => (lightboxIdx = 0)}
-					class="mt-3 text-xs font-medium uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors"
-				>
-					Vis alle billeder ({data.seeker.Images.length})
-				</button>
+		{:else}
+			<div class="w-full max-w-[36.8rem] h-[20.7rem] sm:h-[23rem] bg-muted flex items-center justify-center shrink-0">
+				<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+				</svg>
+			</div>
+		{/if}
+
+		<div class="w-full lg:w-72 shrink-0 space-y-4">
+			{#if data.user}
+				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
+			{/if}
+			{#if isOwner}
+				<div class="border border-border p-5">
+					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
+					<a
+						href="/dashboard/seekers/{data.seeker.ID}/edit"
+						class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+					>
+						Rediger opslag
+					</a>
+				</div>
+			{:else}
+				<div class="border border-border p-5">
+					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-4">Lejer</h3>
+					<a
+						href="/profil/{data.seeker.UserID}"
+						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
+					>
+						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
+							{#if data.posterProfile?.imageURL}
+								<img src={data.posterProfile.imageURL} alt="" class="w-full h-full object-cover" />
+							{:else}
+								<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+								</svg>
+							{/if}
+						</div>
+						<div>
+							<p class="font-semibold text-foreground">{data.posterProfile?.displayName || 'Bruger'}</p>
+							{#if data.posterProfile?.age}
+								<p class="text-sm text-muted-foreground">{data.posterProfile.age} år</p>
+							{/if}
+						</div>
+					</a>
+					<a
+						href="/profil/{data.seeker.UserID}"
+						class="block w-full text-center border border-border px-4 py-2 text-xs font-medium uppercase tracking-wide hover:bg-muted transition-colors"
+					>
+						Se lejer
+					</a>
+				</div>
 			{/if}
 		</div>
-	{:else}
-		<div class="h-[300px] bg-muted flex items-center justify-center mb-8">
-			<svg class="w-16 h-16 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-			</svg>
-		</div>
-	{/if}
+	</div>
 
 	<div class="grid lg:grid-cols-3 gap-8">
 		<div class="lg:col-span-2 space-y-6">
@@ -178,47 +220,7 @@
 		</div>
 
 		<div class="space-y-4">
-			{#if isOwner}
-				<div class="border border-border p-5">
-					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
-					<a
-						href="/dashboard/seekers/{data.seeker.ID}/edit"
-						class="block w-full text-center bg-primary text-primary-foreground font-semibold px-4 py-2 text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
-					>
-						Rediger opslag
-					</a>
-				</div>
-			{:else}
-				<div class="border border-border p-5">
-					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-4">Lejer</h3>
-					<a
-						href="/profil/{data.seeker.UserID}"
-						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
-					>
-						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
-							{#if data.posterProfile?.imageURL}
-								<img src={data.posterProfile.imageURL} alt="" class="w-full h-full object-cover" />
-							{:else}
-								<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-								</svg>
-							{/if}
-						</div>
-						<div>
-							<p class="font-semibold text-foreground">{data.posterProfile?.displayName || 'Bruger'}</p>
-							{#if data.posterProfile?.age}
-								<p class="text-sm text-muted-foreground">{data.posterProfile.age} år</p>
-							{/if}
-						</div>
-					</a>
-					<a
-						href="/profil/{data.seeker.UserID}"
-						class="block w-full text-center border border-border px-4 py-2 text-xs font-medium uppercase tracking-wide hover:bg-muted transition-colors"
-					>
-						Se lejer
-					</a>
-				</div>
-
+			{#if !isOwner}
 				<div class="border border-border p-5">
 					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt lejer</h3>
 
