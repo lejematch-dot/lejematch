@@ -64,7 +64,14 @@
 		Tilbage
 	</a>
 
-	<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide mb-4">{data.seeker.Title}</h1>
+	<div class="flex items-start justify-between gap-4 mb-4">
+		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.seeker.Title}</h1>
+		{#if data.user}
+			<div class="shrink-0">
+				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
+			</div>
+		{/if}
+	</div>
 
 	<div class="grid lg:grid-cols-[1fr_18rem] gap-6 mb-8">
 		{#if data.seeker.Images?.length}
@@ -129,9 +136,6 @@
 		{/if}
 
 		<div class="w-full space-y-4">
-			{#if data.user}
-				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
-			{/if}
 			{#if isOwner}
 				<div class="border border-border p-5">
 					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
