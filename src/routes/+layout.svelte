@@ -13,6 +13,9 @@
 
 	const isActive = (path: string) => $page.url.pathname === path;
 	const isProfileSection = $derived(isActive('/dashboard') || isActive('/dashboard/indstillinger'));
+
+	// TODO: udfyld når CVR-nummeret er modtaget.
+	const CVR_NUMBER = '';
 </script>
 
 <svelte:head>
@@ -251,7 +254,19 @@
 
 	<footer class="bg-primary py-4 mt-auto">
 		<div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-			<p class="text-[11px] text-primary-foreground/60">© {new Date().getFullYear()} LejeMatch</p>
+			<div class="flex flex-col items-center sm:items-start gap-0.5">
+				<p class="text-[11px] text-primary-foreground/60">
+					© {new Date().getFullYear()} LejeMatch{#if CVR_NUMBER}
+						· CVR: {CVR_NUMBER}
+					{/if}
+				</p>
+				<a
+					href="mailto:kontakt@lejematch.dk"
+					class="text-[11px] text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+				>
+					kontakt@lejematch.dk
+				</a>
+			</div>
 			<nav class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
 				<a href="/om-os" class="hover:text-primary-foreground transition-colors">Om os</a>
 				<a href="/faq" class="hover:text-primary-foreground transition-colors">FAQ</a>

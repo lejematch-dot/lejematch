@@ -1,5 +1,6 @@
 import { deleteListing, getUserListings } from '$lib/api/listings';
 import { deleteSeeker, getUserSeekers } from '$lib/api/seekers';
+import { getUser } from '$lib/api/users';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -7,12 +8,13 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 	if (!locals.user) redirect(302, '/login');
 
 	const token = cookies.get('session')!;
-	const [listings, seekers] = await Promise.all([
+	const [listings, seekers, me] = await Promise.all([
 		getUserListings(locals.user.sub, token),
-		getUserSeekers(locals.user.sub, token)
+		getUserSeekers(locals.user.sub, token),
+		getUser(locals.user.sub, token).catch(() => null)
 	]);
 
-	return { user: locals.user, listings, seekers };
+	return { user: locals.user, firstName: me?.FirstName ?? '', listings, seekers };
 };
 
 export const actions: Actions = {

@@ -37,12 +37,6 @@
 				Smart søgning, filtre og profiler — find hvad du søger på 5 min.
 			</p>
 		</div>
-		<div>
-			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">KBH & Aarhus</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
-				Vi starter i de største byer, med planer om at udvide til hele Danmark.
-			</p>
-		</div>
 	</div>
 
 	<div class="mt-14 pt-8 border-t border-border">

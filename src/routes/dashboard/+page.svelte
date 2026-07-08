@@ -12,7 +12,7 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
 	<div class="mb-8">
 		<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">Velkommen tilbage</p>
-		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">{data.user?.email}</h1>
+		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">{data.firstName || data.user?.email}</h1>
 	</div>
 
 	<section class="mb-10">

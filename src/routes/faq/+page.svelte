@@ -15,10 +15,6 @@
 		{
 			q: 'Hvordan kontakter jeg en udlejer eller lejer?',
 			a: 'Du skal være logget ind for at sende en besked. Det sikrer at modtageren kan se hvem der har skrevet, og at I kan finde beskeden igen under "Beskeder" i jeres dashboard.'
-		},
-		{
-			q: 'Hvilke byer dækker I?',
-			a: 'Vi starter i København og Aarhus, med planer om at udvide til resten af Danmark.'
 		}
 	];
 </script>

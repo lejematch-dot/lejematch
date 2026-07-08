@@ -2,11 +2,17 @@
 	import { enhance } from '$app/forms';
 	import FavoriteButton from '$lib/components/FavoriteButton.svelte';
 	import ReportButton from '$lib/components/ReportButton.svelte';
+	import { abbreviateName } from '$lib/name';
 	import type { PageData, ActionData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
 	const isOwner = $derived(data.user?.sub === data.listing.UserID);
+
+	const posterName = $derived.by(() => {
+		const name = data.posterProfile?.displayName || 'Bruger';
+		return data.user ? name : abbreviateName(name);
+	});
 
 	const roomTypeLabel: Record<string, string> = {
 		private: 'Privat værelse',
@@ -240,7 +246,7 @@
 							{/if}
 						</div>
 						<div>
-							<p class="font-semibold text-foreground">{data.posterProfile?.displayName || 'Bruger'}</p>
+							<p class="font-semibold text-foreground">{posterName}</p>
 							{#if data.posterProfile?.age}
 								<p class="text-sm text-muted-foreground">{data.posterProfile.age} år</p>
 							{/if}
