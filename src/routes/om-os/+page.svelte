@@ -7,10 +7,7 @@
 </svelte:head>
 
 <div class="max-w-3xl mx-auto px-6 py-16">
-	<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">Om os</p>
-	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-10 uppercase tracking-tight">
-		Hej, jeg hedder Adam
-	</h1>
+	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-10 uppercase tracking-tight">Om os</h1>
 
 	<div class="space-y-8">
 		<section>

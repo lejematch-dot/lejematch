@@ -73,7 +73,10 @@
 	<div class="flex items-start justify-between gap-4 mb-4">
 		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.seeker.Title}</h1>
 		{#if data.user}
-			<div class="shrink-0">
+			<div class="shrink-0 flex items-center gap-3">
+				{#if !isOwner}
+					<ReportButton targetType="seeker" targetId={data.seeker.ID} />
+				{/if}
 				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
 			</div>
 		{/if}
@@ -179,15 +182,9 @@
 			<div class="border-2 border-dashed border-muted-foreground/30 bg-muted/30 flex items-center justify-center h-24 sm:h-28 text-xs text-muted-foreground uppercase tracking-widest">
 				Annonceplads (AdSense) — ca. 728×90
 			</div>
-
-			{#if data.user && !isOwner}
-				<div>
-					<ReportButton targetType="seeker" targetId={data.seeker.ID} />
-				</div>
-			{/if}
 		</div>
 
-		<div class="order-3 lg:order-none w-full space-y-4 lg:col-start-2 lg:row-start-1">
+		<div class="order-3 lg:order-none w-full space-y-4 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-start">
 			{#if isOwner}
 				<div class="border border-border p-5">
 					<p class="text-sm text-muted-foreground mb-3">Dette er dit eget opslag.</p>
@@ -228,11 +225,7 @@
 						Se lejer
 					</a>
 				</div>
-			{/if}
-		</div>
 
-		<div class="order-4 lg:order-none space-y-4 lg:col-start-2 lg:row-start-2">
-			{#if !isOwner}
 				<div class="border border-border p-5">
 					<h3 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Kontakt lejer</h3>
 
@@ -261,7 +254,7 @@
 							/>
 							<textarea
 								name="message"
-								rows="4"
+								rows="10"
 								placeholder="Skriv en besked til lejeren..."
 								required
 								class="w-full border border-border px-3 py-2 text-sm"

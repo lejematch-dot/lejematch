@@ -3,6 +3,8 @@
 
 	let { targetType, targetId }: { targetType: ReportTargetType; targetId: number } = $props();
 
+	const label = targetType === 'profile' ? 'Rapportér profil' : 'Rapportér opslag';
+
 	let open = $state(false);
 	let reason = $state<'spam' | 'svindel' | 'andet'>('spam');
 	let message = $state('');
@@ -34,7 +36,7 @@
 		onclick={() => (open = !open)}
 		class="text-[11px] text-muted-foreground hover:text-destructive underline underline-offset-2 transition-colors"
 	>
-		Rapportér
+		{label}
 	</button>
 
 	{#if open}
