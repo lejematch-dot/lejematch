@@ -147,24 +147,22 @@
 				</div>
 			{/if}
 
-			{#if !wantsHele}
-				<div class="grid grid-cols-2 gap-4">
-					<div>
-						<label for="NumPeople" class="block text-sm font-medium text-foreground mb-1">Antal personer</label>
-						<select
-							id="NumPeople"
-							name="NumPeople"
-							value={data.seeker.NumPeople ?? 1}
-							class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-						>
-							<option value="1">1 person</option>
-							<option value="2">2 personer</option>
-							<option value="3">3 personer</option>
-							<option value="4">4+ personer</option>
-						</select>
-					</div>
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="NumPeople" class="block text-sm font-medium text-foreground mb-1">Antal personer</label>
+					<select
+						id="NumPeople"
+						name="NumPeople"
+						value={data.seeker.NumPeople ?? 1}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					>
+						<option value="1">1 person</option>
+						<option value="2">2 personer</option>
+						<option value="3">3 personer</option>
+						<option value="4">4+ personer</option>
+					</select>
 				</div>
-			{/if}
+			</div>
 
 			<div class="grid grid-cols-2 gap-4">
 				<div>
