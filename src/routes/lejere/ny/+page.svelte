@@ -113,7 +113,7 @@
 				{/if}
 			</div>
 
-			{#if wantsRoom}
+			{#if wantsHele || wantsRoom}
 				<div>
 					<label for="NumRooms" class="block text-sm font-medium text-foreground mb-1">Antal værelser</label>
 					<select
@@ -130,19 +130,21 @@
 			{/if}
 
 			<div class="grid grid-cols-2 gap-4">
-				<div>
-					<label for="NumPeople" class="block text-sm font-medium text-foreground mb-1">Antal personer</label>
-					<select
-						id="NumPeople"
-						name="NumPeople"
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					>
-						<option value="1">1 person</option>
-						<option value="2">2 personer</option>
-						<option value="3">3 personer</option>
-						<option value="4">4+ personer</option>
-					</select>
-				</div>
+				{#if !wantsHele}
+					<div>
+						<label for="NumPeople" class="block text-sm font-medium text-foreground mb-1">Antal personer</label>
+						<select
+							id="NumPeople"
+							name="NumPeople"
+							class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+						>
+							<option value="1">1 person</option>
+							<option value="2">2 personer</option>
+							<option value="3">3 personer</option>
+							<option value="4">4+ personer</option>
+						</select>
+					</div>
+				{/if}
 				<div>
 					<label for="FurnishedPreference" class="block text-sm font-medium text-foreground mb-1">Møblering</label>
 					<select
