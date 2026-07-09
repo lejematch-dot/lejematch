@@ -71,15 +71,35 @@
 						</div>
 
 						{#if report.Status === 'pending'}
-							<form method="POST" action="?/resolve" use:enhance>
-								<input type="hidden" name="id" value={report.ID} />
-								<button
-									type="submit"
-									class="px-3 py-1.5 text-xs font-bold uppercase tracking-wide border border-border hover:bg-muted transition-colors whitespace-nowrap"
-								>
-									Marker som løst
-								</button>
-							</form>
+							<div class="flex flex-col items-end gap-2 shrink-0">
+								<form method="POST" action="?/resolve" use:enhance>
+									<input type="hidden" name="id" value={report.ID} />
+									<button
+										type="submit"
+										class="px-3 py-1.5 text-xs font-bold uppercase tracking-wide border border-border hover:bg-muted transition-colors whitespace-nowrap"
+									>
+										Marker som løst
+									</button>
+								</form>
+								<form method="POST" action="?/deleteTarget" use:enhance>
+									<input type="hidden" name="reportId" value={report.ID} />
+									<input type="hidden" name="targetType" value={report.TargetType} />
+									<input type="hidden" name="targetId" value={report.TargetID} />
+									<button
+										type="submit"
+										onclick={(e) => {
+											if (!confirm(report.TargetType === 'profile'
+												? 'Slet denne profil permanent? Dette kan ikke fortrydes.'
+												: 'Slet dette opslag permanent? Dette kan ikke fortrydes.')) {
+												e.preventDefault();
+											}
+										}}
+										class="px-3 py-1.5 text-xs font-bold uppercase tracking-wide border border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors whitespace-nowrap"
+									>
+										{report.TargetType === 'profile' ? 'Slet profil' : 'Slet opslag'}
+									</button>
+								</form>
+							</div>
 						{:else}
 							<span class="text-xs uppercase tracking-wide text-muted-foreground whitespace-nowrap">Løst</span>
 						{/if}

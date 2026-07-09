@@ -71,7 +71,7 @@
 			Tilbage
 		</a>
 		{#if data.user}
-			<div class="shrink-0 flex flex-col items-end gap-2 sm:hidden">
+			<div class="shrink-0 flex flex-col items-start gap-2 sm:hidden">
 				{#if !isOwner}
 					<ReportButton targetType="seeker" targetId={data.seeker.ID} />
 				{/if}

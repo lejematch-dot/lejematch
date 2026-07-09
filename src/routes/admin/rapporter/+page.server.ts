@@ -1,7 +1,7 @@
-import { getListing } from '$lib/api/listings';
+import { deleteListing, getListing } from '$lib/api/listings';
 import { getReports, resolveReport } from '$lib/api/reports';
-import { getSeeker } from '$lib/api/seekers';
-import { getUserProfile } from '$lib/api/users';
+import { deleteSeeker, getSeeker } from '$lib/api/seekers';
+import { deleteUser, getUserProfile } from '$lib/api/users';
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -57,6 +57,31 @@ export const actions: Actions = {
 		} catch {
 			return fail(400, { error: 'Kunne ikke opdatere rapporten.' });
 		}
+
+		return { success: true };
+	},
+
+	deleteTarget: async ({ request, locals, cookies }) => {
+		if (!locals.user) redirect(302, '/login');
+		if (!locals.user.is_admin) error(403, 'Ingen adgang');
+
+		const data = await request.formData();
+		const reportId = Number(data.get('reportId'));
+		const targetType = String(data.get('targetType') ?? '');
+		const targetId = Number(data.get('targetId'));
+		if (isNaN(reportId) || isNaN(targetId)) return fail(400, { error: 'Ugyldigt id' });
+
+		const token = cookies.get('session')!;
+		try {
+			if (targetType === 'listing') await deleteListing(targetId, token);
+			else if (targetType === 'seeker') await deleteSeeker(targetId, token);
+			else if (targetType === 'profile') await deleteUser(targetId, token);
+			else return fail(400, { error: 'Ukendt type.' });
+		} catch {
+			return fail(400, { error: 'Kunne ikke slette.' });
+		}
+
+		await resolveReport(reportId, token).catch(() => {});
 
 		return { success: true };
 	}
