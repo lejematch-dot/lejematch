@@ -43,7 +43,7 @@
 		</div>
 	{:else}
 		<div class="space-y-3">
-			{#each data.reports as { report, reporterProfile, targetTitle, targetUrl } (report.ID)}
+			{#each data.reports as { report, reporterProfile, targetTitle, targetUrl, userListings, userSeekers } (report.ID)}
 				<div
 					class="border border-border p-4 {report.Status === 'resolved' ? 'opacity-50' : ''}"
 				>
@@ -104,6 +104,56 @@
 							<span class="text-xs uppercase tracking-wide text-muted-foreground whitespace-nowrap">Løst</span>
 						{/if}
 					</div>
+
+					{#if report.TargetType === 'profile' && report.Status === 'pending' && (userListings.length > 0 || userSeekers.length > 0)}
+						<div class="mt-3 pt-3 border-t border-border">
+							<p class="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">
+								Brugerens opslag — slet enkeltvis uden at slette profilen
+							</p>
+							<div class="space-y-1.5">
+								{#each userListings as listing (listing.ID)}
+									<div class="flex items-center justify-between gap-3">
+										<a href="/listings/{listing.ID}" class="text-xs text-foreground hover:underline truncate">
+											{listing.Title} <span class="text-muted-foreground">(bolig)</span>
+										</a>
+										<form method="POST" action="?/deleteTarget" use:enhance>
+											<input type="hidden" name="targetType" value="listing" />
+											<input type="hidden" name="targetId" value={listing.ID} />
+											<button
+												type="submit"
+												onclick={(e) => {
+													if (!confirm('Slet dette opslag permanent? Dette kan ikke fortrydes.')) e.preventDefault();
+												}}
+												class="text-[11px] font-bold uppercase tracking-wide text-destructive hover:underline whitespace-nowrap shrink-0"
+											>
+												Slet
+											</button>
+										</form>
+									</div>
+								{/each}
+								{#each userSeekers as seeker (seeker.ID)}
+									<div class="flex items-center justify-between gap-3">
+										<a href="/lejere/{seeker.ID}" class="text-xs text-foreground hover:underline truncate">
+											{seeker.Title} <span class="text-muted-foreground">(lejer)</span>
+										</a>
+										<form method="POST" action="?/deleteTarget" use:enhance>
+											<input type="hidden" name="targetType" value="seeker" />
+											<input type="hidden" name="targetId" value={seeker.ID} />
+											<button
+												type="submit"
+												onclick={(e) => {
+													if (!confirm('Slet dette opslag permanent? Dette kan ikke fortrydes.')) e.preventDefault();
+												}}
+												class="text-[11px] font-bold uppercase tracking-wide text-destructive hover:underline whitespace-nowrap shrink-0"
+											>
+												Slet
+											</button>
+										</form>
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
 				</div>
 			{/each}
 		</div>

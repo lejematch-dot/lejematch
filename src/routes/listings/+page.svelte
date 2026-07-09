@@ -23,11 +23,10 @@
 				rentalPeriod.length
 		)
 	);
-	let mobileCols = $state<1 | 2 | 4>(1);
-	const mobileGridClass: Record<1 | 2 | 4, string> = {
+	let mobileCols = $state<1 | 2>(1);
+	const mobileGridClass: Record<1 | 2, string> = {
 		1: 'grid-cols-1',
-		2: 'grid-cols-2',
-		4: 'grid-cols-4'
+		2: 'grid-cols-2'
 	};
 
 	const rentalPeriodLabel: Record<string, string> = {
@@ -314,17 +313,6 @@
 					<rect x="1.5" y="4" width="5.5" height="8" /><rect x="9" y="4" width="5.5" height="8" />
 				</svg>
 			</button>
-			<button
-				type="button"
-				onclick={() => (mobileCols = 4)}
-				aria-label="4 opslag pr. række"
-				class="p-1.5 border transition-colors {mobileCols === 4 ? 'border-foreground bg-muted' : 'border-border text-muted-foreground'}"
-			>
-				<svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
-					<rect x="1.5" y="1.5" width="5.5" height="5.5" /><rect x="9" y="1.5" width="5.5" height="5.5" />
-					<rect x="1.5" y="9" width="5.5" height="5.5" /><rect x="9" y="9" width="5.5" height="5.5" />
-				</svg>
-			</button>
 		</div>
 
 		<div class="grid {mobileGridClass[mobileCols]} sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -347,11 +335,11 @@
 								</svg>
 							</div>
 						{/if}
-						<div class="absolute top-0 right-0 bg-foreground text-background {mobileCols === 4 ? 'text-[8px] px-1.5 py-1' : 'text-xs px-3 py-1.5'} sm:text-xs sm:px-3 sm:py-1.5 font-bold uppercase tracking-wide">
+						<div class="absolute top-0 right-0 bg-foreground text-background {mobileCols === 2 ? 'text-[8px] px-1.5 py-1' : 'text-xs px-3 py-1.5'} sm:text-xs sm:px-3 sm:py-1.5 font-bold uppercase tracking-wide">
 							{listing.Price.toLocaleString('da-DK')} kr
 						</div>
 						{#if data.user}
-							<div class="absolute top-2 left-2 {mobileCols === 4 ? 'hidden' : ''} sm:block">
+							<div class="absolute top-2 left-2 {mobileCols === 2 ? 'hidden' : ''} sm:block">
 								<FavoriteButton
 									favoriteType="listing"
 									favoriteId={listing.ID}
@@ -360,9 +348,9 @@
 							</div>
 						{/if}
 					</div>
-					<div class="{mobileCols === 4 ? 'p-1.5' : mobileCols === 2 ? 'p-2' : 'p-4'} sm:p-4">
-						<h3 class="font-bold text-foreground {mobileCols === 4 ? 'text-[9px]' : mobileCols === 2 ? 'text-xs' : 'text-sm'} sm:text-sm uppercase tracking-wide truncate">{listing.Title}</h3>
-						<div class="{mobileCols === 4 ? 'hidden' : 'flex'} sm:flex items-center gap-1 text-xs text-muted-foreground mt-1">
+					<div class="{mobileCols === 2 ? 'p-2' : 'p-4'} sm:p-4">
+						<h3 class="font-bold text-foreground {mobileCols === 2 ? 'text-xs' : 'text-sm'} sm:text-sm uppercase tracking-wide truncate">{listing.Title}</h3>
+						<div class="{mobileCols === 2 ? 'hidden' : 'flex'} sm:flex items-center gap-1 text-xs text-muted-foreground mt-1">
 							<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />

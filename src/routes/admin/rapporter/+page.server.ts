@@ -1,6 +1,6 @@
-import { deleteListing, getListing } from '$lib/api/listings';
+import { deleteListing, getListing, getUserListings } from '$lib/api/listings';
 import { getReports, resolveReport } from '$lib/api/reports';
-import { deleteSeeker, getSeeker } from '$lib/api/seekers';
+import { deleteSeeker, getSeeker, getUserSeekers } from '$lib/api/seekers';
 import { deleteUser, getUserProfile } from '$lib/api/users';
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
@@ -35,7 +35,16 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 						? `/lejere/${report.TargetID}`
 						: `/profil/${report.TargetID}`;
 
-			return { report, reporterProfile, targetTitle, targetUrl };
+			let userListings: Awaited<ReturnType<typeof getUserListings>> = [];
+			let userSeekers: Awaited<ReturnType<typeof getUserSeekers>> = [];
+			if (report.TargetType === 'profile') {
+				[userListings, userSeekers] = await Promise.all([
+					getUserListings(report.TargetID).catch(() => []),
+					getUserSeekers(report.TargetID).catch(() => [])
+				]);
+			}
+
+			return { report, reporterProfile, targetTitle, targetUrl, userListings, userSeekers };
 		})
 	);
 
@@ -66,10 +75,11 @@ export const actions: Actions = {
 		if (!locals.user.is_admin) error(403, 'Ingen adgang');
 
 		const data = await request.formData();
-		const reportId = Number(data.get('reportId'));
+		const reportIdRaw = data.get('reportId');
+		const reportId = reportIdRaw ? Number(reportIdRaw) : null;
 		const targetType = String(data.get('targetType') ?? '');
 		const targetId = Number(data.get('targetId'));
-		if (isNaN(reportId) || isNaN(targetId)) return fail(400, { error: 'Ugyldigt id' });
+		if ((reportId !== null && isNaN(reportId)) || isNaN(targetId)) return fail(400, { error: 'Ugyldigt id' });
 
 		const token = cookies.get('session')!;
 		try {
@@ -81,7 +91,7 @@ export const actions: Actions = {
 			return fail(400, { error: 'Kunne ikke slette.' });
 		}
 
-		await resolveReport(reportId, token).catch(() => {});
+		if (reportId !== null) await resolveReport(reportId, token).catch(() => {});
 
 		return { success: true };
 	}
