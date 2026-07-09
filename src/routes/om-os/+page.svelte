@@ -13,17 +13,20 @@
 		<section>
 			<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Hvorfor findes LejeMatch?</h2>
 			<div class="space-y-3 text-sm text-muted-foreground leading-relaxed">
-				<p>Hej, jeg hedder Adam. Jeg studerer medicin i Aarhus — og LejeMatch startede med min egen boligjagt.</p>
 				<p>
-					Da jeg boede i København, oplevede jeg selv, hvor svært det er at finde en lejebolig: endeløse
-					Facebook-grupper fyldt med rod, dubletter og tvivlsomme opslag — og boligportaler, der tager flere
-					hundrede kroner om måneden, bare for at man må skrive til en udlejer. Mange af mine venner har stået
-					i præcis samme situation.
+					Hej, jeg hedder Adam. Jeg studerer medicin i Aarhus, og LejeMatch startede med min og min kærestes
+					egen boligjagt.
 				</p>
-				<p>Det burde ikke være sådan. At finde et sted at bo er stressende nok i forvejen.</p>
 				<p>
-					Derfor byggede jeg LejeMatch: en platform, hvor udlejere og boligsøgende finder hinanden direkte —
-					gratis, overskueligt og uden mellemled.
+					Da vi skulle finde et sted at bo i København, oplevede vi selv, hvor svært det er at finde en
+					lejebolig: endeløse Facebook-grupper fyldt med rod, dubletter og tvivlsomme opslag — og
+					boligportaler, der tager flere hundrede kroner om måneden, bare for at man må skrive til en udlejer.
+					Mange af vores venner har stået i præcis samme situation.
+				</p>
+				<p>
+					Det burde ikke være så besværligt — at finde et sted at bo er stressende nok i forvejen. Derfor
+					byggede jeg LejeMatch: en platform, hvor udlejere og boligsøgende finder hinanden direkte, gratis,
+					overskueligt og uden mellemled.
 				</p>
 			</div>
 		</section>
