@@ -81,7 +81,7 @@
 	</a>
 
 	<div class="flex items-start justify-between gap-4 mb-4">
-		<h1 class="text-2xl font-bold text-foreground uppercase tracking-wide">{data.listing.Title}</h1>
+		<h1 class="text-lg sm:text-2xl font-bold text-foreground uppercase tracking-wide">{data.listing.Title}</h1>
 		{#if data.user}
 			<div class="shrink-0 flex items-center gap-3">
 				{#if !isOwner}

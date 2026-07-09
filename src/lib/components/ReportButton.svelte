@@ -34,7 +34,7 @@
 	<button
 		type="button"
 		onclick={() => (open = !open)}
-		class="text-[11px] text-muted-foreground hover:text-destructive underline underline-offset-2 transition-colors"
+		class="text-xs font-medium text-muted-foreground hover:text-destructive transition-colors"
 	>
 		{label}
 	</button>
