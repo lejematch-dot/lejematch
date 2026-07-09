@@ -60,20 +60,30 @@
 />
 
 <div class="max-w-6xl mx-auto px-4 py-6">
-	<a
-		href="/lejere"
-		class="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground uppercase tracking-widest mb-4 transition-colors"
-	>
-		<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-		</svg>
-		Tilbage
-	</a>
+	<div class="flex items-start justify-between gap-4 mb-4">
+		<a
+			href="/lejere"
+			class="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground uppercase tracking-widest transition-colors"
+		>
+			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+			</svg>
+			Tilbage
+		</a>
+		{#if data.user}
+			<div class="shrink-0 flex flex-col items-end gap-2 sm:hidden">
+				{#if !isOwner}
+					<ReportButton targetType="seeker" targetId={data.seeker.ID} />
+				{/if}
+				<FavoriteButton favoriteType="seeker" favoriteId={data.seeker.ID} initialFavorited={data.isFavorite} variant="plain" />
+			</div>
+		{/if}
+	</div>
 
 	<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-4 min-w-0">
 		<h1 class="text-base sm:text-2xl font-bold text-foreground uppercase tracking-wide truncate min-w-0">{data.seeker.Title}</h1>
 		{#if data.user}
-			<div class="shrink-0 flex items-center justify-end gap-3">
+			<div class="hidden sm:flex shrink-0 items-center justify-end gap-3">
 				{#if !isOwner}
 					<ReportButton targetType="seeker" targetId={data.seeker.ID} />
 				{/if}

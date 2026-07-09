@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	import favicon from '$lib/assets/favicon.svg';
 	import { CVR_NUMBER } from '$lib/legal';
 	import { blogPosts } from '$lib/blog';
 	import { DEFAULT_META, STATIC_ROUTE_META } from '$lib/seo';
@@ -27,7 +26,10 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href="/favicon.ico" sizes="any" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+	<link rel="apple-touch-icon" href="/favicon-48.png" />
 	<title>{routeMeta.title}</title>
 	<meta name="description" content={routeMeta.description} />
 	<meta property="og:site_name" content="LejeMatch" />
