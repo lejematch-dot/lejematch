@@ -276,9 +276,7 @@
 		<div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
 			<div class="flex flex-col items-center sm:items-start gap-0.5">
 				<p class="text-[11px] text-primary-foreground/60">
-					© {new Date().getFullYear()} LejeMatch{#if CVR_NUMBER}
-						· CVR: {CVR_NUMBER}
-					{/if}
+					© {new Date().getFullYear()} LejeMatch{#if CVR_NUMBER}{' '}· CVR: {CVR_NUMBER}{/if}
 				</p>
 				<a
 					href="mailto:kontakt@lejematch.dk"

@@ -33,7 +33,7 @@
 				<div class="py-6">
 					<h3 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">Hvem står bag LejeMatch?</h3>
 					<p class="text-sm text-muted-foreground leading-relaxed">
-						LejeMatch drives af LejeMatch{#if CVR_NUMBER}, CVR-nr. {CVR_NUMBER}{/if}. Du kan altid kontakte os på
+						LejeMatch drives af os{#if CVR_NUMBER}, CVR-nr. {CVR_NUMBER}{/if}. Du kan altid kontakte os på
 						<a href="mailto:kontakt@lejematch.dk" class="text-primary font-medium hover:underline">kontakt@lejematch.dk</a>
 						— vi svarer hurtigst muligt. Læs mere på vores
 						<a href="/om-os" class="text-primary font-medium hover:underline">Om os-side</a>.

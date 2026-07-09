@@ -1,47 +1,78 @@
+<script lang="ts">
+	import { CVR_NUMBER } from '$lib/legal';
+</script>
+
 <svelte:head>
 	<title>Om os – LejeMatch</title>
 </svelte:head>
 
 <div class="max-w-3xl mx-auto px-6 py-16">
-	<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">Om os</p>
-	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-10 uppercase tracking-tight">
-		Boligmarkedet<br />fortjener bedre
-	</h1>
+	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-10 uppercase tracking-tight">Om os</h1>
 
-	<div class="space-y-6 text-muted-foreground leading-relaxed">
-		<p>
-			LejeMatch startede med en simpel frustration: at finde eller udleje en bolig i Danmark foregår stadig
-			gennem uorganiserede Facebook-grupper fulde af spam, eller dyre portaler der kun henvender sig til
-			formelle udlejninger.
-		</p>
-		<p>
-			Vi bygger ét sted, hvor både udlejere og lejere kan mødes — uanset om det er en hel lejlighed, et
-			enkelt værelse eller en plads i et bofællesskab. Gratis, simpelt og uden skjulte gebyrer.
-		</p>
-		<p>
-			Bag LejeMatch står Adam — ingen stor virksomhed, ingen investorer, bare én person der selv har oplevet,
-			hvor svært boligmarkedet kan være, og som synes det fortjener bedre.
-		</p>
+	<div class="space-y-8">
+		<section>
+			<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Hvorfor findes LejeMatch?</h2>
+			<div class="space-y-3 text-sm text-muted-foreground leading-relaxed">
+				<p>Hej, jeg hedder Adam. Jeg studerer medicin i Aarhus — og LejeMatch startede med min egen boligjagt.</p>
+				<p>
+					Da jeg boede i København, oplevede jeg selv, hvor svært det er at finde en lejebolig: endeløse
+					Facebook-grupper fyldt med rod, dubletter og tvivlsomme opslag — og boligportaler, der tager flere
+					hundrede kroner om måneden, bare for at man må skrive til en udlejer. Mange af mine venner har stået
+					i præcis samme situation.
+				</p>
+				<p>Det burde ikke være sådan. At finde et sted at bo er stressende nok i forvejen.</p>
+				<p>
+					Derfor byggede jeg LejeMatch: en platform, hvor udlejere og boligsøgende finder hinanden direkte —
+					gratis, overskueligt og uden mellemled.
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Hvad gør LejeMatch anderledes?</h2>
+			<ul class="space-y-3 text-sm text-muted-foreground leading-relaxed">
+				<li>
+					<strong class="text-foreground">Gratis for alle.</strong> Det koster ikke noget at oprette opslag, søge
+					eller kontakte andre brugere. Hverken for udlejere eller boligsøgende.
+				</li>
+				<li>
+					<strong class="text-foreground">Begge veje.</strong> Udlejere kan slå boliger op — men boligsøgende kan
+					også oprette deres eget opslag, som udlejere kan reagere på. Så behøver du ikke sidde og opdatere
+					søgesider hele dagen.
+				</li>
+				<li>
+					<strong class="text-foreground">Direkte kontakt.</strong> Ingen betalingsmur mellem dig og udlejeren. I
+					skriver direkte sammen og aftaler selv resten.
+				</li>
+				<li>
+					<strong class="text-foreground">Tryghed først.</strong> Man skal være logget ind for at kontakte andre —
+					det holder spam og svindlere ude. Alle opslag kan rapporteres, og vi fjerner indhold, der bryder
+					<a href="/brugervilkaar" class="text-primary font-medium hover:underline">reglerne</a>.
+				</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Hvem står bag?</h2>
+			<div class="space-y-3 text-sm text-muted-foreground leading-relaxed">
+				<p>
+					LejeMatch er en ung, dansk platform — bygget af mig, med god hjælp fra en kammerat på den tekniske
+					side undervejs. Der er ingen stor virksomhed bag, ingen investorer og ingen skjulte gebyrer. Bare en
+					studerende, der synes, boligjagt skal være gratis og ordentlig.
+				</p>
+				<p>
+					Det betyder også, at platformen stadig udvikler sig. Har du forslag, ris eller ros, vil jeg rigtig
+					gerne høre fra dig — jeg læser og svarer selv på alle henvendelser.
+				</p>
+				<p>
+					Kontakt:
+					<a href="mailto:kontakt@lejematch.dk" class="text-primary font-medium hover:underline">kontakt@lejematch.dk</a>
+				</p>
+			</div>
+		</section>
 	</div>
 
-	<div class="grid sm:grid-cols-2 gap-8 mt-14">
-		<div>
-			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">Ét sted for alt</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
-				Søg boliger, find en roommate eller opret et opslag som lejer — alt på samme platform.
-			</p>
-		</div>
-		<div>
-			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">100% gratis</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">Ingen gebyrer, ingen skjulte omkostninger.</p>
-		</div>
-		<div>
-			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">Overskueligt design</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
-				Smart søgning, filtre og profiler — find hvad du søger på 5 min.
-			</p>
-		</div>
-	</div>
+	<p class="text-xs text-muted-foreground mt-10">LejeMatch{#if CVR_NUMBER}{' '}· CVR-nr. {CVR_NUMBER}{/if}</p>
 
 	<div class="mt-14 pt-8 border-t border-border">
 		<a
