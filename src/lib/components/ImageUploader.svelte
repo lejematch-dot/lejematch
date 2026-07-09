@@ -3,12 +3,16 @@
 		name = 'Images',
 		multiple = true,
 		initialUrls = [],
-		min = 0
+		min = 0,
+		endpoint = '/api/uploads'
 	}: {
 		name?: string;
 		multiple?: boolean;
 		initialUrls?: string[];
 		min?: number;
+		/** Overrides the upload endpoint — used on the registration page, where
+		 *  there's no session yet to authenticate the default endpoint with. */
+		endpoint?: string;
 	} = $props();
 
 	let images = $state<string[]>([...initialUrls]);
@@ -41,7 +45,7 @@
 
 				const formData = new FormData();
 				formData.append('file', file);
-				const res = await fetch('/api/uploads', { method: 'POST', body: formData });
+				const res = await fetch(endpoint, { method: 'POST', body: formData });
 				if (!res.ok) {
 					const body = await res.json().catch(() => null);
 					throw new Error(body?.message || 'Kunne ikke uploade billedet. Prøv igen.');

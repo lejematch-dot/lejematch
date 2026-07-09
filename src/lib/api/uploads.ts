@@ -17,3 +17,22 @@ export async function uploadImage(file: File, token: string): Promise<{ url: str
 
 	return res.json();
 }
+
+// Bruges kun til profilbilledet på registreringssiden, hvor der endnu ikke
+// findes en konto/JWT at autentificere med.
+export async function uploadImagePublic(file: File): Promise<{ url: string }> {
+	const formData = new FormData();
+	formData.append('file', file);
+
+	const res = await fetch(`${API_BASE_URL}/api/v1/registration-upload`, {
+		method: 'POST',
+		body: formData
+	});
+
+	if (!res.ok) {
+		const body = await res.json().catch(() => null);
+		throw new Error(body?.error || res.statusText || 'Upload fejlede');
+	}
+
+	return res.json();
+}
