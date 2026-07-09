@@ -83,7 +83,7 @@
 	<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-4 min-w-0">
 		<h1 class="text-base sm:text-2xl font-bold text-foreground uppercase tracking-wide truncate min-w-0">{data.listing.Title}</h1>
 		{#if data.user}
-			<div class="shrink-0 flex items-center gap-3">
+			<div class="shrink-0 flex items-center justify-end gap-3">
 				{#if !isOwner}
 					<ReportButton targetType="listing" targetId={data.listing.ID} />
 				{/if}
