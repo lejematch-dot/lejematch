@@ -10,7 +10,6 @@
 
 <div class="max-w-7xl mx-auto px-4 py-8">
 	<div class="mb-8">
-		<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">Dashboard</p>
 		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">Favoritter</h1>
 	</div>
 
