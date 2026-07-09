@@ -33,8 +33,13 @@ export const actions: Actions = {
 
 		try {
 			await updateUser(locals.user.sub, userData, token);
-		} catch {
-			return fail(400, { action: 'user', error: 'Kunne ikke opdatere brugeroplysninger.' });
+		} catch (e) {
+			const status = e instanceof Error && 'status' in e ? (e as Error & { status: number }).status : 0;
+			const error =
+				status === 409
+					? 'E-mailen eller telefonnummeret bruges allerede af en anden konto.'
+					: 'Kunne ikke opdatere brugeroplysninger.';
+			return fail(400, { action: 'user', error });
 		}
 
 		return { action: 'user', success: true };

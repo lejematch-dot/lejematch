@@ -32,8 +32,13 @@ export const actions: Actions = {
 				ImageURL: imageURL,
 				UserType: 'tenant'
 			});
-		} catch {
-			return fail(400, { error: 'Kunne ikke oprette konto. Prøv igen.' });
+		} catch (e) {
+			const status = e instanceof Error && 'status' in e ? (e as Error & { status: number }).status : 0;
+			const error =
+				status === 409
+					? 'E-mailen eller telefonnummeret er allerede i brug af en anden konto.'
+					: 'Kunne ikke oprette konto. Prøv igen.';
+			return fail(400, { error });
 		}
 
 		// Kontoen er inaktiv indtil e-mailen er bekræftet — ingen auto-login.
