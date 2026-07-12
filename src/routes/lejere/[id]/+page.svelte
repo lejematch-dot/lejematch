@@ -7,6 +7,8 @@
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
+	let descExpanded = $state(false);
+
 	const isOwner = $derived(data.user?.sub === data.seeker.UserID);
 
 	const posterName = $derived.by(() => {
@@ -186,7 +188,16 @@
 
 			<div class="border-t border-border pt-6">
 				<h2 class="font-semibold text-foreground uppercase tracking-wide text-sm mb-3">Beskrivelse</h2>
-				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed">{data.seeker.Description}</p>
+				<p class="text-muted-foreground whitespace-pre-wrap leading-relaxed {descExpanded ? '' : 'line-clamp-3'}">{data.seeker.Description}</p>
+				{#if data.seeker.Description && data.seeker.Description.length > 200}
+					<button
+						type="button"
+						onclick={() => (descExpanded = !descExpanded)}
+						class="text-xs font-medium text-primary hover:underline mt-2"
+					>
+						{descExpanded ? 'Vis mindre' : 'Læs mere'}
+					</button>
+				{/if}
 			</div>
 		</div>
 
