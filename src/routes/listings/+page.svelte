@@ -375,7 +375,7 @@
 							<span>Ledig fra {formatShortDate(listing.AvailableFrom)}</span>
 						</div>
 						{#if listing.Description}
-							<p class="{mobileCols !== 1 ? 'hidden' : 'block'} sm:block text-xs text-muted-foreground mt-2 line-clamp-2">{listing.Description}</p>
+							<p class="{mobileCols !== 1 ? 'hidden' : 'block'} sm:block text-xs text-muted-foreground mt-2 line-clamp-3">{listing.Description}</p>
 						{/if}
 					</div>
 				</a>
