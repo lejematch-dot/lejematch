@@ -287,7 +287,7 @@
 							<span>Indflytning fra {formatShortDate(seeker.MoveInFrom)}</span>
 						</div>
 						{#if seeker.Description}
-							<p class="{mobileCols !== 1 ? 'hidden' : 'block'} sm:block text-xs text-muted-foreground mt-2 line-clamp-3">{seeker.Description}</p>
+							<p class="{mobileCols !== 1 ? 'hidden' : 'line-clamp-3'} sm:line-clamp-3 text-xs text-muted-foreground mt-2">{seeker.Description}</p>
 						{/if}
 					</div>
 				</a>
