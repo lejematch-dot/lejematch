@@ -39,11 +39,11 @@
 								<img
 									src={senderProfile.imageURL}
 									alt=""
-									class="w-10 h-10 rounded-full object-cover"
+									class="w-10 h-10 object-cover"
 									style="object-position: {getObjectPosition(senderProfile.imageURL)}"
 								/>
 							{:else}
-								<div class="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground">
+								<div class="w-10 h-10 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground">
 									{senderProfile?.displayName?.[0]?.toUpperCase() ?? '?'}
 								</div>
 							{/if}

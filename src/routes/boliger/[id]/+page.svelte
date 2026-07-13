@@ -239,7 +239,7 @@
 						href="/profil/{data.listing.UserID}"
 						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
 					>
-						<div class="w-16 h-16 rounded-full bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
+						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
 							{#if data.posterProfile?.imageURL}
 								<img
 									src={data.posterProfile.imageURL}

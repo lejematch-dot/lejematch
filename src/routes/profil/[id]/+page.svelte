@@ -12,11 +12,11 @@
 			<img
 				src={data.profile.imageURL}
 				alt={data.profile.displayName}
-				class="w-20 h-20 rounded-full object-cover"
+				class="w-20 h-20 object-cover"
 				style="object-position: {getObjectPosition(data.profile.imageURL)}"
 			/>
 		{:else}
-			<div class="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground">
+			<div class="w-20 h-20 bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground">
 				{data.profile.displayName?.[0]?.toUpperCase() ?? '?'}
 			</div>
 		{/if}

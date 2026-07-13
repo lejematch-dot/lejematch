@@ -112,7 +112,7 @@
 				</div>
 				<div>
 					<label class="block text-sm font-medium text-foreground mb-1">Profilbillede *</label>
-					<ImageUploader name="ImageURL" multiple={false} round endpoint="/api/uploads/registration" />
+					<ImageUploader name="ImageURL" multiple={false} endpoint="/api/uploads/registration" />
 				</div>
 				<button
 					type="submit"

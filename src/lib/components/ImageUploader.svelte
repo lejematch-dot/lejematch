@@ -6,8 +6,7 @@
 		multiple = true,
 		initialUrls = [],
 		min = 0,
-		endpoint = '/api/uploads',
-		round = false
+		endpoint = '/api/uploads'
 	}: {
 		name?: string;
 		multiple?: boolean;
@@ -16,8 +15,6 @@
 		/** Overrides the upload endpoint — used on the registration page, where
 		 *  there's no session yet to authenticate the default endpoint with. */
 		endpoint?: string;
-		/** Viser miniature og fokuspunkt-editor som en cirkel — til profilbilleder. */
-		round?: boolean;
 	} = $props();
 
 	let images = $state<string[]>([...initialUrls]);
@@ -140,7 +137,7 @@
 		{/if}
 		<div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
 			{#each images as url, i (url + i)}
-				<div class="relative aspect-square bg-muted overflow-hidden group {round ? 'rounded-full' : ''}">
+				<div class="relative aspect-square bg-muted overflow-hidden group">
 					<img
 						src={url}
 						alt=""
@@ -261,7 +258,7 @@
 			</div>
 
 			<p class="text-xs font-medium uppercase tracking-wide text-muted-foreground mt-4 mb-2">Forhåndsvisning</p>
-			<div class="w-20 h-20 bg-muted overflow-hidden {round ? 'rounded-full' : ''}">
+			<div class="w-20 h-20 bg-muted overflow-hidden">
 				<img
 					src={stripPosition(images[editingIndex])}
 					alt=""

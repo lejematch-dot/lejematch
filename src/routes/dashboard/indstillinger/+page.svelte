@@ -134,7 +134,6 @@
 				<ImageUploader
 					name="ImageURL"
 					multiple={false}
-					round
 					initialUrls={data.profile.imageURL ? [data.profile.imageURL] : []}
 				/>
 			</div>
