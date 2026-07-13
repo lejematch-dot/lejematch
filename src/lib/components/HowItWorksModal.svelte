@@ -3,6 +3,7 @@
 	let activeTab = $state<'udlejer' | 'lejer'>('udlejer');
 
 	const udlejerSteps = [
+		'Opret en gratis bruger på LejeMatch.dk',
 		'Klik på "Opret en annonce" på LejeMatch.dk',
 		'Udfyld de påkrævede felter, herunder en kort beskrivelse af lejemålet og hvad du ønsker af lejeren',
 		'Udfyld kontaktformularen, så din fremtidige lejer kan kontakte dig',
@@ -12,6 +13,7 @@
 	];
 
 	const lejerSteps = [
+		'Opret en gratis bruger på LejeMatch.dk',
 		'Klik på "Opret en annonce" på LejeMatch.dk',
 		'Udfyld de påkrævede felter, herunder en kort beskrivelse af dig/jer som lejere – hvem er du, hvad laver du, har du erfaring med at bo ude osv. (sælg din case!)',
 		'Udfyld kontaktformularen, så du kan kontaktes',
@@ -23,6 +25,13 @@
 	function close() {
 		open = false;
 	}
+
+	$effect(() => {
+		document.body.style.overflow = open ? 'hidden' : '';
+		return () => {
+			document.body.style.overflow = '';
+		};
+	});
 </script>
 
 <svelte:window
