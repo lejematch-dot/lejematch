@@ -4,6 +4,7 @@
 	import { CVR_NUMBER } from '$lib/legal';
 	import { blogPosts } from '$lib/blog';
 	import { DEFAULT_META, STATIC_ROUTE_META, NOINDEX_PREFIXES } from '$lib/seo';
+	import CookieConsent from '$lib/components/CookieConsent.svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -337,3 +338,5 @@
 		</div>
 	</footer>
 </div>
+
+<CookieConsent />

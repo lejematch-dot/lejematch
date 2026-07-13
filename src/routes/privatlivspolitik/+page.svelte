@@ -33,7 +33,12 @@
 				<strong class="text-foreground">Ved kontakt til andre brugere:</strong> beskedens indhold og eventuelt telefonnummer.
 				Beskeder kan kun sendes af brugere, der er logget ind.
 			</p>
-			<p><strong class="text-foreground">Teknisk:</strong> en session-cookie, der holder dig logget ind (se afsnit 7).</p>
+			<p class="mb-2"><strong class="text-foreground">Teknisk:</strong> en session-cookie, der holder dig logget ind (se afsnit 7).</p>
+			<p>
+				<strong class="text-foreground">Statistik (kun med dit samtykke):</strong> hvis du accepterer statistik-cookies,
+				indsamler Google Analytics oplysninger om din brug af siden — fx hvilke sider du besøger, hvor du kommer fra,
+				og hvilken enhed du bruger. Se afsnit 7.
+			</p>
 		</section>
 
 		<section>
@@ -70,11 +75,16 @@
 					<strong class="text-foreground">Mailgun (EU-region)</strong> — udsendelse af systemmails, fx bekræftelses- og
 					notifikationsmails. Oplysningerne behandles i Mailguns EU-region.
 				</li>
+				<li>
+					<strong class="text-foreground">Google Ireland Limited</strong> (Google Analytics) — statistik om brugen af
+					platformen, men kun hvis du har givet samtykke til statistik-cookies. Se afsnit 7.
+				</li>
 			</ul>
 			<p class="mt-2">
 				Der er indgået databehandleraftaler med vores leverandører. Vi overfører som udgangspunkt ikke oplysninger til
-				lande uden for EU/EØS. Sker det undtagelsesvist, sikres overførslen med et gyldigt overførselsgrundlag, fx
-				EU-Kommissionens standardkontraktbestemmelser.
+				lande uden for EU/EØS. Google Analytics kan indebære overførsel af oplysninger til Google LLC i USA; det sker på
+				grundlag af EU-Kommissionens standardkontraktbestemmelser og Googles certificering under EU-U.S. Data Privacy
+				Framework.
 			</p>
 			<p class="mt-2">
 				Oplysninger, du selv offentliggør i et opslag (fx bynavn, boligbilleder og dit fornavn), er synlige for andre
@@ -114,11 +124,22 @@
 
 		<section>
 			<h2 class="font-bold text-foreground text-sm uppercase tracking-wide mb-2">7. Cookies</h2>
+			<p class="mb-3">LejeMatch.dk bruger to typer cookies:</p>
+			<p class="mb-2">
+				<strong class="text-foreground">Nødvendige cookies</strong> (kræver ikke samtykke): en session-cookie, der holder
+				dig logget ind, samt en cookie, der husker dit cookie-valg. Disse sættes altid, da tjenesten ikke fungerer uden
+				dem.
+			</p>
+			<p class="mb-3">
+				<strong class="text-foreground">Statistik-cookies</strong> (kræver dit samtykke): hvis du klikker "Accepter" i
+				cookie-banneret, bruger vi Google Analytics til at måle trafik og brug af siden — fx antal besøgende, hvilke
+				sider der besøges, og hvor besøgende kommer fra. Google sætter cookies som <code class="text-xs">_ga</code> og
+				<code class="text-xs">_ga_*</code>, der opbevares i op til 2 år. Disse cookies sættes først, når du har givet
+				samtykke, og aldrig før.
+			</p>
 			<p>
-				LejeMatch.dk anvender kun én cookie: en teknisk nødvendig session-cookie, der holder dig logget ind. Vi bruger
-				ingen cookies til statistik, tracking eller markedsføring. Da teknisk nødvendige cookies ikke kræver samtykke,
-				viser vi ikke et cookie-banner. Hvis vi på et tidspunkt indfører cookies, der kræver samtykke, vil du blive bedt
-				om samtykke, før de sættes.
+				Du kan altid ændre eller trække dit samtykke tilbage ved at rydde dine cookies i browseren og genindlæse siden,
+				hvorefter cookie-banneret vises igen.
 			</p>
 		</section>
 
