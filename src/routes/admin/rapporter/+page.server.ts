@@ -30,7 +30,7 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 
 			const targetUrl =
 				report.TargetType === 'listing'
-					? `/listings/${report.TargetID}`
+					? `/boliger/${report.TargetID}`
 					: report.TargetType === 'seeker'
 						? `/lejere/${report.TargetID}`
 						: `/profil/${report.TargetID}`;

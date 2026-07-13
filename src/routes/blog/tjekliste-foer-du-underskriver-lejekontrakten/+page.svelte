@@ -218,7 +218,7 @@
 
 	<div class="mt-14 pt-8 border-t border-border">
 		<a
-			href="/listings"
+			href="/boliger"
 			class="inline-block px-8 py-4 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-widest hover:bg-primary/90 transition-colors"
 		>
 			Find en bolig

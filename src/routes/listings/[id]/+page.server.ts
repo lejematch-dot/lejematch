@@ -1,53 +1,7 @@
-import { getFavorites } from '$lib/api/favorites';
-import { contactListing, getListing } from '$lib/api/listings';
-import { getUserProfile } from '$lib/api/users';
-import { error, fail } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params, locals, cookies }) => {
-	const id = Number(params.id);
-	if (isNaN(id)) error(404, 'Bolig ikke fundet');
-
-	try {
-		const listing = await getListing(id);
-
-		let isFavorite = false;
-		if (locals.user) {
-			const favorites = await getFavorites(cookies.get('session')!).catch(() => []);
-			isFavorite = favorites.some((f) => f.FavoriteType === 'listing' && f.FavoriteID === id);
-		}
-
-		const posterProfile = await getUserProfile(listing.UserID).catch(() => null);
-
-		return { listing, isFavorite, posterProfile };
-	} catch {
-		error(404, 'Bolig ikke fundet');
-	}
-};
-
-export const actions: Actions = {
-	contact: async ({ request, params, locals, cookies }) => {
-		if (!locals.user) return fail(401, { error: 'Log ind for at kontakte.' });
-
-		const id = Number(params.id);
-		if (isNaN(id)) error(404, 'Bolig ikke fundet');
-
-		const token = cookies.get('session')!;
-		const data = await request.formData();
-		const senderPhone = String(data.get('senderPhone') ?? '');
-		const message = String(data.get('message') ?? '');
-
-		if (!message) {
-			return fail(400, { error: 'Skriv en besked.' });
-		}
-
-		try {
-			await contactListing(id, { senderPhone, message }, token);
-		} catch (e) {
-			console.error('KONTAKT FEJL:', e);
-			return fail(500, { error: 'Kunne ikke sende beskeden. Prøv igen senere.' });
-		}
-
-		return { success: true };
-	}
+// Permanent redirect — siden hedder nu /boliger/[id].
+export const load: PageServerLoad = ({ params }) => {
+	redirect(301, `/boliger/${params.id}`);
 };

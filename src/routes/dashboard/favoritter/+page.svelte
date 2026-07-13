@@ -23,7 +23,7 @@
 			<div class="border border-border gap-px bg-border flex flex-col">
 				{#each data.listings as listing (listing.ID)}
 					<a
-						href="/listings/{listing.ID}"
+						href="/boliger/{listing.ID}"
 						class="flex items-center justify-between bg-background px-5 py-4 hover:bg-muted transition-colors"
 					>
 						<div>

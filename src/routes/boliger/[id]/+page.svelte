@@ -68,7 +68,7 @@
 <div class="max-w-6xl mx-auto px-4 py-6">
 	<div class="flex items-start justify-between gap-4 mb-4">
 		<a
-			href="/listings"
+			href="/boliger"
 			class="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground uppercase tracking-widest transition-colors"
 		>
 			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

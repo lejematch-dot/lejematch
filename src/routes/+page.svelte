@@ -24,7 +24,7 @@
 		<div class="flex flex-col sm:flex-row gap-3">
 			<div class="flex flex-col sm:flex-row gap-0">
 				<a
-					href="/listings"
+					href="/boliger"
 					class="px-8 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
 				>
 					Se boliger

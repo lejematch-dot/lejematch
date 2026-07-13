@@ -41,7 +41,7 @@
 						</div>
 						<div class="flex gap-2">
 							<a
-								href="/listings/{listing.ID}"
+								href="/boliger/{listing.ID}"
 								class="border border-border px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-foreground hover:bg-muted transition-colors"
 							>
 								Se

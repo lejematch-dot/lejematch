@@ -113,7 +113,7 @@
 							<div class="space-y-1.5">
 								{#each userListings as listing (listing.ID)}
 									<div class="flex items-center justify-between gap-3">
-										<a href="/listings/{listing.ID}" class="text-xs text-foreground hover:underline truncate">
+										<a href="/boliger/{listing.ID}" class="text-xs text-foreground hover:underline truncate">
 											{listing.Title} <span class="text-muted-foreground">(bolig)</span>
 										</a>
 										<form method="POST" action="?/deleteTarget" use:enhance>

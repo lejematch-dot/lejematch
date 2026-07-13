@@ -6,7 +6,7 @@ export const DEFAULT_META = {
 };
 
 export const STATIC_ROUTE_META: Record<string, { title: string; description: string }> = {
-	'/listings': {
+	'/boliger': {
 		title: 'Ledige lejeboliger til leje – LejeMatch',
 		description:
 			'Se ledige lejeboliger i hele Danmark. Filtrér på by, pris og boligtype, og kontakt udlejeren direkte og gratis på LejeMatch.'

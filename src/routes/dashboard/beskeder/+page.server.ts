@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 				targetTitle: target?.Title ?? null,
 				targetUrl:
 					contact.TargetType === 'listing'
-						? `/listings/${contact.TargetID}`
+						? `/boliger/${contact.TargetID}`
 						: `/lejere/${contact.TargetID}`
 			};
 		})

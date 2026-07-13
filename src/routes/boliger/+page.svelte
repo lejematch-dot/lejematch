@@ -71,7 +71,7 @@
 		if (rentalPeriod.length) params.set('rentalPeriod', rentalPeriod.join(','));
 		if (category !== 'hele') params.set('category', category);
 		const qs = params.toString();
-		return `/listings${qs ? `?${qs}` : ''}`;
+		return `/boliger${qs ? `?${qs}` : ''}`;
 	}
 
 	function applyFilters() {
@@ -314,7 +314,7 @@
 		<div class="grid {mobileGridClass[mobileCols]} sm:grid-cols-2 lg:grid-cols-3 gap-4">
 			{#each data.listings as listing (listing.ID)}
 				<a
-					href="/listings/{listing.ID}"
+					href="/boliger/{listing.ID}"
 					class="group bg-background border border-border hover:bg-muted transition-colors block"
 				>
 					<div class="aspect-[4/3] bg-muted relative overflow-hidden">
