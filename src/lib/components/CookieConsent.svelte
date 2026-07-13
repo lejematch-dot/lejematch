@@ -59,13 +59,13 @@
 
 {#if visible}
 	<div class="fixed bottom-0 inset-x-0 z-50 bg-card border-t border-border p-4 sm:p-6 shadow-lg">
-		<div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-			<p class="text-sm text-muted-foreground">
+		<div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+			<p class="text-sm text-muted-foreground text-center sm:text-left">
 				Vi bruger cookies til at måle trafik på siden med Google Analytics, så vi kan forbedre LejeMatch. Du kan
 				altid ændre dit valg. Læs mere i vores
 				<a href="/privatlivspolitik" class="underline text-foreground">privatlivspolitik</a>.
 			</p>
-			<div class="flex gap-2 shrink-0">
+			<div class="flex gap-2 shrink-0 justify-center">
 				<button
 					type="button"
 					onclick={reject}
