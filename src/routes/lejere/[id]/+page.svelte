@@ -3,6 +3,7 @@
 	import FavoriteButton from '$lib/components/FavoriteButton.svelte';
 	import ReportButton from '$lib/components/ReportButton.svelte';
 	import { abbreviateName } from '$lib/name';
+	import { getObjectPosition } from '$lib/imagePosition';
 	import type { PageData, ActionData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -101,6 +102,7 @@
 							src={data.seeker.Images[0]}
 							alt={data.seeker.Title}
 							class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+							style="object-position: {getObjectPosition(data.seeker.Images[0])}"
 						/>
 					</button>
 					{#if data.seeker.Images.length > 1}
@@ -114,6 +116,7 @@
 									src={data.seeker.Images[1]}
 									alt="{data.seeker.Title} 2"
 									class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+									style="object-position: {getObjectPosition(data.seeker.Images[1])}"
 								/>
 							</button>
 							{#if data.seeker.Images.length > 2}
@@ -126,6 +129,7 @@
 										src={data.seeker.Images[2]}
 										alt="{data.seeker.Title} 3"
 										class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+										style="object-position: {getObjectPosition(data.seeker.Images[2])}"
 									/>
 								</button>
 							{/if}
@@ -204,9 +208,14 @@
 						href="/profil/{data.seeker.UserID}"
 						class="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity"
 					>
-						<div class="w-16 h-16 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
+						<div class="w-16 h-16 rounded-full bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground shrink-0 overflow-hidden">
 							{#if data.posterProfile?.imageURL}
-								<img src={data.posterProfile.imageURL} alt="" class="w-full h-full object-cover" />
+								<img
+									src={data.posterProfile.imageURL}
+									alt=""
+									class="w-full h-full object-cover"
+									style="object-position: {getObjectPosition(data.posterProfile.imageURL)}"
+								/>
 							{:else}
 								<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />

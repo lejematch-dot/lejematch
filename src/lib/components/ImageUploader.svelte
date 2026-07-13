@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { getObjectPosition, getPositionCoords, withPosition, stripPosition } from '$lib/imagePosition';
+
 	let {
 		name = 'Images',
 		multiple = true,
 		initialUrls = [],
 		min = 0,
-		endpoint = '/api/uploads'
+		endpoint = '/api/uploads',
+		round = false
 	}: {
 		name?: string;
 		multiple?: boolean;
@@ -13,6 +16,8 @@
 		/** Overrides the upload endpoint — used on the registration page, where
 		 *  there's no session yet to authenticate the default endpoint with. */
 		endpoint?: string;
+		/** Viser miniature og fokuspunkt-editor som en cirkel — til profilbilleder. */
+		round?: boolean;
 	} = $props();
 
 	let images = $state<string[]>([...initialUrls]);
@@ -20,6 +25,36 @@
 	let uploading = $state(false);
 	let error = $state('');
 	let fileInput: HTMLInputElement;
+
+	let editingIndex = $state<number | null>(null);
+	let editPos = $state({ x: 50, y: 50 });
+	let dragging = $state(false);
+
+	function openEditor(i: number) {
+		editingIndex = i;
+		editPos = getPositionCoords(images[i]);
+	}
+
+	function closeEditor() {
+		editingIndex = null;
+		dragging = false;
+	}
+
+	function pickFromEvent(e: MouseEvent) {
+		const target = e.currentTarget as HTMLElement;
+		const rect = target.getBoundingClientRect();
+		const x = ((e.clientX - rect.left) / rect.width) * 100;
+		const y = ((e.clientY - rect.top) / rect.height) * 100;
+		editPos = { x: Math.min(100, Math.max(0, x)), y: Math.min(100, Math.max(0, y)) };
+	}
+
+	function savePosition() {
+		if (editingIndex === null) return;
+		const newImages = [...images];
+		newImages[editingIndex] = withPosition(stripPosition(newImages[editingIndex]), editPos.x, editPos.y);
+		images = newImages;
+		closeEditor();
+	}
 
 	function fileKey(file: File): string {
 		return `${file.name}:${file.size}:${file.lastModified}`;
@@ -105,8 +140,24 @@
 		{/if}
 		<div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
 			{#each images as url, i (url + i)}
-				<div class="relative aspect-square bg-muted overflow-hidden group">
-					<img src={url} alt="" class="w-full h-full object-cover" />
+				<div class="relative aspect-square bg-muted overflow-hidden group {round ? 'rounded-full' : ''}">
+					<img
+						src={url}
+						alt=""
+						class="w-full h-full object-cover"
+						style="object-position: {getObjectPosition(url)}"
+					/>
+					<button
+						type="button"
+						onclick={() => openEditor(i)}
+						aria-label="Juster billedudsnit"
+						class="absolute top-1 left-1 w-6 h-6 flex items-center justify-center bg-foreground/80 text-background hover:bg-foreground transition-colors"
+					>
+						<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+						</svg>
+					</button>
 					<button
 						type="button"
 						onclick={() => removeImage(i)}
@@ -175,3 +226,66 @@
 		<p class="text-xs text-destructive">{error}</p>
 	{/if}
 </div>
+
+{#if editingIndex !== null}
+	<div
+		class="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+		onclick={closeEditor}
+		role="dialog"
+		aria-modal="true"
+	>
+		<div class="bg-card border border-border max-w-sm w-full p-4" onclick={(e) => e.stopPropagation()}>
+			<h3 class="text-xs font-bold uppercase tracking-widest text-foreground mb-2">Vælg billedudsnit</h3>
+			<p class="text-xs text-muted-foreground mb-3">Klik eller træk på billedet for at vælge, hvad der skal være i midten.</p>
+
+			<div
+				class="relative inline-block max-w-full mx-auto"
+				onclick={pickFromEvent}
+				onmousedown={() => (dragging = true)}
+				onmousemove={(e) => {
+					if (dragging) pickFromEvent(e);
+				}}
+				onmouseup={() => (dragging = false)}
+				onmouseleave={() => (dragging = false)}
+			>
+				<img
+					src={stripPosition(images[editingIndex])}
+					alt=""
+					class="max-w-full max-h-[50vh] block select-none cursor-crosshair"
+					draggable="false"
+				/>
+				<div
+					class="absolute w-5 h-5 rounded-full border-2 border-white bg-primary shadow-lg -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+					style="left: {editPos.x}%; top: {editPos.y}%"
+				></div>
+			</div>
+
+			<p class="text-xs font-medium uppercase tracking-wide text-muted-foreground mt-4 mb-2">Forhåndsvisning</p>
+			<div class="w-20 h-20 bg-muted overflow-hidden {round ? 'rounded-full' : ''}">
+				<img
+					src={stripPosition(images[editingIndex])}
+					alt=""
+					class="w-full h-full object-cover"
+					style="object-position: {editPos.x}% {editPos.y}%"
+				/>
+			</div>
+
+			<div class="flex gap-2 mt-4">
+				<button
+					type="button"
+					onclick={closeEditor}
+					class="flex-1 px-4 py-2 text-xs font-bold uppercase tracking-wide border border-border hover:bg-muted transition-colors"
+				>
+					Annuller
+				</button>
+				<button
+					type="button"
+					onclick={savePosition}
+					class="flex-1 px-4 py-2 text-xs font-bold uppercase tracking-wide bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+				>
+					Gem
+				</button>
+			</div>
+		</div>
+	</div>
+{/if}

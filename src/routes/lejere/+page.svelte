@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import FavoriteButton from '$lib/components/FavoriteButton.svelte';
+	import { getObjectPosition } from '$lib/imagePosition';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -237,6 +238,7 @@
 								src={seeker.Images[0]}
 								alt={seeker.Title}
 								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+								style="object-position: {getObjectPosition(seeker.Images[0])}"
 							/>
 						{:else}
 							<div class="w-full h-full flex items-center justify-center bg-accent/30">
