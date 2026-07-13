@@ -68,6 +68,7 @@
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
 	<link rel="apple-touch-icon" href="/favicon-48.png" />
+	<meta name="google-site-verification" content="DeBBtBA_GgaAW_B0OuWHANiK6oWOcKn1Rnin1yjUSKU" />
 	<title>{routeMeta.title}</title>
 	<meta name="description" content={routeMeta.description} />
 	{#if isNoindex}
