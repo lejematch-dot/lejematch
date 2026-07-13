@@ -5,10 +5,6 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<title>{data.profile.displayName} – LejeMatch</title>
-</svelte:head>
-
 <div class="max-w-3xl mx-auto px-4 py-8">
 	<div class="flex items-center gap-5 mb-6">
 		{#if data.profile.imageURL}

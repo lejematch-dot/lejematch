@@ -2,10 +2,6 @@
 	import { CVR_NUMBER } from '$lib/legal';
 </script>
 
-<svelte:head>
-	<title>Om os – LejeMatch</title>
-</svelte:head>
-
 <div class="max-w-3xl mx-auto px-6 py-16">
 	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-10 uppercase tracking-tight">Om os</h1>
 

@@ -2,10 +2,6 @@
 	import { CVR_NUMBER } from '$lib/legal';
 </script>
 
-<svelte:head>
-	<title>FAQ – LejeMatch</title>
-</svelte:head>
-
 <div class="max-w-3xl mx-auto px-6 py-16">
 	<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">Ofte stillede spørgsmål</p>
 	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-10 uppercase tracking-tight">FAQ</h1>

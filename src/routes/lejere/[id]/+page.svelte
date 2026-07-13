@@ -46,10 +46,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{data.seeker.Title} – LejeMatch</title>
-</svelte:head>
-
 <svelte:window
 	onkeydown={(e) => {
 		if (lightboxIdx === null) return;

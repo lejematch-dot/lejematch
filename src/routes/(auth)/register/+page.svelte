@@ -6,10 +6,6 @@
 	let { form }: { form: ActionData } = $props();
 </script>
 
-<svelte:head>
-	<title>Opret profil – LejeMatch</title>
-</svelte:head>
-
 <div class="min-h-screen bg-background flex items-center justify-center px-4">
 	<div class="w-full max-w-md">
 		<a

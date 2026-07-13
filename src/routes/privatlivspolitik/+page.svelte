@@ -2,10 +2,6 @@
 	import { CVR_NUMBER, COMPANY_ADDRESS, HOSTING_LOCATION, LAST_UPDATED } from '$lib/legal';
 </script>
 
-<svelte:head>
-	<title>Privatlivspolitik – LejeMatch</title>
-</svelte:head>
-
 <div class="max-w-3xl mx-auto px-6 py-16">
 	<p class="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">Juridisk</p>
 	<h1 class="text-3xl md:text-4xl font-bold text-foreground mb-2 uppercase tracking-tight">Privatlivspolitik</h1>

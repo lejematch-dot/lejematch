@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { CVR_NUMBER } from '$lib/legal';
 	import { blogPosts } from '$lib/blog';
-	import { DEFAULT_META, STATIC_ROUTE_META } from '$lib/seo';
+	import { DEFAULT_META, STATIC_ROUTE_META, NOINDEX_PREFIXES } from '$lib/seo';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -18,11 +18,48 @@
 
 	const routeMeta = $derived.by(() => {
 		const path = $page.url.pathname;
+		const pageData = $page.data as Record<string, unknown>;
+
 		if (STATIC_ROUTE_META[path]) return { ...DEFAULT_META, ...STATIC_ROUTE_META[path] };
+
 		const post = blogPosts.find((p) => `/blog/${p.slug}` === path);
 		if (post) return { ...DEFAULT_META, title: post.title, description: post.description };
+
+		const listing = pageData?.listing as
+			| { Title: string; City: string; Price: number }
+			| undefined;
+		if (listing && path.startsWith('/listings/')) {
+			return {
+				...DEFAULT_META,
+				title: `${listing.Title} – LejeMatch`,
+				description: `Lejebolig i ${listing.City}: ${listing.Title}. ${listing.Price.toLocaleString('da-DK')} kr/md. Se billeder og kontakt udlejeren direkte og gratis på LejeMatch.`
+			};
+		}
+
+		const seeker = pageData?.seeker as
+			| { Title: string; City: string; MaxBudget: number }
+			| undefined;
+		if (seeker && path.startsWith('/lejere/')) {
+			return {
+				...DEFAULT_META,
+				title: `${seeker.Title} – LejeMatch`,
+				description: `Boligsøgende i ${seeker.City}: ${seeker.Title}. Max ${seeker.MaxBudget.toLocaleString('da-DK')} kr/md. Se profilen og kontakt lejeren direkte og gratis på LejeMatch.`
+			};
+		}
+
+		const profile = pageData?.profile as { displayName: string } | undefined;
+		if (profile && path.startsWith('/profil/')) {
+			return {
+				...DEFAULT_META,
+				title: `${profile.displayName} – LejeMatch`,
+				description: `Se ${profile.displayName}s profil på LejeMatch — opslag og kontaktmuligheder for lejere og udlejere, helt gratis.`
+			};
+		}
+
 		return DEFAULT_META;
 	});
+
+	const isNoindex = $derived(NOINDEX_PREFIXES.some((prefix) => $page.url.pathname.startsWith(prefix)));
 </script>
 
 <svelte:head>
@@ -32,6 +69,9 @@
 	<link rel="apple-touch-icon" href="/favicon-48.png" />
 	<title>{routeMeta.title}</title>
 	<meta name="description" content={routeMeta.description} />
+	{#if isNoindex}
+		<meta name="robots" content="noindex, nofollow" />
+	{/if}
 	<meta property="og:site_name" content="LejeMatch" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={routeMeta.title} />
