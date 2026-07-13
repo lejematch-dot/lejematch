@@ -114,6 +114,20 @@
 					<label class="block text-sm font-medium text-foreground mb-1">Profilbillede *</label>
 					<ImageUploader name="ImageURL" multiple={false} endpoint="/api/uploads/registration" />
 				</div>
+				<label class="flex items-start gap-2 text-sm text-muted-foreground">
+					<input
+						type="checkbox"
+						name="acceptTerms"
+						required
+						class="mt-0.5 rounded border-border focus:ring-2 focus:ring-primary"
+					/>
+					<span>
+						Jeg accepterer
+						<a href="/brugervilkaar" target="_blank" class="text-primary font-medium hover:underline">brugervilkårene</a>
+						og
+						<a href="/privatlivspolitik" target="_blank" class="text-primary font-medium hover:underline">privatlivspolitikken</a>.
+					</span>
+				</label>
 				<button
 					type="submit"
 					class="w-full h-11 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"

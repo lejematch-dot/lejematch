@@ -16,9 +16,14 @@ export const actions: Actions = {
 		const password = String(data.get('password') ?? '');
 		const city = String(data.get('city') ?? '');
 		const imageURL = String(data.get('ImageURL') ?? '');
+		const acceptTerms = data.get('acceptTerms') === 'on';
 
 		if (!imageURL) {
 			return fail(400, { error: 'Tilføj et profilbillede.' });
+		}
+
+		if (!acceptTerms) {
+			return fail(400, { error: 'Du skal acceptere brugervilkår og privatlivspolitik for at oprette en profil.' });
 		}
 
 		try {
