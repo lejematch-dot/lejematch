@@ -12,11 +12,10 @@ export const actions: Actions = {
 		}
 
 		try {
-			await forgotPassword(email);
+			const result = await forgotPassword(email);
+			return { success: true, accountExists: result.accountExists };
 		} catch {
-			// Svarer altid succes — undgår at afsløre om e-mailen findes.
+			return fail(400, { error: 'Kunne ikke sende linket. Prøv igen.' });
 		}
-
-		return { success: true };
 	}
 };

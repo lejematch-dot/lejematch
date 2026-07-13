@@ -22,8 +22,8 @@ export function resendVerification(email: string): Promise<{ success: boolean }>
 	});
 }
 
-export function forgotPassword(email: string): Promise<{ success: boolean }> {
-	return apiFetch<{ success: boolean }>('/auth/forgot-password', {
+export function forgotPassword(email: string): Promise<{ success: boolean; accountExists: boolean }> {
+	return apiFetch<{ success: boolean; accountExists: boolean }>('/auth/forgot-password', {
 		method: 'POST',
 		body: JSON.stringify({ email })
 	});

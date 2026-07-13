@@ -27,9 +27,15 @@
 				Indtast din e-mail, så sender vi dig et link til at vælge en ny adgangskode.
 			</p>
 
-			{#if form?.success}
+			{#if form?.success && form.accountExists}
 				<p class="px-4 py-3 text-sm text-green-700 bg-green-50">
-					Hvis e-mailen findes hos os, har vi sendt et link til at nulstille din adgangskode.
+					Vi har sendt et link til at nulstille din adgangskode.
+				</p>
+			{:else if form?.success && !form.accountExists}
+				<p class="px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">
+					Du har ikke en konto med den e-mail.
+					<a href="/register" class="font-medium underline">Opret en profil</a>
+					i stedet.
 				</p>
 			{:else}
 				{#if form?.error}
