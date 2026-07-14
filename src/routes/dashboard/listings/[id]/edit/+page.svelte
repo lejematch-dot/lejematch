@@ -203,6 +203,31 @@
 				</div>
 			</div>
 
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+				<div>
+					<label for="Aconto" class="block text-sm font-medium text-foreground mb-1">Aconto (kr/md)</label>
+					<input
+						id="Aconto"
+						name="Aconto"
+						type="number"
+						value={data.listing.Aconto ?? ''}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+				<div>
+					<label for="ForudbetaltHusleje" class="block text-sm font-medium text-foreground mb-1"
+						>Forudbetalt husleje (kr)</label
+					>
+					<input
+						id="ForudbetaltHusleje"
+						name="ForudbetaltHusleje"
+						type="number"
+						value={data.listing.ForudbetaltHusleje ?? ''}
+						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+					/>
+				</div>
+			</div>
+
 			<div>
 				<label for="RentalPeriod" class="block text-sm font-medium text-foreground mb-1">Lejeperiode</label>
 				<select

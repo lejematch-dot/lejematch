@@ -29,6 +29,8 @@ export interface Listing {
 	ListingKind?: ListingKind;
 	SizeSqm?: number | null;
 	Deposit?: number | null;
+	Aconto?: number | null;
+	ForudbetaltHusleje?: number | null;
 	RentalPeriod?: RentalPeriod | '';
 	RentalPeriodDetails?: string;
 	LandlordType?: LandlordType | '';

@@ -27,6 +27,8 @@ export const actions: Actions = {
 		const listingKind = String(data.get('ListingKind') ?? '');
 		const sizeSqmRaw = String(data.get('SizeSqm') ?? '');
 		const depositRaw = String(data.get('Deposit') ?? '');
+		const acontoRaw = String(data.get('Aconto') ?? '');
+		const forudbetaltHusleRaw = String(data.get('ForudbetaltHusleje') ?? '');
 		const rentalPeriod = String(data.get('RentalPeriod') ?? '');
 		const rentalPeriodDetails = String(data.get('RentalPeriodDetails') ?? '');
 		const landlordType = String(data.get('LandlordType') ?? '');
@@ -57,6 +59,8 @@ export const actions: Actions = {
 					ListingKind: (listingKind || undefined) as Listing['ListingKind'],
 					SizeSqm: sizeSqmRaw ? Number(sizeSqmRaw) : undefined,
 					Deposit: depositRaw ? Number(depositRaw) : undefined,
+					Aconto: acontoRaw ? Number(acontoRaw) : undefined,
+					ForudbetaltHusleje: forudbetaltHusleRaw ? Number(forudbetaltHusleRaw) : undefined,
 					RentalPeriod: (rentalPeriod || undefined) as Listing['RentalPeriod'],
 					RentalPeriodDetails: rentalPeriodDetails || undefined,
 					LandlordType: (landlordType || undefined) as Listing['LandlordType'],

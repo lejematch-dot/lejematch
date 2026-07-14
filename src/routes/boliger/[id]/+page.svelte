@@ -205,6 +205,14 @@
 				{#if data.listing.Deposit}
 					<span class="bg-muted px-4 py-2 text-sm">Depositum: {data.listing.Deposit.toLocaleString('da-DK')} kr</span>
 				{/if}
+				{#if data.listing.Aconto}
+					<span class="bg-muted px-4 py-2 text-sm">Aconto: {data.listing.Aconto.toLocaleString('da-DK')} kr/md</span>
+				{/if}
+				{#if data.listing.ForudbetaltHusleje}
+					<span class="bg-muted px-4 py-2 text-sm"
+						>Forudbetalt husleje: {data.listing.ForudbetaltHusleje.toLocaleString('da-DK')} kr</span
+					>
+				{/if}
 			</div>
 
 			{#if data.listing.Facilities?.length}
