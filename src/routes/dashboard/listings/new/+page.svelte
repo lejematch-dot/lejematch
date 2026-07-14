@@ -69,6 +69,7 @@
 					name="Title"
 					type="text"
 					required
+					maxlength="70"
 					placeholder="F.eks. Lyst værelse på Nørrebro"
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
