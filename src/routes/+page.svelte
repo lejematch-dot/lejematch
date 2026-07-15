@@ -14,7 +14,7 @@
 			<div class="w-12 h-1 bg-primary mb-6"></div>
 			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.05] tracking-tight mb-6 uppercase">
 				Find din næste<br />
-				lejebolig eller lejer
+				bolig, lejer eller roomie
 			</h1>
 			<p class="text-lg text-muted-foreground leading-relaxed max-w-xl">
 				Udlejer du, eller leder du efter et sted at bo? LejeMatch bringer jer sammen ét sted, uden gebyrer og uden bøvl.
