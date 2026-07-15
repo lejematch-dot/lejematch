@@ -10,6 +10,7 @@ export interface Seeker {
 	Title: string;
 	Description: string;
 	City: string;
+	CityDisplay?: string;
 	MaxBudget: number;
 	RoomType: RoomType;
 	Status: ListingStatus;
