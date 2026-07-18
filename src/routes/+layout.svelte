@@ -142,6 +142,12 @@
 					</a>
 					{#if data.user.is_admin}
 						<a
+							href="/admin"
+							class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/admin') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
+						>
+							Dashboard
+						</a>
+						<a
 							href="/admin/rapporter"
 							class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/admin/rapporter') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
 						>
@@ -254,6 +260,13 @@
 						Beskeder
 					</a>
 					{#if data.user.is_admin}
+						<a
+							href="/admin"
+							onclick={() => (mobileOpen = false)}
+							class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/admin') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
+						>
+							Dashboard
+						</a>
 						<a
 							href="/admin/rapporter"
 							onclick={() => (mobileOpen = false)}
