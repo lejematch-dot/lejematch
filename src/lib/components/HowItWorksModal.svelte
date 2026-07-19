@@ -9,7 +9,7 @@
 		'Udfyld kontaktformularen, så din fremtidige lejer kan kontakte dig',
 		'Vedhæft min. 5 billeder af lejemålet (gode billeder gør en stor forskel!)',
 		'Klar til at poste din lejlighed',
-		'Scroll gennem listen af potentielle lejere under "Lejer"-siden'
+		'Scroll gennem listen af potentielle lejere under "Lejere"-siden'
 	];
 
 	const lejerSteps = [
@@ -19,7 +19,7 @@
 		'Udfyld kontaktformularen, så du kan kontaktes',
 		'Vedhæft minimum 3 billeder af dig/jer',
 		'Klar til at poste',
-		'Scroll gennem listen af lejligheder på "Udlejer"-siden'
+		'Scroll gennem listen af lejligheder på "Boliger"-siden'
 	];
 
 	function close() {
