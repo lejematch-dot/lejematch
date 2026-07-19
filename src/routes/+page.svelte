@@ -27,7 +27,7 @@
 					href="/boliger?category=hele"
 					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
 				>
-					Lejlighed/hus
+					Bolig
 				</a>
 				<a
 					href="/boliger?category=vaerelse"
@@ -35,9 +35,11 @@
 				>
 					Værelse
 				</a>
+			</div>
+			<div class="flex flex-col sm:flex-row gap-0">
 				<a
 					href="/lejere?category=hele"
-					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
+					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
 				>
 					Søger bolig
 				</a>
