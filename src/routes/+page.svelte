@@ -76,7 +76,7 @@
 <!-- Sådan virker det -->
 <section class="bg-muted border-t border-b border-border py-16">
 	<div class="max-w-7xl mx-auto px-6">
-		<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10 text-left">Sådan bruger du LejeMatch</h2>
+		<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10 text-center sm:text-left">Sådan bruger du LejeMatch</h2>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
 			<div>
