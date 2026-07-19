@@ -24,16 +24,28 @@
 		<div class="flex flex-col sm:flex-row gap-3">
 			<div class="flex flex-col sm:flex-row gap-0">
 				<a
-					href="/boliger"
-					class="px-8 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
+					href="/boliger?category=hele"
+					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
 				>
-					Se boliger
+					Lejlighed/hus
 				</a>
 				<a
-					href="/lejere"
-					class="px-8 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
+					href="/boliger?category=vaerelse"
+					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
 				>
-					Se lejere
+					Værelse
+				</a>
+				<a
+					href="/lejere?category=hele"
+					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
+				>
+					Søger bolig
+				</a>
+				<a
+					href="/lejere?category=vaerelse"
+					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
+				>
+					Søger værelse
 				</a>
 			</div>
 			<a
