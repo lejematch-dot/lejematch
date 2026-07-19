@@ -4,7 +4,7 @@
 
 	const udlejerSteps = [
 		'Opret en gratis bruger på LejeMatch.dk',
-		'Klik på "Opret et opslag" på LejeMatch.dk',
+		'Klik på "opret opslag" på LejeMatch.dk',
 		'Udfyld de påkrævede felter, herunder en kort beskrivelse af lejemålet og hvad du ønsker af lejeren',
 		'Udfyld kontaktformularen, så din fremtidige lejer kan kontakte dig',
 		'Vedhæft min. 5 billeder af lejemålet (gode billeder gør en stor forskel!)',
@@ -14,7 +14,7 @@
 
 	const lejerSteps = [
 		'Opret en gratis bruger på LejeMatch.dk',
-		'Klik på "Opret et opslag" på LejeMatch.dk',
+		'Klik på "opret opslag" på LejeMatch.dk',
 		'Udfyld de påkrævede felter, herunder en kort beskrivelse af dig/jer som lejere – hvem er du, hvad laver du, har du erfaring med at bo ude osv. (sælg din case!)',
 		'Udfyld kontaktformularen, så du kan kontaktes',
 		'Vedhæft minimum 3 billeder af dig/jer',
