@@ -23,8 +23,8 @@
 
 		<div class="space-y-6">
 			<div class="flex flex-col sm:flex-row gap-6">
-				<div>
-					<p class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
+				<div class="flex flex-col items-center">
+					<p class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2 text-center">
 						Leder du efter et sted at bo?
 					</p>
 					<div class="flex flex-col sm:flex-row gap-0">
@@ -42,8 +42,8 @@
 						</a>
 					</div>
 				</div>
-				<div>
-					<p class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
+				<div class="flex flex-col items-center">
+					<p class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2 text-center">
 						Udlejer du, eller søger du en roomie?
 					</p>
 					<div class="flex flex-col sm:flex-row gap-0">
