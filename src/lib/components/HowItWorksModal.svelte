@@ -43,12 +43,12 @@
 <button
 	type="button"
 	onclick={() => (open = true)}
-	class="px-8 py-4 flex items-center justify-center gap-2 text-foreground font-semibold text-sm uppercase tracking-widest hover:text-primary transition-colors"
+	class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
 >
-	<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+	<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 	</svg>
-	Sådan virker det
+	Se flere detaljer
 </button>
 
 {#if open}

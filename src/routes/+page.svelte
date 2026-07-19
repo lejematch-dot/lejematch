@@ -67,7 +67,6 @@
 				>
 					Opret profil
 				</a>
-				<HowItWorksModal />
 			</div>
 		</div>
 	</div>
@@ -130,6 +129,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="mt-10 flex justify-center sm:justify-start">
+			<HowItWorksModal />
 		</div>
 	</div>
 </section>
