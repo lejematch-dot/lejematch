@@ -50,13 +50,13 @@
 						href="/lejere?category=hele"
 						class="flex-1 px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center whitespace-nowrap"
 					>
-						Boligsøgende
+						Find boligsøgende
 					</a>
 					<a
 						href="/lejere?category=vaerelse"
 						class="flex-1 px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center whitespace-nowrap"
 					>
-						Værelsessøgende
+						Find roomie
 					</a>
 				</div>
 			</div>
