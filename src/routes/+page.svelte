@@ -21,43 +21,56 @@
 			</p>
 		</div>
 
-		<div class="flex flex-col sm:flex-row gap-3">
-			<div class="flex flex-col sm:flex-row gap-0">
-				<a
-					href="/boliger?category=hele"
-					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
-				>
-					Bolig
-				</a>
-				<a
-					href="/boliger?category=vaerelse"
-					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
-				>
-					Værelse
-				</a>
+		<div class="space-y-6">
+			<div class="flex flex-col sm:flex-row gap-6">
+				<div>
+					<p class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
+						Leder du efter et sted at bo?
+					</p>
+					<div class="flex flex-col sm:flex-row gap-0">
+						<a
+							href="/boliger?category=hele"
+							class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
+						>
+							Bolig
+						</a>
+						<a
+							href="/boliger?category=vaerelse"
+							class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
+						>
+							Værelse
+						</a>
+					</div>
+				</div>
+				<div>
+					<p class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
+						Udlejer du, eller søger du en roomie?
+					</p>
+					<div class="flex flex-col sm:flex-row gap-0">
+						<a
+							href="/lejere?category=hele"
+							class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
+						>
+							Søger bolig
+						</a>
+						<a
+							href="/lejere?category=vaerelse"
+							class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
+						>
+							Søger værelse
+						</a>
+					</div>
+				</div>
 			</div>
-			<div class="flex flex-col sm:flex-row gap-0">
+			<div class="flex flex-col sm:flex-row gap-3">
 				<a
-					href="/lejere?category=hele"
-					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground hover:bg-foreground hover:text-background transition-colors text-center"
+					href="/register"
+					class="px-8 py-4 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-widest hover:bg-primary/90 transition-colors text-center"
 				>
-					Søger bolig
+					Opret profil
 				</a>
-				<a
-					href="/lejere?category=vaerelse"
-					class="px-5 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-widest border-2 border-foreground border-t-0 sm:border-t-2 sm:border-l-0 hover:bg-foreground hover:text-background transition-colors text-center"
-				>
-					Søger værelse
-				</a>
+				<HowItWorksModal />
 			</div>
-			<a
-				href="/register"
-				class="px-8 py-4 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-widest hover:bg-primary/90 transition-colors text-center"
-			>
-				Opret profil
-			</a>
-			<HowItWorksModal />
 		</div>
 	</div>
 </section>
-
