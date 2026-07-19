@@ -72,3 +72,64 @@
 		</div>
 	</div>
 </section>
+
+<!-- Sådan virker det -->
+<section class="bg-muted border-t border-b border-border py-16">
+	<div class="max-w-7xl mx-auto px-6">
+		<h2 class="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10 text-center">Sådan virker det</h2>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+			<div>
+				<p class="text-sm font-bold uppercase tracking-widest text-foreground mb-5 text-center sm:text-left">
+					Udlejer
+				</p>
+				<div class="space-y-4">
+					<div class="flex gap-4 items-start">
+						<div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">
+							1
+						</div>
+						<p class="text-sm text-muted-foreground leading-relaxed pt-1">Opret en gratis profil</p>
+					</div>
+					<div class="flex gap-4 items-start">
+						<div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">
+							2
+						</div>
+						<p class="text-sm text-muted-foreground leading-relaxed pt-1">Opret dit opslag med billeder og info om boligen</p>
+					</div>
+					<div class="flex gap-4 items-start">
+						<div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">
+							3
+						</div>
+						<p class="text-sm text-muted-foreground leading-relaxed pt-1">Find din næste lejer eller roomie under "Lejere"</p>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<p class="text-sm font-bold uppercase tracking-widest text-foreground mb-5 text-center sm:text-left">
+					Lejer / Roomie
+				</p>
+				<div class="space-y-4">
+					<div class="flex gap-4 items-start">
+						<div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">
+							1
+						</div>
+						<p class="text-sm text-muted-foreground leading-relaxed pt-1">Opret en gratis profil</p>
+					</div>
+					<div class="flex gap-4 items-start">
+						<div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">
+							2
+						</div>
+						<p class="text-sm text-muted-foreground leading-relaxed pt-1">Opret dit opslag med billeder og info om dig selv</p>
+					</div>
+					<div class="flex gap-4 items-start">
+						<div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">
+							3
+						</div>
+						<p class="text-sm text-muted-foreground leading-relaxed pt-1">Find din næste bolig eller roomie under "Boliger"</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
