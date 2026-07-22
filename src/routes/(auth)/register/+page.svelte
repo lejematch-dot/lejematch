@@ -28,18 +28,6 @@
 		</div>
 
 		<div class="bg-card border border-border p-8">
-			{#if form?.success}
-				<h1 class="text-sm font-bold text-foreground mb-2 text-center uppercase tracking-widest">Tjek din e-mail</h1>
-				<p class="text-sm text-muted-foreground text-center">
-					Vi har sendt et bekræftelseslink til din e-mail. Klik på linket for at aktivere din konto og logge ind.
-				</p>
-				<a
-					href="/login"
-					class="block w-full text-center mt-6 h-11 leading-[2.75rem] border border-border text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted transition-colors rounded-md"
-				>
-					Til log ind
-				</a>
-			{:else}
 			<h1 class="text-sm font-bold text-foreground mb-6 text-center uppercase tracking-widest">Opret profil</h1>
 
 			{#if form?.error}
@@ -148,7 +136,6 @@
 				Har du allerede en konto?{' '}
 				<a href="/login" class="text-primary font-medium hover:underline">Log ind</a>
 			</p>
-			{/if}
 		</div>
 	</div>
 </div>

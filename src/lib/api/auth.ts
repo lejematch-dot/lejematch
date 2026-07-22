@@ -11,17 +11,6 @@ export function login(email: string, password: string): Promise<LoginResponse> {
 	});
 }
 
-export function verifyEmail(token: string): Promise<{ success: boolean }> {
-	return apiFetch<{ success: boolean }>(`/auth/verify-email/${token}`);
-}
-
-export function resendVerification(email: string): Promise<{ success: boolean }> {
-	return apiFetch<{ success: boolean }>('/auth/resend-verification', {
-		method: 'POST',
-		body: JSON.stringify({ email })
-	});
-}
-
 export function forgotPassword(email: string): Promise<{ success: boolean; accountExists: boolean }> {
 	return apiFetch<{ success: boolean; accountExists: boolean }>('/auth/forgot-password', {
 		method: 'POST',

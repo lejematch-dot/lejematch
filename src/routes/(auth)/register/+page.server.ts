@@ -1,3 +1,4 @@
+import { login } from '$lib/api/auth';
 import { registerUser } from '$lib/api/users';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
@@ -7,7 +8,7 @@ export const load: PageServerLoad = ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 		const firstName = String(data.get('firstName') ?? '');
 		const lastName = String(data.get('lastName') ?? '');
@@ -48,7 +49,20 @@ export const actions: Actions = {
 			return fail(400, { error });
 		}
 
-		// Kontoen er inaktiv indtil e-mailen er bekræftet — ingen auto-login.
-		return { success: true };
+		// Kontoen er aktiv med det samme — log brugeren ind automatisk.
+		try {
+			const { token } = await login(email, password);
+			cookies.set('session', token, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'lax',
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 60 * 60 * 24 * 7
+			});
+		} catch {
+			redirect(302, '/login');
+		}
+
+		redirect(302, '/dashboard');
 	}
 };
