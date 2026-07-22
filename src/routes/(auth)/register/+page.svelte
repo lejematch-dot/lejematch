@@ -128,6 +128,14 @@
 						<a href="/privatlivspolitik" target="_blank" class="text-primary font-medium hover:underline">privatlivspolitikken</a>.
 					</span>
 				</label>
+				<label class="flex items-start gap-2 text-sm text-muted-foreground">
+					<input
+						type="checkbox"
+						name="newsletterOptIn"
+						class="mt-0.5 rounded border-border focus:ring-2 focus:ring-primary"
+					/>
+					<span>Jeg vil gerne modtage nyhedsbreve fra LejeMatch, fx når der kommer nye boliger op.</span>
+				</label>
 				<button
 					type="submit"
 					class="w-full h-11 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-md"

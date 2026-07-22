@@ -17,6 +17,7 @@ export const actions: Actions = {
 		const city = String(data.get('city') ?? '');
 		const imageURL = String(data.get('ImageURL') ?? '');
 		const acceptTerms = data.get('acceptTerms') === 'on';
+		const newsletterOptIn = data.get('newsletterOptIn') === 'on';
 
 		if (!imageURL) {
 			return fail(400, { error: 'Tilføj et profilbillede.' });
@@ -35,7 +36,8 @@ export const actions: Actions = {
 				Password: password,
 				City: city,
 				ImageURL: imageURL,
-				UserType: 'tenant'
+				UserType: 'tenant',
+				NewsletterOptIn: newsletterOptIn
 			});
 		} catch (e) {
 			const status = e instanceof Error && 'status' in e ? (e as Error & { status: number }).status : 0;

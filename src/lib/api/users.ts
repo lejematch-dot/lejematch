@@ -62,6 +62,7 @@ export function registerUser(data: {
 	ImageURL?: string;
 	Age?: number;
 	UserType?: string;
+	NewsletterOptIn?: boolean;
 }): Promise<{ id: number; createdAt: string }> {
 	return apiFetch<{ id: number; createdAt: string }>('/users', {
 		method: 'POST',
