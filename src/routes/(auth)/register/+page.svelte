@@ -78,16 +78,6 @@
 					/>
 				</div>
 				<div>
-					<label for="city" class="block text-sm font-medium text-foreground mb-1">By</label>
-					<input
-						id="city"
-						name="city"
-						type="text"
-						required
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					/>
-				</div>
-				<div>
 					<label for="password" class="block text-sm font-medium text-foreground mb-1">Adgangskode</label>
 					<input
 						id="password"

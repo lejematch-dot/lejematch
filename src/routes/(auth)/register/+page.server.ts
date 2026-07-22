@@ -15,7 +15,6 @@ export const actions: Actions = {
 		const email = String(data.get('email') ?? '');
 		const phone = String(data.get('phone') ?? '');
 		const password = String(data.get('password') ?? '');
-		const city = String(data.get('city') ?? '');
 		const imageURL = String(data.get('ImageURL') ?? '');
 		const acceptTerms = data.get('acceptTerms') === 'on';
 		const newsletterOptIn = data.get('newsletterOptIn') === 'on';
@@ -35,7 +34,6 @@ export const actions: Actions = {
 				Email: email,
 				Phone: phone,
 				Password: password,
-				City: city,
 				ImageURL: imageURL,
 				UserType: 'tenant',
 				NewsletterOptIn: newsletterOptIn

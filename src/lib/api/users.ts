@@ -58,7 +58,7 @@ export function registerUser(data: {
 	Email: string;
 	Phone: string;
 	Password: string;
-	City: string;
+	City?: string;
 	ImageURL?: string;
 	Age?: number;
 	UserType?: string;
