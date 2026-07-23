@@ -16,39 +16,57 @@
 		document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
 	}
 
-	function loadGoogleAnalytics() {
-		if (!GA_MEASUREMENT_ID || document.getElementById('ga-script')) return;
+	function gtag(...args: unknown[]) {
+		const w = window as unknown as { dataLayer: unknown[] };
+		w.dataLayer = w.dataLayer || [];
+		w.dataLayer.push(args);
+	}
+
+	// Initialiserer GA i "consent mode": scriptet indlæses altid, men uden
+	// samtykke sender Google kun anonyme, cookie-løse signaler (ingen
+	// personhenførbar sporing). Uden dette eksplicitte default-kald dropper
+	// Google typisk data helt fra EU-besøgende, selvom scriptet kører fint —
+	// det var årsagen til at GA ikke viste nogen data.
+	function initGoogleAnalytics(granted: boolean) {
+		if (!GA_MEASUREMENT_ID || document.getElementById('ga-script')) {
+			gtag('consent', 'update', {
+				analytics_storage: granted ? 'granted' : 'denied'
+			});
+			return;
+		}
+
+		gtag('consent', 'default', {
+			analytics_storage: granted ? 'granted' : 'denied',
+			ad_storage: 'denied',
+			ad_user_data: 'denied',
+			ad_personalization: 'denied'
+		});
+		gtag('js', new Date());
+		gtag('config', GA_MEASUREMENT_ID);
 
 		const script = document.createElement('script');
 		script.id = 'ga-script';
 		script.async = true;
 		script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
 		document.head.appendChild(script);
-
-		script.onload = () => {
-			const w = window as unknown as { dataLayer: unknown[]; gtag: (...args: unknown[]) => void };
-			w.dataLayer = w.dataLayer || [];
-			w.gtag = function gtag(...args: unknown[]) {
-				w.dataLayer.push(args);
-			};
-			w.gtag('js', new Date());
-			w.gtag('config', GA_MEASUREMENT_ID);
-		};
 	}
 
 	$effect(() => {
 		const consent = getCookie(COOKIE_NAME);
 		if (consent === 'granted') {
-			loadGoogleAnalytics();
-		} else if (consent === null) {
+			initGoogleAnalytics(true);
+		} else if (consent === 'denied') {
+			initGoogleAnalytics(false);
+		} else {
 			visible = true;
+			initGoogleAnalytics(false);
 		}
 	});
 
 	function accept() {
 		setCookie(COOKIE_NAME, 'granted', COOKIE_DAYS);
 		visible = false;
-		loadGoogleAnalytics();
+		gtag('consent', 'update', { analytics_storage: 'granted' });
 	}
 
 	function reject() {
