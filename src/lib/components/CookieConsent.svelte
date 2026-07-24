@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { GA_MEASUREMENT_ID } from '$lib/analytics';
-
 	const COOKIE_NAME = 'cookie_consent';
 	const COOKIE_DAYS = 180;
 
@@ -16,57 +14,23 @@
 		document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
 	}
 
-	function gtag(...args: unknown[]) {
-		const w = window as unknown as { dataLayer: unknown[] };
-		w.dataLayer = w.dataLayer || [];
-		w.dataLayer.push(args);
-	}
-
-	// Initialiserer GA i "consent mode": scriptet indlæses altid, men uden
-	// samtykke sender Google kun anonyme, cookie-løse signaler (ingen
-	// personhenførbar sporing). Uden dette eksplicitte default-kald dropper
-	// Google typisk data helt fra EU-besøgende, selvom scriptet kører fint —
-	// det var årsagen til at GA ikke viste nogen data.
-	function initGoogleAnalytics(granted: boolean) {
-		if (!GA_MEASUREMENT_ID || document.getElementById('ga-script')) {
-			gtag('consent', 'update', {
-				analytics_storage: granted ? 'granted' : 'denied'
-			});
-			return;
-		}
-
-		gtag('consent', 'default', {
-			analytics_storage: granted ? 'granted' : 'denied',
-			ad_storage: 'denied',
-			ad_user_data: 'denied',
-			ad_personalization: 'denied'
+	function updateConsent(granted: boolean) {
+		const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+		w.gtag?.('consent', 'update', {
+			analytics_storage: granted ? 'granted' : 'denied'
 		});
-		gtag('js', new Date());
-		gtag('config', GA_MEASUREMENT_ID);
-
-		const script = document.createElement('script');
-		script.id = 'ga-script';
-		script.async = true;
-		script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-		document.head.appendChild(script);
 	}
 
 	$effect(() => {
-		const consent = getCookie(COOKIE_NAME);
-		if (consent === 'granted') {
-			initGoogleAnalytics(true);
-		} else if (consent === 'denied') {
-			initGoogleAnalytics(false);
-		} else {
+		if (getCookie(COOKIE_NAME) === null) {
 			visible = true;
-			initGoogleAnalytics(false);
 		}
 	});
 
 	function accept() {
 		setCookie(COOKIE_NAME, 'granted', COOKIE_DAYS);
 		visible = false;
-		gtag('consent', 'update', { analytics_storage: 'granted' });
+		updateConsent(true);
 	}
 
 	function reject() {

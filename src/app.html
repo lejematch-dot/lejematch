@@ -4,6 +4,38 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
+		<script>
+			// Sætter Google Consent Mode FØR noget andet JavaScript kører (inkl.
+			// SvelteKit-hydrering) — ellers når gtag.js's eget "consent init"-tjek
+			// at køre før vores samtykke-signal er sat, og markerer det som
+			// "ikke konfigureret", uanset hvad appen gør senere.
+			(function () {
+				var GA_ID = 'G-FZRQ2MEWG3';
+				window.dataLayer = window.dataLayer || [];
+				function gtag() {
+					window.dataLayer.push(arguments);
+				}
+				window.gtag = gtag;
+
+				var match = document.cookie.match(/(?:^|; )cookie_consent=([^;]*)/);
+				var consent = match ? decodeURIComponent(match[1]) : null;
+				var granted = consent === 'granted';
+
+				gtag('consent', 'default', {
+					analytics_storage: granted ? 'granted' : 'denied',
+					ad_storage: 'denied',
+					ad_user_data: 'denied',
+					ad_personalization: 'denied'
+				});
+				gtag('js', new Date());
+				gtag('config', GA_ID);
+
+				var script = document.createElement('script');
+				script.async = true;
+				script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+				document.head.appendChild(script);
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
