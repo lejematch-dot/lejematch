@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import PasswordInput from '$lib/components/PasswordInput.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -49,13 +50,7 @@
 						<label for="password" class="block text-sm font-medium text-foreground">Adgangskode</label>
 						<a href="/glemt-adgangskode" class="text-xs text-primary hover:underline">Glemt adgangskode?</a>
 					</div>
-					<input
-						id="password"
-						name="password"
-						type="password"
-						required
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					/>
+					<PasswordInput id="password" name="password" required autocomplete="current-password" />
 				</div>
 				<button
 					type="submit"

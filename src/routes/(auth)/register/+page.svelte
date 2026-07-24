@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import ImageUploader from '$lib/components/ImageUploader.svelte';
+	import PasswordInput from '$lib/components/PasswordInput.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -79,14 +80,7 @@
 				</div>
 				<div>
 					<label for="password" class="block text-sm font-medium text-foreground mb-1">Adgangskode</label>
-					<input
-						id="password"
-						name="password"
-						type="password"
-						required
-						minlength="8"
-						class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-					/>
+					<PasswordInput id="password" name="password" required minlength={8} autocomplete="new-password" />
 				</div>
 				<div>
 					<label class="block text-sm font-medium text-foreground mb-1">Profilbillede *</label>
