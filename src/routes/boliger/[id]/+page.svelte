@@ -190,7 +190,9 @@
 					<span class="bg-muted px-4 py-2 text-sm">{data.listing.SizeSqm} m²</span>
 				{/if}
 				{#if data.listing.ListingKind === 'room' && data.listing.RoommatesWanted}
-					<span class="bg-muted px-4 py-2 text-sm">Søger {data.listing.RoommatesWanted} nye roomies</span>
+					<span class="bg-muted px-4 py-2 text-sm"
+						>Søger {data.listing.RoommatesWanted} {data.listing.RoommatesWanted === 1 ? 'ny roomie' : 'nye roomies'}</span
+					>
 				{/if}
 				<span class="bg-muted px-4 py-2 text-sm">
 					Ledig fra: {availableFrom}
