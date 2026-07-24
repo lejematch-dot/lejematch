@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import ImageUploader from '$lib/components/ImageUploader.svelte';
+	import PasswordInput from '$lib/components/PasswordInput.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -170,23 +171,11 @@
 		<form method="POST" action="?/changePassword" use:enhance class="space-y-4">
 			<div>
 				<label for="CurrentPassword" class="block text-sm font-medium text-foreground mb-1">Nuværende adgangskode</label>
-				<input
-					id="CurrentPassword"
-					name="CurrentPassword"
-					type="password"
-					required
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
+				<PasswordInput id="CurrentPassword" name="CurrentPassword" required autocomplete="current-password" />
 			</div>
 			<div>
 				<label for="NewPassword" class="block text-sm font-medium text-foreground mb-1">Ny adgangskode</label>
-				<input
-					id="NewPassword"
-					name="NewPassword"
-					type="password"
-					required
-					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
+				<PasswordInput id="NewPassword" name="NewPassword" required autocomplete="new-password" />
 			</div>
 			<button
 				type="submit"

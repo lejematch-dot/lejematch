@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import PasswordInput from '$lib/components/PasswordInput.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -31,25 +32,11 @@
 				<form method="POST" use:enhance class="space-y-4">
 					<div>
 						<label for="newPassword" class="block text-sm font-medium text-foreground mb-1">Ny adgangskode</label>
-						<input
-							id="newPassword"
-							name="newPassword"
-							type="password"
-							required
-							minlength="8"
-							class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-						/>
+						<PasswordInput id="newPassword" name="newPassword" required minlength={8} autocomplete="new-password" />
 					</div>
 					<div>
 						<label for="confirmPassword" class="block text-sm font-medium text-foreground mb-1">Bekræft adgangskode</label>
-						<input
-							id="confirmPassword"
-							name="confirmPassword"
-							type="password"
-							required
-							minlength="8"
-							class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-						/>
+						<PasswordInput id="confirmPassword" name="confirmPassword" required minlength={8} autocomplete="new-password" />
 					</div>
 					<button
 						type="submit"
