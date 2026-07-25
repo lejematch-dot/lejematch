@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import ImageUploader from '$lib/components/ImageUploader.svelte';
 	import PasswordInput from '$lib/components/PasswordInput.svelte';
+	import { trackEvent } from '$lib/analytics';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -35,7 +36,18 @@
 				<p class="mb-4 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
 			{/if}
 
-			<form method="POST" use:enhance class="space-y-4">
+			<form
+				method="POST"
+				use:enhance={() => {
+					return async ({ result, update }) => {
+						if (result.type === 'redirect') {
+							trackEvent('sign_up', { method: 'email' });
+						}
+						await update();
+					};
+				}}
+				class="space-y-4"
+			>
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<label for="firstName" class="block text-sm font-medium text-foreground mb-1">Fornavn</label>

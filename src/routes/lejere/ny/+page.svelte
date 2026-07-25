@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import ImageUploader from '$lib/components/ImageUploader.svelte';
+	import { trackEvent } from '$lib/analytics';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -34,7 +35,18 @@
 		<p class="mb-6 px-4 py-3 text-sm text-destructive border border-destructive/30 bg-destructive/5">{form.error}</p>
 	{/if}
 
-	<form method="POST" use:enhance class="space-y-6">
+	<form
+		method="POST"
+		use:enhance={() => {
+			return async ({ result, update }) => {
+				if (result.type === 'redirect') {
+					trackEvent('create_seeker_listing');
+				}
+				await update();
+			};
+		}}
+		class="space-y-6"
+	>
 		<section class="border border-border p-6 space-y-4">
 			<h2 class="text-sm font-bold text-foreground uppercase tracking-wide">Grundoplysninger</h2>
 

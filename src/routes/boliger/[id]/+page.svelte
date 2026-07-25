@@ -4,6 +4,7 @@
 	import ReportButton from '$lib/components/ReportButton.svelte';
 	import { abbreviateName } from '$lib/name';
 	import { getObjectPosition } from '$lib/imagePosition';
+	import { trackEvent } from '$lib/analytics';
 	import type { PageData, ActionData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -294,7 +295,19 @@
 							Log ind
 						</a>
 					{:else}
-						<form method="POST" action="?/contact" use:enhance class="space-y-3">
+						<form
+						method="POST"
+						action="?/contact"
+						use:enhance={() => {
+							return async ({ result, update }) => {
+								if (result.type === 'success' && (result.data as { success?: boolean } | undefined)?.success) {
+									trackEvent('generate_lead', { content_type: 'listing_contact' });
+								}
+								await update();
+							};
+						}}
+						class="space-y-3"
+					>
 							{#if form?.error}
 								<p class="text-sm text-red-600">{form.error}</p>
 							{/if}
