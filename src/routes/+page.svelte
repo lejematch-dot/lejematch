@@ -63,7 +63,7 @@
 			<div class="flex flex-col sm:flex-row gap-3">
 				<a
 					href="/register"
-					class="px-8 py-4 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-widest hover:bg-primary/90 transition-colors text-center"
+					class="px-8 py-4 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-widest hover:bg-primary/90 transition-colors text-center border-2 border-transparent"
 				>
 					Opret profil
 				</a>
