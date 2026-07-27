@@ -209,8 +209,15 @@
 					type="text"
 					required
 					placeholder="København"
+					list="city-suggestions"
 					class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
 				/>
+				<datalist id="city-suggestions">
+					<option value="Aarhus"></option>
+					<option value="København"></option>
+					<option value="Odense"></option>
+					<option value="Aalborg"></option>
+				</datalist>
 			</div>
 		</section>
 
