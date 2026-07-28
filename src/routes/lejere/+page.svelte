@@ -13,7 +13,7 @@
 	let showFilters = $state(
 		Boolean(city || maxBudget || furnishedPreference.length || rentalPeriod.length)
 	);
-	let mobileCols = $state<1 | 2>(1);
+	let mobileCols = $state<1 | 2>(2);
 	const mobileGridClass: Record<1 | 2, string> = {
 		1: 'grid-cols-1',
 		2: 'grid-cols-2'
