@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import FavoriteButton from '$lib/components/FavoriteButton.svelte';
 	import { getObjectPosition } from '$lib/imagePosition';
+	import { clickOutside } from '$lib/actions/clickOutside';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -106,7 +107,7 @@
 		</a>
 	</div>
 
-	<div class="sticky top-16 z-30 mb-6 inline-block">
+	<div class="sticky top-16 z-30 mb-6 inline-block" use:clickOutside={() => (showFilters = false)}>
 		<button
 			onclick={() => (showFilters = !showFilters)}
 			class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium uppercase tracking-wide border border-border transition-colors shadow-sm {showFilters ? 'bg-primary text-primary-foreground border-primary' : 'bg-background text-foreground hover:bg-muted'}"
