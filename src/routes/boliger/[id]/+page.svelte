@@ -333,7 +333,7 @@
 										bind:value={contactNumPeople}
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
-										<option value="" disabled selected hidden></option>
+										<option value="" disabled selected hidden>Vælg</option>
 										<option value={1}>1</option>
 										<option value={2}>2</option>
 										<option value={3}>3</option>
@@ -353,7 +353,7 @@
 												min="1"
 												max="120"
 												required
-												placeholder={peopleCount > 1 ? `${i + 1}` : 'Alder'}
+												placeholder={peopleCount > 1 ? `${i + 1}` : 'Vælg'}
 												class="w-full min-w-0 flex-1 border border-border px-3 py-2 text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
 											/>
 										{/each}
@@ -369,7 +369,7 @@
 										required
 										class="w-32 border border-border px-3 py-2 text-sm bg-background"
 									>
-										<option value="" disabled selected hidden></option>
+										<option value="" disabled selected hidden>Vælg</option>
 										<option value="par">Par</option>
 										<option value="venner">Venner</option>
 										<option value="andet">Andet</option>
@@ -385,7 +385,7 @@
 										required
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
-										<option value="" disabled selected hidden></option>
+										<option value="" disabled selected hidden>Vælg</option>
 										<option value="fast_job">Fast job</option>
 										<option value="studerende">Studerende</option>
 										<option value="pensionist">Pensionist</option>
@@ -400,7 +400,7 @@
 										required
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
-										<option value="" disabled selected hidden></option>
+										<option value="" disabled selected hidden>Vælg</option>
 										<option value="true">Ja</option>
 										<option value="false">Nej</option>
 									</select>
