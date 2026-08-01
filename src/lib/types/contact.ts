@@ -24,6 +24,11 @@ export function agesSummary(ages: number[]): string {
 	return `${ages.slice(0, -1).join(', ')} og ${ages[ages.length - 1]}`;
 }
 
+export function employmentSummary(employment: ContactEmployment, employmentOther: string): string {
+	if (employment === 'andet' && employmentOther) return employmentOther;
+	return employmentLabels[employment];
+}
+
 export interface Contact {
 	ID: number;
 	SenderID: number;
@@ -36,6 +41,7 @@ export interface Contact {
 	RelationshipType: ContactRelationshipType;
 	Ages: number[];
 	Employment: ContactEmployment;
+	EmploymentOther: string;
 	HasPets: boolean;
 	CreatedAt: string;
 	UpdatedAt: string;

@@ -56,6 +56,7 @@ export interface ContactListingRequest {
 	relationshipType: ContactRelationshipType;
 	ages: number[];
 	employment: ContactEmployment;
+	employmentOther: string;
 	hasPets: boolean;
 }
 

@@ -11,6 +11,7 @@
 
 	let contactNumPeople = $state<number | ''>('');
 	const peopleCount = $derived(Number(contactNumPeople) || 0);
+	let contactEmployment = $state('');
 
 	const isOwner = $derived(data.user?.sub === data.listing.UserID);
 
@@ -384,6 +385,7 @@
 										id="employment"
 										name="employment"
 										required
+										bind:value={contactEmployment}
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
 										<option value="" disabled selected hidden>Vælg</option>
@@ -392,6 +394,16 @@
 										<option value="pensionist">Pensionist</option>
 										<option value="andet">Andet</option>
 									</select>
+									{#if contactEmployment === 'andet'}
+										<input
+											name="employmentOther"
+											type="text"
+											required
+											placeholder="Angiv beskæftigelse"
+											maxlength="60"
+											class="w-full border border-border px-3 py-2 text-sm mt-2"
+										/>
+									{/if}
 								</div>
 								<div>
 									<label for="hasPets" class="block text-xs text-muted-foreground mb-1">Kæledyr</label>

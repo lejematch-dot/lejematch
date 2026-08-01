@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getObjectPosition } from '$lib/imagePosition';
-	import { relationshipTypeLabels, employmentLabels, agesSummary } from '$lib/types/contact';
+	import { relationshipTypeLabels, employmentSummary, agesSummary } from '$lib/types/contact';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -75,7 +75,7 @@
 							{/if}
 							{#if contact.Employment}
 								<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
-									{employmentLabels[contact.Employment]}
+									{employmentSummary(contact.Employment, contact.EmploymentOther)}
 								</span>
 							{/if}
 							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">

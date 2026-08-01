@@ -41,6 +41,7 @@ export const actions: Actions = {
 		const relationshipType = String(data.get('relationshipType') ?? '') as ContactRelationshipType;
 		const ages = data.getAll('ages').map(Number);
 		const employment = String(data.get('employment') ?? '') as ContactEmployment;
+		const employmentOther = String(data.get('employmentOther') ?? '').trim();
 		const hasPets = data.get('hasPets') === 'true';
 
 		if (!message) {
@@ -56,6 +57,9 @@ export const actions: Actions = {
 		if (!employment) {
 			return fail(400, { error: 'Vælg beskæftigelse.' });
 		}
+		if (employment === 'andet' && !employmentOther) {
+			return fail(400, { error: 'Angiv hvilken beskæftigelse.' });
+		}
 
 		try {
 			await contactListing(
@@ -67,6 +71,7 @@ export const actions: Actions = {
 					relationshipType: numPeople > 1 ? relationshipType : '',
 					ages,
 					employment,
+					employmentOther: employment === 'andet' ? employmentOther : '',
 					hasPets
 				},
 				token
