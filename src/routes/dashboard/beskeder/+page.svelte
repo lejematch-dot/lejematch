@@ -61,12 +61,14 @@
 					</div>
 
 					<div class="flex flex-wrap gap-1.5 mb-2">
-						<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
-							{contact.NumPeople}
-							{contact.NumPeople === 1 ? 'person' : 'personer'}{relationshipTypeLabels[contact.RelationshipType]
-								? ` · ${relationshipTypeLabels[contact.RelationshipType]}`
-								: ''}
-						</span>
+						{#if contact.NumPeople > 0}
+							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
+								{contact.NumPeople}
+								{contact.NumPeople === 1 ? 'person' : 'personer'}{relationshipTypeLabels[contact.RelationshipType]
+									? ` · ${relationshipTypeLabels[contact.RelationshipType]}`
+									: ''}
+							</span>
+						{/if}
 						{#if contact.AgeRange}
 							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
 								{ageRangeLabels[contact.AgeRange]}

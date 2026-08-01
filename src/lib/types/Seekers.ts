@@ -1,5 +1,4 @@
 import type { RoomType, ListingStatus, RentalPeriod } from './listing';
-import type { ContactRelationshipType, ContactAgeRange, ContactEmployment } from './contact';
 
 export type SeekingType = 'bolig' | 'roommate' | 'begge';
 
@@ -65,8 +64,4 @@ export interface CreateSeekerRequest {
 export interface ContactSeekerRequest {
 	message: string;
 	senderPhone?: string;
-	numPeople: number;
-	relationshipType: ContactRelationshipType;
-	ageRange: ContactAgeRange;
-	employment: ContactEmployment;
 }
