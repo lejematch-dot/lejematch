@@ -9,7 +9,8 @@
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
-	let contactNumPeople = $state(1);
+	let contactNumPeople = $state<number | ''>('');
+	const peopleCount = $derived(Number(contactNumPeople) || 0);
 
 	const isOwner = $derived(data.user?.sub === data.listing.UserID);
 
@@ -332,6 +333,7 @@
 										bind:value={contactNumPeople}
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
+										<option value="" disabled selected hidden></option>
 										<option value={1}>1</option>
 										<option value={2}>2</option>
 										<option value={3}>3</option>
@@ -341,31 +343,33 @@
 								</div>
 								<div>
 									<span class="block text-xs text-muted-foreground mb-1">
-										{contactNumPeople > 1 ? 'Jeres aldre' : 'Din alder'}
+										{peopleCount > 1 ? 'Jeres aldre' : 'Din alder'}
 									</span>
 									<div class="flex flex-wrap gap-2">
-										{#each Array(Math.min(contactNumPeople, 5)) as _, i}
+										{#each Array(Math.min(peopleCount, 5)) as _, i}
 											<input
 												name="ages"
 												type="number"
 												min="1"
 												max="120"
 												required
-												placeholder={contactNumPeople > 1 ? `${i + 1}` : 'Alder'}
+												placeholder={peopleCount > 1 ? `${i + 1}` : 'Alder'}
 												class="w-full min-w-0 flex-1 border border-border px-3 py-2 text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
 											/>
 										{/each}
 									</div>
 								</div>
 							</div>
-							{#if contactNumPeople > 1}
+							{#if peopleCount > 1}
 								<div>
 									<label for="relationshipType" class="block text-xs text-muted-foreground mb-1">I er</label>
 									<select
 										id="relationshipType"
 										name="relationshipType"
+										required
 										class="w-32 border border-border px-3 py-2 text-sm bg-background"
 									>
+										<option value="" disabled selected hidden></option>
 										<option value="par">Par</option>
 										<option value="venner">Venner</option>
 										<option value="andet">Andet</option>
@@ -381,6 +385,7 @@
 										required
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
+										<option value="" disabled selected hidden></option>
 										<option value="fast_job">Fast job</option>
 										<option value="studerende">Studerende</option>
 										<option value="pensionist">Pensionist</option>
@@ -395,6 +400,7 @@
 										required
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
+										<option value="" disabled selected hidden></option>
 										<option value="false">Nej</option>
 										<option value="true">Ja</option>
 									</select>
