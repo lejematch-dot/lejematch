@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getObjectPosition } from '$lib/imagePosition';
+	import { relationshipTypeLabels, ageRangeLabels, employmentLabels } from '$lib/types/contact';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -57,6 +58,25 @@
 						<span class="text-xs text-muted-foreground shrink-0">
 							{new Date(contact.CreatedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' })}
 						</span>
+					</div>
+
+					<div class="flex flex-wrap gap-1.5 mb-2">
+						<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
+							{contact.NumPeople}
+							{contact.NumPeople === 1 ? 'person' : 'personer'}{relationshipTypeLabels[contact.RelationshipType]
+								? ` · ${relationshipTypeLabels[contact.RelationshipType]}`
+								: ''}
+						</span>
+						{#if contact.AgeRange}
+							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
+								{ageRangeLabels[contact.AgeRange]}
+							</span>
+						{/if}
+						{#if contact.Employment}
+							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
+								{employmentLabels[contact.Employment]}
+							</span>
+						{/if}
 					</div>
 
 					<p class="text-sm text-muted-foreground whitespace-pre-wrap mb-2">{contact.Message}</p>

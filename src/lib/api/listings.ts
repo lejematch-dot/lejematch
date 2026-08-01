@@ -1,4 +1,5 @@
 import type { Listing, ListingFilters, ListingsResponse } from '$lib/types/listing';
+import type { ContactRelationshipType, ContactAgeRange, ContactEmployment } from '$lib/types/contact';
 import { apiFetch } from './client';
 
 export function getListings(filters: ListingFilters = {}, token?: string): Promise<ListingsResponse> {
@@ -51,6 +52,10 @@ export async function getListingCities(category?: 'hele' | 'vaerelse'): Promise<
 export interface ContactListingRequest {
 	message: string;
 	senderPhone?: string;
+	numPeople: number;
+	relationshipType: ContactRelationshipType;
+	ageRange: ContactAgeRange;
+	employment: ContactEmployment;
 }
 
 export function contactListing(id: number, data: ContactListingRequest, token: string): Promise<void> {

@@ -9,6 +9,8 @@
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
+	let contactNumPeople = $state(1);
+
 	const isOwner = $derived(data.user?.sub === data.listing.UserID);
 
 	const posterName = $derived.by(() => {
@@ -317,6 +319,63 @@
 								placeholder="Telefon (valgfrit)"
 								class="w-full border border-border px-3 py-2 text-sm"
 							/>
+							<div class="grid grid-cols-2 gap-3">
+								<div>
+									<label for="numPeople" class="block text-xs text-muted-foreground mb-1">Antal personer</label>
+									<input
+										id="numPeople"
+										name="numPeople"
+										type="number"
+										min="1"
+										required
+										bind:value={contactNumPeople}
+										class="w-full border border-border px-3 py-2 text-sm"
+									/>
+								</div>
+								{#if contactNumPeople > 1}
+									<div>
+										<label for="relationshipType" class="block text-xs text-muted-foreground mb-1">I er</label>
+										<select
+											id="relationshipType"
+											name="relationshipType"
+											class="w-full border border-border px-3 py-2 text-sm bg-background"
+										>
+											<option value="par">Par</option>
+											<option value="venner">Venner</option>
+											<option value="andet">Andet</option>
+										</select>
+									</div>
+								{/if}
+							</div>
+							<div class="grid grid-cols-2 gap-3">
+								<div>
+									<label for="ageRange" class="block text-xs text-muted-foreground mb-1">Aldersinterval</label>
+									<select
+										id="ageRange"
+										name="ageRange"
+										required
+										class="w-full border border-border px-3 py-2 text-sm bg-background"
+									>
+										<option value="under25">Under 25</option>
+										<option value="26-35">26-35</option>
+										<option value="35+">35+</option>
+									</select>
+								</div>
+								<div>
+									<label for="employment" class="block text-xs text-muted-foreground mb-1">Beskæftigelse</label>
+									<select
+										id="employment"
+										name="employment"
+										required
+										class="w-full border border-border px-3 py-2 text-sm bg-background"
+									>
+										<option value="fast_job">Fast job</option>
+										<option value="studerende">Studerende</option>
+										<option value="pensionist">Pensionist</option>
+										<option value="andet">Andet</option>
+									</select>
+								</div>
+							</div>
 							<textarea
 								name="message"
 								rows="10"
