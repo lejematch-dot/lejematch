@@ -1,5 +1,5 @@
 import type { Listing, ListingFilters, ListingsResponse } from '$lib/types/listing';
-import type { ContactRelationshipType, ContactAgeRange, ContactEmployment } from '$lib/types/contact';
+import type { ContactRelationshipType, ContactEmployment } from '$lib/types/contact';
 import { apiFetch } from './client';
 
 export function getListings(filters: ListingFilters = {}, token?: string): Promise<ListingsResponse> {
@@ -54,8 +54,9 @@ export interface ContactListingRequest {
 	senderPhone?: string;
 	numPeople: number;
 	relationshipType: ContactRelationshipType;
-	ageRange: ContactAgeRange;
+	ages: number[];
 	employment: ContactEmployment;
+	hasPets: boolean;
 }
 
 export function contactListing(id: number, data: ContactListingRequest, token: string): Promise<void> {

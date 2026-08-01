@@ -1,7 +1,7 @@
 import { getFavorites } from '$lib/api/favorites';
 import { contactListing, getListing } from '$lib/api/listings';
 import { getUserProfile } from '$lib/api/users';
-import type { ContactRelationshipType, ContactAgeRange, ContactEmployment } from '$lib/types/contact';
+import type { ContactRelationshipType, ContactEmployment } from '$lib/types/contact';
 import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -39,8 +39,9 @@ export const actions: Actions = {
 		const message = String(data.get('message') ?? '');
 		const numPeople = Number(data.get('numPeople') ?? 1);
 		const relationshipType = String(data.get('relationshipType') ?? '') as ContactRelationshipType;
-		const ageRange = String(data.get('ageRange') ?? '') as ContactAgeRange;
+		const ages = data.getAll('ages').map(Number);
 		const employment = String(data.get('employment') ?? '') as ContactEmployment;
+		const hasPets = data.get('hasPets') === 'true';
 
 		if (!message) {
 			return fail(400, { error: 'Skriv en besked.' });
@@ -48,8 +49,9 @@ export const actions: Actions = {
 		if (!numPeople || numPeople < 1) {
 			return fail(400, { error: 'Angiv antal personer.' });
 		}
-		if (!ageRange) {
-			return fail(400, { error: 'Vælg et aldersinterval.' });
+		const wantAges = Math.min(numPeople, 5);
+		if (ages.length !== wantAges || ages.some((a) => !a || a < 1 || a > 120)) {
+			return fail(400, { error: 'Angiv en gyldig alder pr. person.' });
 		}
 		if (!employment) {
 			return fail(400, { error: 'Vælg beskæftigelse.' });
@@ -58,7 +60,15 @@ export const actions: Actions = {
 		try {
 			await contactListing(
 				id,
-				{ senderPhone, message, numPeople, relationshipType: numPeople > 1 ? relationshipType : '', ageRange, employment },
+				{
+					senderPhone,
+					message,
+					numPeople,
+					relationshipType: numPeople > 1 ? relationshipType : '',
+					ages,
+					employment,
+					hasPets
+				},
 				token
 			);
 		} catch (e) {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getObjectPosition } from '$lib/imagePosition';
-	import { relationshipTypeLabels, ageRangeLabels, employmentLabels } from '$lib/types/contact';
+	import { relationshipTypeLabels, employmentLabels, agesSummary } from '$lib/types/contact';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -60,26 +60,29 @@
 						</span>
 					</div>
 
-					<div class="flex flex-wrap gap-1.5 mb-2">
-						{#if contact.NumPeople > 0}
+					{#if contact.TargetType === 'listing'}
+						<div class="flex flex-wrap gap-1.5 mb-2">
 							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
 								{contact.NumPeople >= 5 ? '5+' : contact.NumPeople}
 								{contact.NumPeople === 1 ? 'person' : 'personer'}{relationshipTypeLabels[contact.RelationshipType]
 									? ` · ${relationshipTypeLabels[contact.RelationshipType]}`
 									: ''}
 							</span>
-						{/if}
-						{#if contact.AgeRange}
+							{#if contact.Ages?.length}
+								<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
+									Alder: {agesSummary(contact.Ages)}
+								</span>
+							{/if}
+							{#if contact.Employment}
+								<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
+									{employmentLabels[contact.Employment]}
+								</span>
+							{/if}
 							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
-								{ageRangeLabels[contact.AgeRange]}
+								Kæledyr: {contact.HasPets ? 'Ja' : 'Nej'}
 							</span>
-						{/if}
-						{#if contact.Employment}
-							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
-								{employmentLabels[contact.Employment]}
-							</span>
-						{/if}
-					</div>
+						</div>
+					{/if}
 
 					<p class="text-sm text-muted-foreground whitespace-pre-wrap mb-2">{contact.Message}</p>
 

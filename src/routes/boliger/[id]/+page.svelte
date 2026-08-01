@@ -351,20 +351,25 @@
 									</div>
 								{/if}
 							</div>
-							<div class="grid grid-cols-2 gap-3">
-								<div>
-									<label for="ageRange" class="block text-xs text-muted-foreground mb-1">Alder</label>
-									<select
-										id="ageRange"
-										name="ageRange"
-										required
-										class="w-full border border-border px-3 py-2 text-sm bg-background"
-									>
-										<option value="under25">Under 25</option>
-										<option value="26-35">26-35</option>
-										<option value="35+">35+</option>
-									</select>
+							<div>
+								<span class="block text-xs text-muted-foreground mb-1">
+									{contactNumPeople > 1 ? 'Jeres aldre' : 'Din alder'}
+								</span>
+								<div class="flex flex-wrap gap-2">
+									{#each Array(Math.min(contactNumPeople, 5)) as _, i}
+										<input
+											name="ages"
+											type="number"
+											min="1"
+											max="120"
+											required
+											placeholder={contactNumPeople > 1 ? `Person ${i + 1}` : 'Alder'}
+											class="w-24 border border-border px-3 py-2 text-sm"
+										/>
+									{/each}
 								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-3">
 								<div>
 									<label for="employment" class="block text-xs text-muted-foreground mb-1">Beskæftigelse</label>
 									<select
@@ -377,6 +382,18 @@
 										<option value="studerende">Studerende</option>
 										<option value="pensionist">Pensionist</option>
 										<option value="andet">Andet</option>
+									</select>
+								</div>
+								<div>
+									<label for="hasPets" class="block text-xs text-muted-foreground mb-1">Kæledyr</label>
+									<select
+										id="hasPets"
+										name="hasPets"
+										required
+										class="w-full border border-border px-3 py-2 text-sm bg-background"
+									>
+										<option value="false">Nej</option>
+										<option value="true">Ja</option>
 									</select>
 								</div>
 							</div>

@@ -1,7 +1,6 @@
 export type ContactTargetType = 'listing' | 'seeker';
 
 export type ContactRelationshipType = '' | 'par' | 'venner' | 'andet';
-export type ContactAgeRange = 'under25' | '26-35' | '35+';
 export type ContactEmployment = 'fast_job' | 'studerende' | 'pensionist' | 'andet';
 
 export const relationshipTypeLabels: Record<ContactRelationshipType, string> = {
@@ -11,18 +10,18 @@ export const relationshipTypeLabels: Record<ContactRelationshipType, string> = {
 	andet: 'Andet'
 };
 
-export const ageRangeLabels: Record<ContactAgeRange, string> = {
-	under25: 'Under 25',
-	'26-35': '26-35',
-	'35+': '35+'
-};
-
 export const employmentLabels: Record<ContactEmployment, string> = {
 	fast_job: 'Fast job',
 	studerende: 'Studerende',
 	pensionist: 'Pensionist',
 	andet: 'Andet'
 };
+
+export function agesSummary(ages: number[]): string {
+	if (ages.length === 0) return '';
+	if (ages.length === 1) return String(ages[0]);
+	return `${ages.slice(0, -1).join(', ')} og ${ages[ages.length - 1]}`;
+}
 
 export interface Contact {
 	ID: number;
@@ -34,8 +33,9 @@ export interface Contact {
 	SenderPhone: string;
 	NumPeople: number;
 	RelationshipType: ContactRelationshipType;
-	AgeRange: ContactAgeRange;
+	Ages: number[];
 	Employment: ContactEmployment;
+	HasPets: boolean;
 	CreatedAt: string;
 	UpdatedAt: string;
 }
