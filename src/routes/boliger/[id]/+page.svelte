@@ -372,6 +372,7 @@
 										<option value="" disabled selected hidden>Vælg</option>
 										<option value="par">Par</option>
 										<option value="venner">Venner</option>
+										<option value="familie">Familie</option>
 										<option value="andet">Andet</option>
 									</select>
 								</div>

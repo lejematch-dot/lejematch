@@ -1,12 +1,13 @@
 export type ContactTargetType = 'listing' | 'seeker';
 
-export type ContactRelationshipType = '' | 'par' | 'venner' | 'andet';
+export type ContactRelationshipType = '' | 'par' | 'venner' | 'familie' | 'andet';
 export type ContactEmployment = 'fast_job' | 'studerende' | 'pensionist' | 'andet';
 
 export const relationshipTypeLabels: Record<ContactRelationshipType, string> = {
 	'': '',
 	par: 'Par',
 	venner: 'Venner',
+	familie: 'Familie',
 	andet: 'Andet'
 };
 
