@@ -401,8 +401,8 @@
 										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
 										<option value="" disabled selected hidden></option>
-										<option value="false">Nej</option>
 										<option value="true">Ja</option>
+										<option value="false">Nej</option>
 									</select>
 								</div>
 							</div>
