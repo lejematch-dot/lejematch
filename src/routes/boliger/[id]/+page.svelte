@@ -346,7 +346,7 @@
 										{peopleCount > 1 ? 'Jeres aldre' : 'Din alder'}
 									</span>
 									<div class="flex flex-wrap gap-2">
-										{#each Array(Math.min(peopleCount, 5)) as _, i}
+										{#each Array(Math.max(1, Math.min(peopleCount, 5))) as _, i}
 											<input
 												name="ages"
 												type="number"
