@@ -319,6 +319,9 @@
 								placeholder="Telefon (valgfrit)"
 								class="w-full border border-border px-3 py-2 text-sm"
 							/>
+							<p class="text-xs text-muted-foreground">
+								Disse oplysninger hjælper udlejeren med hurtigt at danne sig et overblik over dig som lejer.
+							</p>
 							<div class="grid grid-cols-2 gap-3">
 								<div class={contactNumPeople > 1 ? '' : 'col-span-2'}>
 									<label for="numPeople" class="block text-xs text-muted-foreground mb-1">Antal personer</label>
@@ -364,7 +367,7 @@
 											max="120"
 											required
 											placeholder={contactNumPeople > 1 ? `Person ${i + 1}` : 'Alder'}
-											class="w-24 border border-border px-3 py-2 text-sm"
+											class="w-24 border border-border px-3 py-2 text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
 										/>
 									{/each}
 								</div>
