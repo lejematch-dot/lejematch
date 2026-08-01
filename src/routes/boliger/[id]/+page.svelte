@@ -320,17 +320,21 @@
 								class="w-full border border-border px-3 py-2 text-sm"
 							/>
 							<div class="grid grid-cols-2 gap-3">
-								<div>
+								<div class={contactNumPeople > 1 ? '' : 'col-span-2'}>
 									<label for="numPeople" class="block text-xs text-muted-foreground mb-1">Antal personer</label>
-									<input
+									<select
 										id="numPeople"
 										name="numPeople"
-										type="number"
-										min="1"
 										required
 										bind:value={contactNumPeople}
-										class="w-full border border-border px-3 py-2 text-sm"
-									/>
+										class="w-full border border-border px-3 py-2 text-sm bg-background"
+									>
+										<option value={1}>1</option>
+										<option value={2}>2</option>
+										<option value={3}>3</option>
+										<option value={4}>4</option>
+										<option value={5}>5+</option>
+									</select>
 								</div>
 								{#if contactNumPeople > 1}
 									<div>
@@ -349,7 +353,7 @@
 							</div>
 							<div class="grid grid-cols-2 gap-3">
 								<div>
-									<label for="ageRange" class="block text-xs text-muted-foreground mb-1">Aldersinterval</label>
+									<label for="ageRange" class="block text-xs text-muted-foreground mb-1">Alder</label>
 									<select
 										id="ageRange"
 										name="ageRange"

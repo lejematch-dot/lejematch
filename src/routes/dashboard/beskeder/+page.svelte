@@ -63,7 +63,7 @@
 					<div class="flex flex-wrap gap-1.5 mb-2">
 						{#if contact.NumPeople > 0}
 							<span class="text-[11px] px-2 py-0.5 bg-muted text-muted-foreground uppercase tracking-wide">
-								{contact.NumPeople}
+								{contact.NumPeople >= 5 ? '5+' : contact.NumPeople}
 								{contact.NumPeople === 1 ? 'person' : 'personer'}{relationshipTypeLabels[contact.RelationshipType]
 									? ` · ${relationshipTypeLabels[contact.RelationshipType]}`
 									: ''}
