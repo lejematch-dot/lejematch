@@ -322,15 +322,15 @@
 							<p class="text-xs text-muted-foreground">
 								Disse oplysninger hjælper udlejeren med hurtigt at danne sig et overblik over dig som lejer.
 							</p>
-							<div class="grid grid-cols-2 gap-3">
-								<div class={contactNumPeople > 1 ? '' : 'col-span-2'}>
+							<div class="flex flex-wrap items-end gap-3">
+								<div>
 									<label for="numPeople" class="block text-xs text-muted-foreground mb-1">Antal personer</label>
 									<select
 										id="numPeople"
 										name="numPeople"
 										required
 										bind:value={contactNumPeople}
-										class="w-full border border-border px-3 py-2 text-sm bg-background"
+										class="w-20 border border-border px-3 py-2 text-sm bg-background"
 									>
 										<option value={1}>1</option>
 										<option value={2}>2</option>
@@ -345,7 +345,7 @@
 										<select
 											id="relationshipType"
 											name="relationshipType"
-											class="w-full border border-border px-3 py-2 text-sm bg-background"
+											class="w-32 border border-border px-3 py-2 text-sm bg-background"
 										>
 											<option value="par">Par</option>
 											<option value="venner">Venner</option>
