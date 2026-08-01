@@ -322,7 +322,7 @@
 							<p class="text-xs text-muted-foreground">
 								Disse oplysninger hjælper udlejeren med hurtigt at danne sig et overblik over dig som lejer.
 							</p>
-							<div class="flex flex-wrap items-end gap-3">
+							<div class="grid grid-cols-2 gap-3">
 								<div>
 									<label for="numPeople" class="block text-xs text-muted-foreground mb-1">Antal personer</label>
 									<select
@@ -330,7 +330,7 @@
 										name="numPeople"
 										required
 										bind:value={contactNumPeople}
-										class="w-20 border border-border px-3 py-2 text-sm bg-background"
+										class="w-full border border-border px-3 py-2 text-sm bg-background"
 									>
 										<option value={1}>1</option>
 										<option value={2}>2</option>
@@ -339,39 +339,39 @@
 										<option value={5}>5+</option>
 									</select>
 								</div>
-								{#if contactNumPeople > 1}
-									<div>
-										<label for="relationshipType" class="block text-xs text-muted-foreground mb-1">I er</label>
-										<select
-											id="relationshipType"
-											name="relationshipType"
-											class="w-32 border border-border px-3 py-2 text-sm bg-background"
-										>
-											<option value="par">Par</option>
-											<option value="venner">Venner</option>
-											<option value="andet">Andet</option>
-										</select>
+								<div>
+									<span class="block text-xs text-muted-foreground mb-1">
+										{contactNumPeople > 1 ? 'Jeres aldre' : 'Din alder'}
+									</span>
+									<div class="flex flex-wrap gap-2">
+										{#each Array(Math.min(contactNumPeople, 5)) as _, i}
+											<input
+												name="ages"
+												type="number"
+												min="1"
+												max="120"
+												required
+												placeholder={contactNumPeople > 1 ? `${i + 1}` : 'Alder'}
+												class="w-full min-w-0 flex-1 border border-border px-3 py-2 text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+											/>
+										{/each}
 									</div>
-								{/if}
-							</div>
-							<div>
-								<span class="block text-xs text-muted-foreground mb-1">
-									{contactNumPeople > 1 ? 'Jeres aldre' : 'Din alder'}
-								</span>
-								<div class="flex flex-wrap gap-2">
-									{#each Array(Math.min(contactNumPeople, 5)) as _, i}
-										<input
-											name="ages"
-											type="number"
-											min="1"
-											max="120"
-											required
-											placeholder={contactNumPeople > 1 ? `Person ${i + 1}` : 'Alder'}
-											class="w-24 border border-border px-3 py-2 text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-										/>
-									{/each}
 								</div>
 							</div>
+							{#if contactNumPeople > 1}
+								<div>
+									<label for="relationshipType" class="block text-xs text-muted-foreground mb-1">I er</label>
+									<select
+										id="relationshipType"
+										name="relationshipType"
+										class="w-32 border border-border px-3 py-2 text-sm bg-background"
+									>
+										<option value="par">Par</option>
+										<option value="venner">Venner</option>
+										<option value="andet">Andet</option>
+									</select>
+								</div>
+							{/if}
 							<div class="grid grid-cols-2 gap-3">
 								<div>
 									<label for="employment" class="block text-xs text-muted-foreground mb-1">Beskæftigelse</label>
