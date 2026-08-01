@@ -313,15 +313,15 @@
 							{#if form?.error}
 								<p class="text-sm text-red-600">{form.error}</p>
 							{/if}
+							<p class="text-xs text-muted-foreground">
+								Disse oplysninger hjælper udlejeren med hurtigt at danne sig et overblik over dig som lejer.
+							</p>
 							<input
 								name="senderPhone"
 								type="tel"
 								placeholder="Telefon (valgfrit)"
 								class="w-full border border-border px-3 py-2 text-sm"
 							/>
-							<p class="text-xs text-muted-foreground">
-								Disse oplysninger hjælper udlejeren med hurtigt at danne sig et overblik over dig som lejer.
-							</p>
 							<div class="grid grid-cols-2 gap-3">
 								<div>
 									<label for="numPeople" class="block text-xs text-muted-foreground mb-1">Antal personer</label>
