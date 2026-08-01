@@ -105,13 +105,15 @@
 						{contact.Message}
 					</p>
 					{#if isLong}
-						<button
-							type="button"
-							onclick={() => toggleExpanded(contact.ID)}
-							class="text-xs text-primary font-medium hover:underline mb-2"
-						>
-							{isExpanded ? 'Se mindre' : 'Se mere'}
-						</button>
+						<div class="flex justify-end mb-2">
+							<button
+								type="button"
+								onclick={() => toggleExpanded(contact.ID)}
+								class="text-xs text-primary font-medium hover:underline"
+							>
+								{isExpanded ? 'Se mindre' : 'Se mere'}
+							</button>
+						</div>
 					{/if}
 
 					{#if contact.SenderPhone}
