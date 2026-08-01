@@ -7,11 +7,13 @@
 
 	let expandedIds = $state(new Set<number>());
 	function toggleExpanded(id: number) {
-		if (expandedIds.has(id)) {
-			expandedIds.delete(id);
+		const next = new Set(expandedIds);
+		if (next.has(id)) {
+			next.delete(id);
 		} else {
-			expandedIds.add(id);
+			next.add(id);
 		}
+		expandedIds = next;
 	}
 </script>
 
