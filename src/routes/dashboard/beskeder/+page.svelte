@@ -4,6 +4,15 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	let expandedIds = $state(new Set<number>());
+	function toggleExpanded(id: number) {
+		if (expandedIds.has(id)) {
+			expandedIds.delete(id);
+		} else {
+			expandedIds.add(id);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -30,6 +39,8 @@
 	{:else}
 		<div class="border border-border gap-px bg-border flex flex-col">
 			{#each data.contacts as { contact, senderProfile, targetTitle, targetUrl } (contact.ID)}
+				{@const isExpanded = expandedIds.has(contact.ID)}
+				{@const isLong = contact.Message.length > 280}
 				<div class="bg-background px-5 py-4">
 					<div class="flex items-start justify-between gap-4 mb-2">
 						<a
@@ -84,7 +95,22 @@
 						</div>
 					{/if}
 
-					<p class="text-sm text-muted-foreground whitespace-pre-wrap mb-2">{contact.Message}</p>
+					<p
+						class="text-sm text-muted-foreground whitespace-pre-wrap mb-1 {!isExpanded && isLong
+							? 'line-clamp-5'
+							: ''}"
+					>
+						{contact.Message}
+					</p>
+					{#if isLong}
+						<button
+							type="button"
+							onclick={() => toggleExpanded(contact.ID)}
+							class="text-xs text-primary font-medium hover:underline mb-2"
+						>
+							{isExpanded ? 'Se mindre' : 'Se mere'}
+						</button>
+					{/if}
 
 					{#if contact.SenderPhone}
 						<p class="text-xs text-muted-foreground mb-2">Telefon: {contact.SenderPhone}</p>
