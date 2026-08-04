@@ -1,5 +1,7 @@
 export type ContactTargetType = 'listing' | 'seeker';
 
+export type ContactCategory = '' | 'red' | 'yellow' | 'green';
+
 export type ContactRelationshipType = '' | 'par' | 'venner' | 'familie' | 'andet';
 export type ContactEmployment = 'fast_job' | 'studerende' | 'pensionist' | 'andet';
 
@@ -43,6 +45,7 @@ export interface Contact {
 	Employment: ContactEmployment;
 	EmploymentOther: string;
 	HasPets: boolean;
+	Category: ContactCategory;
 	CreatedAt: string;
 	UpdatedAt: string;
 }

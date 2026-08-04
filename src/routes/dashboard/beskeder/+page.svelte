@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getObjectPosition } from '$lib/imagePosition';
 	import { relationshipTypeLabels, employmentSummary, agesSummary } from '$lib/types/contact';
+	import CategoryPicker from '$lib/components/CategoryPicker.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -68,9 +69,12 @@
 								<p class="text-xs text-muted-foreground">Se profil</p>
 							</div>
 						</a>
-						<span class="text-xs text-muted-foreground shrink-0">
-							{new Date(contact.CreatedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' })}
-						</span>
+						<div class="flex flex-col items-end gap-1.5 shrink-0">
+							<span class="text-xs text-muted-foreground">
+								{new Date(contact.CreatedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' })}
+							</span>
+							<CategoryPicker contactId={contact.ID} initialCategory={contact.Category} />
+						</div>
 					</div>
 
 					{#if contact.TargetType === 'listing'}
