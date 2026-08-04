@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { getObjectPosition } from '$lib/imagePosition';
 	import { relationshipTypeLabels, employmentSummary, agesSummary } from '$lib/types/contact';
+	import type { ContactCategory } from '$lib/types/contact';
 	import CategoryPicker from '$lib/components/CategoryPicker.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+	let contacts = $state(data.contacts);
+	function setCategory(id: number, cat: ContactCategory) {
+		const entry = contacts.find((c) => c.contact.ID === id);
+		if (entry) entry.contact.Category = cat;
+	}
 
 	let expandedIds = $state(new Set<number>());
 	function toggleExpanded(id: number) {
@@ -16,6 +22,17 @@
 		}
 		expandedIds = next;
 	}
+
+	let categoryFilter = $state<ContactCategory | 'all'>('all');
+	const filterOptions: { value: ContactCategory | 'all'; label: string; dot: string }[] = [
+		{ value: 'all', label: 'Alle', dot: 'bg-muted-foreground' },
+		{ value: 'green', label: 'Grøn', dot: 'bg-green-500' },
+		{ value: 'yellow', label: 'Gul', dot: 'bg-yellow-400' },
+		{ value: 'red', label: 'Rød', dot: 'bg-red-500' }
+	];
+	const filteredContacts = $derived(
+		categoryFilter === 'all' ? contacts : contacts.filter((c) => c.contact.Category === categoryFilter)
+	);
 </script>
 
 <svelte:head>
@@ -23,11 +40,29 @@
 </svelte:head>
 
 <div class="max-w-3xl mx-auto px-4 py-8">
-	<div class="mb-8">
+	<div class="mb-6">
 		<h1 class="text-3xl font-bold text-foreground uppercase tracking-tight">Beskeder</h1>
 	</div>
 
-	{#if data.contacts.length === 0}
+	{#if contacts.length > 0}
+		<div class="flex items-center gap-2 mb-6">
+			{#each filterOptions as option (option.value)}
+				<button
+					type="button"
+					onclick={() => (categoryFilter = option.value)}
+					class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium uppercase tracking-wide border transition-colors {categoryFilter ===
+					option.value
+						? 'border-foreground bg-muted'
+						: 'border-border text-muted-foreground hover:bg-muted'}"
+				>
+					<span class="w-2.5 h-2.5 rounded-full {option.dot}"></span>
+					{option.label}
+				</button>
+			{/each}
+		</div>
+	{/if}
+
+	{#if contacts.length === 0}
 		<div class="border border-border p-12 text-center">
 			<svg class="w-10 h-10 text-muted-foreground mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path
@@ -39,9 +74,13 @@
 			</svg>
 			<p class="text-sm text-muted-foreground">Du har ingen beskeder endnu.</p>
 		</div>
+	{:else if filteredContacts.length === 0}
+		<div class="border border-border p-12 text-center">
+			<p class="text-sm text-muted-foreground">Ingen beskeder med denne markering.</p>
+		</div>
 	{:else}
 		<div class="border border-border gap-px bg-border flex flex-col">
-			{#each data.contacts as { contact, senderProfile, targetTitle, targetUrl } (contact.ID)}
+			{#each filteredContacts as { contact, senderProfile, targetTitle, targetUrl } (contact.ID)}
 				{@const isExpanded = expandedIds.has(contact.ID)}
 				{@const isLong = contact.Message.length > 280}
 				<div class="bg-background px-5 py-4">
@@ -73,7 +112,11 @@
 							<span class="text-xs text-muted-foreground">
 								{new Date(contact.CreatedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' })}
 							</span>
-							<CategoryPicker contactId={contact.ID} initialCategory={contact.Category} />
+							<CategoryPicker
+								contactId={contact.ID}
+								initialCategory={contact.Category}
+								onChange={(cat) => setCategory(contact.ID, cat)}
+							/>
 						</div>
 					</div>
 

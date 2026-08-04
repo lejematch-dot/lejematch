@@ -1,16 +1,20 @@
 <script lang="ts">
 	import type { ContactCategory } from '$lib/types/contact';
 
-	let { contactId, initialCategory = '' }: { contactId: number; initialCategory?: ContactCategory } =
+	let {
+		contactId,
+		initialCategory = '',
+		onChange
+	}: { contactId: number; initialCategory?: ContactCategory; onChange?: (category: ContactCategory) => void } =
 		$props();
 
 	let category = $state<ContactCategory>(initialCategory);
 	let loading = $state(false);
 
 	const options: { value: ContactCategory; label: string; dot: string; ring: string }[] = [
-		{ value: 'red', label: 'Rød', dot: 'bg-red-500', ring: 'ring-red-500' },
+		{ value: 'green', label: 'Grøn', dot: 'bg-green-500', ring: 'ring-green-500' },
 		{ value: 'yellow', label: 'Gul', dot: 'bg-yellow-400', ring: 'ring-yellow-400' },
-		{ value: 'green', label: 'Grøn', dot: 'bg-green-500', ring: 'ring-green-500' }
+		{ value: 'red', label: 'Rød', dot: 'bg-red-500', ring: 'ring-red-500' }
 	];
 
 	async function pick(value: ContactCategory) {
@@ -27,6 +31,7 @@
 				body: JSON.stringify({ category: next })
 			});
 			if (!res.ok) throw new Error('request failed');
+			onChange?.(next);
 		} catch {
 			category = prev;
 		} finally {
