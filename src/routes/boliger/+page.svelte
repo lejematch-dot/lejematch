@@ -130,7 +130,7 @@
 				}}
 				class="px-4 py-3 text-xs font-bold uppercase tracking-widest transition-colors text-center {data.category === 'hele' ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground hover:bg-muted'}"
 			>
-				Hel bolig
+				Lejlighed/Hus
 			</a>
 			<a
 				href={buildUrl('vaerelse')}
