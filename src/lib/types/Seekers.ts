@@ -37,7 +37,7 @@ export interface SeekersResponse {
 
 export interface SeekerFilters {
 	city?: string;
-	maxBudget?: number;
+	minBudget?: number;
 	roomType?: RoomType[];
 	furnishedPreference?: FurnishedPreference[];
 	rentalPeriod?: RentalPeriod[];

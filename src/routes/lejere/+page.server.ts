@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 	const csv = (param: string) => url.searchParams.get(param)?.split(',').filter(Boolean) ?? undefined;
 
 	const city = url.searchParams.get('city') ?? undefined;
-	const maxBudget = url.searchParams.get('maxBudget') ? Number(url.searchParams.get('maxBudget')) : undefined;
+	const minBudget = url.searchParams.get('minBudget') ? Number(url.searchParams.get('minBudget')) : undefined;
 	const roomType =
 		category === 'vaerelse' ? (csv('roomType') as ('private' | 'shared')[] | undefined) : undefined;
 	const furnishedPreference = csv('furnishedPreference') as ('furnished' | 'unfurnished')[] | undefined;
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 
 	const filters = {
 		city,
-		maxBudget,
+		minBudget,
 		roomType,
 		furnishedPreference,
 		rentalPeriod,
@@ -44,6 +44,6 @@ export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 		favoriteIds,
 		category,
 		cityGroups: groupCitiesByRegion(cities),
-		filters: { city, maxBudget, roomType, furnishedPreference, rentalPeriod }
+		filters: { city, minBudget, roomType, furnishedPreference, rentalPeriod }
 	};
 };

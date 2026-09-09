@@ -8,11 +8,11 @@
 	let { data }: { data: PageData } = $props();
 
 	let city = $state<string>(data.filters.city ?? '');
-	let maxBudget = $state<string>(data.filters.maxBudget?.toString() ?? '');
+	let minBudget = $state<string>(data.filters.minBudget?.toString() ?? '');
 	let furnishedPreference = $state<string[]>(data.filters.furnishedPreference ?? []);
 	let rentalPeriod = $state<string[]>(data.filters.rentalPeriod ?? []);
 	let showFilters = $state(
-		Boolean(city || maxBudget || furnishedPreference.length || rentalPeriod.length)
+		Boolean(city || minBudget || furnishedPreference.length || rentalPeriod.length)
 	);
 	let mobileCols = $state<1 | 2>(2);
 	const mobileGridClass: Record<1 | 2, string> = {
@@ -36,14 +36,14 @@
 	}
 
 	const activeFilterCount = $derived(
-		[city, maxBudget].filter(Boolean).length +
+		[city, minBudget].filter(Boolean).length +
 			[furnishedPreference, rentalPeriod].filter((arr) => arr.length > 0).length
 	);
 
 	function buildUrl(category = data.category) {
 		const params = new URLSearchParams();
 		if (city) params.set('city', city);
-		if (maxBudget) params.set('maxBudget', maxBudget);
+		if (minBudget) params.set('minBudget', minBudget);
 		if (furnishedPreference.length) params.set('furnishedPreference', furnishedPreference.join(','));
 		if (rentalPeriod.length) params.set('rentalPeriod', rentalPeriod.join(','));
 		if (category !== 'hele') params.set('category', category);
@@ -71,7 +71,7 @@
 
 	function resetFilters() {
 		city = '';
-		maxBudget = '';
+		minBudget = '';
 		furnishedPreference = [];
 		rentalPeriod = [];
 		applyFilters();
@@ -138,11 +138,11 @@
 					</select>
 				</div>
 				<div>
-					<label class="text-[11px] text-muted-foreground mb-1 block">Max budget (kr/md)</label>
+					<label class="text-[11px] text-muted-foreground mb-1 block">Min. budget (kr/md)</label>
 					<input
 						type="number"
 						placeholder="6000"
-						bind:value={maxBudget}
+						bind:value={minBudget}
 						onchange={applyFilters}
 						class="w-24 rounded-md border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
 					/>
