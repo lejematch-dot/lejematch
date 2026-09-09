@@ -49,3 +49,12 @@ export interface Contact {
 	CreatedAt: string;
 	UpdatedAt: string;
 }
+
+export interface ContactReply {
+	ID: number;
+	ContactID: number;
+	SenderID: number;
+	Message: string;
+	CreatedAt: string;
+	UpdatedAt: string;
+}

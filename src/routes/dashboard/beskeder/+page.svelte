@@ -3,6 +3,7 @@
 	import { relationshipTypeLabels, employmentSummary, agesSummary } from '$lib/types/contact';
 	import type { ContactCategory } from '$lib/types/contact';
 	import CategoryPicker from '$lib/components/CategoryPicker.svelte';
+	import ThreadReplies from '$lib/components/ThreadReplies.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -21,6 +22,17 @@
 			next.add(id);
 		}
 		expandedIds = next;
+	}
+
+	let expandedThreadIds = $state(new Set<number>());
+	function toggleThread(id: number) {
+		const next = new Set(expandedThreadIds);
+		if (next.has(id)) {
+			next.delete(id);
+		} else {
+			next.add(id);
+		}
+		expandedThreadIds = next;
 	}
 
 	let categoryFilter = $state<ContactCategory | 'all'>('all');
@@ -80,43 +92,48 @@
 		</div>
 	{:else}
 		<div class="border border-border gap-px bg-border flex flex-col">
-			{#each filteredContacts as { contact, senderProfile, targetTitle, targetUrl } (contact.ID)}
+			{#each filteredContacts as { contact, isMine, otherPartyId, otherProfile, targetTitle, targetUrl } (contact.ID)}
 				{@const isExpanded = expandedIds.has(contact.ID)}
 				{@const isLong = contact.Message.length > 280}
+				{@const isThreadOpen = expandedThreadIds.has(contact.ID)}
 				<div class="bg-background px-5 py-4">
 					<div class="flex items-start justify-between gap-4 mb-2">
 						<a
-							href="/profil/{contact.SenderID}"
+							href="/profil/{otherPartyId}"
 							class="flex items-center gap-3 hover:opacity-80 transition-opacity"
 						>
-							{#if senderProfile?.imageURL}
+							{#if otherProfile?.imageURL}
 								<img
-									src={senderProfile.imageURL}
+									src={otherProfile.imageURL}
 									alt=""
 									class="w-10 h-10 object-cover"
-									style="object-position: {getObjectPosition(senderProfile.imageURL)}"
+									style="object-position: {getObjectPosition(otherProfile.imageURL)}"
 								/>
 							{:else}
 								<div class="w-10 h-10 bg-muted flex items-center justify-center text-sm font-bold text-muted-foreground">
-									{senderProfile?.displayName?.[0]?.toUpperCase() ?? '?'}
+									{otherProfile?.displayName?.[0]?.toUpperCase() ?? '?'}
 								</div>
 							{/if}
 							<div>
 								<p class="font-bold text-foreground text-sm uppercase tracking-wide">
-									{senderProfile?.displayName ?? 'Ukendt bruger'}
+									{otherProfile?.displayName ?? 'Ukendt bruger'}
 								</p>
-								<p class="text-xs text-muted-foreground">Se profil</p>
+								<p class="text-xs text-muted-foreground">
+									{isMine ? 'Din henvendelse · Se profil' : 'Se profil'}
+								</p>
 							</div>
 						</a>
 						<div class="flex flex-col items-end gap-1.5 shrink-0">
 							<span class="text-xs text-muted-foreground">
 								{new Date(contact.CreatedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' })}
 							</span>
-							<CategoryPicker
-								contactId={contact.ID}
-								initialCategory={contact.Category}
-								onChange={(cat) => setCategory(contact.ID, cat)}
-							/>
+							{#if !isMine}
+								<CategoryPicker
+									contactId={contact.ID}
+									initialCategory={contact.Category}
+									onChange={(cat) => setCategory(contact.ID, cat)}
+								/>
+							{/if}
 						</div>
 					</div>
 
@@ -171,6 +188,20 @@
 						<a href={targetUrl} class="text-xs text-primary font-medium hover:underline">
 							Om opslaget: {targetTitle}
 						</a>
+					{/if}
+
+					<div class="mt-2">
+						<button
+							type="button"
+							onclick={() => toggleThread(contact.ID)}
+							class="text-xs font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
+						>
+							{isThreadOpen ? 'Skjul samtale' : 'Vis samtale / svar'}
+						</button>
+					</div>
+
+					{#if isThreadOpen}
+						<ThreadReplies contactId={contact.ID} myUserId={data.myUserId} />
 					{/if}
 				</div>
 			{/each}

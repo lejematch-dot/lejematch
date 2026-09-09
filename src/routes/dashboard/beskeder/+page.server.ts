@@ -8,13 +8,17 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ locals, cookies }) => {
 	if (!locals.user) redirect(302, '/login');
 
+	const myUserId = locals.user.sub;
 	const token = cookies.get('session')!;
 	const contacts = await getContacts(token);
 
 	const enriched = await Promise.all(
 		contacts.map(async (contact) => {
-			const [senderProfile, target] = await Promise.all([
-				getUserProfile(contact.SenderID).catch(() => null),
+			const isMine = contact.SenderID === myUserId;
+			const otherPartyId = isMine ? contact.RecipientID : contact.SenderID;
+
+			const [otherProfile, target] = await Promise.all([
+				getUserProfile(otherPartyId).catch(() => null),
 				contact.TargetType === 'listing'
 					? getListing(contact.TargetID).catch(() => null)
 					: getSeeker(contact.TargetID).catch(() => null)
@@ -22,7 +26,9 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 
 			return {
 				contact,
-				senderProfile,
+				isMine,
+				otherPartyId,
+				otherProfile,
 				targetTitle: target?.Title ?? null,
 				targetUrl:
 					contact.TargetType === 'listing'
@@ -32,5 +38,5 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 		})
 	);
 
-	return { contacts: enriched };
+	return { contacts: enriched, myUserId };
 };
