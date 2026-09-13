@@ -29,11 +29,6 @@ export const STATIC_ROUTE_META: Record<string, { title: string; description: str
 		title: 'Ofte stillede spørgsmål – LejeMatch',
 		description: 'Svar på de mest almindelige spørgsmål om at leje, udleje og bruge LejeMatch gratis og trygt.'
 	},
-	'/saadan-virker-det': {
-		title: 'Sådan virker det – LejeMatch',
-		description:
-			'Trin-for-trin guide til at oprette opslag, browse boliger eller lejere, og modtage og besvare beskeder på LejeMatch — for både udlejere og boligsøgende.'
-	},
 	'/brugervilkaar': {
 		title: 'Brugervilkår – LejeMatch',
 		description:

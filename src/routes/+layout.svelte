@@ -127,16 +127,6 @@
 					Lejere
 				</a>
 
-				<a
-					href="/saadan-virker-det"
-					class="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wide uppercase transition-colors border-b-2 {isActive('/saadan-virker-det') ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}"
-				>
-					<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-					</svg>
-					Guide
-				</a>
-
 				{#if data.user}
 					<a
 						href="/dashboard/favoritter"
@@ -254,13 +244,6 @@
 				>
 					Lejere
 				</a>
-				<a
-					href="/saadan-virker-det"
-					onclick={() => (mobileOpen = false)}
-					class="flex items-center gap-3 px-3 py-3 text-xs font-medium uppercase tracking-wide {isActive('/saadan-virker-det') ? 'text-foreground bg-muted' : 'text-muted-foreground'}"
-				>
-					Guide
-				</a>
 				{#if data.user}
 					<a
 						href="/dashboard/favoritter"
@@ -361,7 +344,6 @@
 			</div>
 			<nav class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
 				<a href="/om-os" class="hover:text-primary-foreground transition-colors">Om os</a>
-				<a href="/saadan-virker-det" class="hover:text-primary-foreground transition-colors">Sådan virker det</a>
 				<a href="/blog" class="hover:text-primary-foreground transition-colors">Blog</a>
 				<a href="/faq" class="hover:text-primary-foreground transition-colors">FAQ</a>
 				<a href="/brugervilkaar" class="hover:text-primary-foreground transition-colors">Brugervilkår</a>
