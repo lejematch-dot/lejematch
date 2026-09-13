@@ -9,7 +9,8 @@
 		'Udfyld kontaktformularen, så din fremtidige lejer kan kontakte dig',
 		'Vedhæft min. 5 billeder af lejemålet (gode billeder gør en stor forskel!)',
 		'Klar til at poste din lejlighed',
-		'Scroll gennem listen af potentielle lejere under "Lejere"-siden'
+		'Scroll gennem listen af potentielle lejere under "Lejere"-siden, og tag selv kontakt',
+		'Modtag og besvar henvendelser direkte på platformen — al kommunikation foregår i tråde, så I altid kan finde tilbage til samtalen'
 	];
 
 	const lejerSteps = [
@@ -19,7 +20,8 @@
 		'Udfyld kontaktformularen, så du kan kontaktes',
 		'Vedhæft minimum 3 billeder af dig/jer',
 		'Klar til at poste',
-		'Scroll gennem listen af lejligheder på "Boliger"-siden'
+		'Scroll gennem listen af lejligheder på "Boliger"-siden, og tag selv kontakt',
+		'Modtag og besvar svar direkte på platformen — al kommunikation foregår i tråde, så I altid kan finde tilbage til samtalen'
 	];
 
 	function close() {
@@ -105,6 +107,15 @@
 						<p class="text-sm text-muted-foreground leading-relaxed pt-1">{step}</p>
 					</div>
 				{/each}
+			</div>
+
+			<div class="px-6 pb-6">
+				<a
+					href="/saadan-virker-det"
+					class="block w-full text-center px-4 py-3 border-2 border-foreground text-foreground font-semibold text-xs uppercase tracking-widest hover:bg-foreground hover:text-background transition-colors"
+				>
+					Se den fulde guide
+				</a>
 			</div>
 		</div>
 	</div>

@@ -344,6 +344,7 @@
 			</div>
 			<nav class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
 				<a href="/om-os" class="hover:text-primary-foreground transition-colors">Om os</a>
+				<a href="/saadan-virker-det" class="hover:text-primary-foreground transition-colors">Sådan virker det</a>
 				<a href="/blog" class="hover:text-primary-foreground transition-colors">Blog</a>
 				<a href="/faq" class="hover:text-primary-foreground transition-colors">FAQ</a>
 				<a href="/brugervilkaar" class="hover:text-primary-foreground transition-colors">Brugervilkår</a>
